@@ -54,6 +54,7 @@ namespace gr {
       uint16_t d_high_reminder, d_reminder;
       uint16_t mfg_id[4];
       uint16_t sum;
+      uint16_t rcvdSum;
 
       //uint64_t altcode = 0x88E1D631265FBD40;
 

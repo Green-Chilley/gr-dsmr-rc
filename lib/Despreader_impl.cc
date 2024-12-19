@@ -265,28 +265,27 @@ void Despreader_impl::callback_SDR(pmt::pmt_t msg){
  
       //put in a check to confirm we have 16 bytes of data and print an error instead of decoding the frame
 
-      // for (int i=0; i<length; i++) {
-      //   int decoded = decodeSingleByte(cast864(&data[i]), cast864reverse(pncodes[d_row][data_col0]));
-      //   if (decoded == -1) {
-      //     printf("Decoding failure\n");
-      //     return;
-      //   }
-      // }
+      if ((sizeof(dataBytes)) != 16) {
+        printf("Decoding failure");
+        return;
+      }
      
       //reconstitute 4x MFG_ID bytes into an int here and print, twice
       
       sum = 384 - 16;
-      mfg_id[0] = dataBytes[0];
-      mfg_id[1] = dataBytes[1];
-      mfg_id[2] = dataBytes[2];
-      mfg_id[3] = dataBytes[3];
+      mfg_id[0] = 0xff ^ dataBytes[0];
+      mfg_id[1] = 0xff ^ dataBytes[1];
+      mfg_id[2] = 0xff ^ dataBytes[2];
+      mfg_id[3] = 0xff ^ dataBytes[3];
 
-      std::cout<<"MFG ID:"<<std::endl;
-      for (int j=0; j<2; j++) {
-        for (int i=0; i<4; i++) {
-          printf("%02x", mfg_id[i]);
-        }
-      }
+      std::cout<<"MFG ID 0-3:"<<std::endl;
+      for (int i=0; i<4; i++) 
+         printf("%02x", mfg_id[i]);
+      std::cout<<std::endl;
+
+      std::cout<<"MFG ID 4-7 (actual data):"<<std::endl;
+      for (int i=4; i<8; i++) 
+        printf("%02x ", 0xff ^ dataBytes[i]);
       std::cout<<std::endl;
 
       //reconstitute 2 bytes of checksum here, print and compare to received data
@@ -294,36 +293,40 @@ void Despreader_impl::callback_SDR(pmt::pmt_t msg){
       std::cout<<"CRC:"<<std::endl;
       for (int i=0; i<8; i++) // potential off by one error here
         sum += dataBytes[i];
+      printf("%02x ", sum);
       std::cout<<std::endl;
 
+      rcvdSum = dataBytes[8] << 8 | dataBytes[9];
       std::cout<<"Actual CRC:"<<std::endl;
-      std::cout<<dataBytes[8]<<std::endl;
-      std::cout<<dataBytes[9]<<std::endl;
+      printf("%04x ", rcvdSum);
+      std::cout<<std::endl;
 
       //byte 11 is number of channels
       std::cout<<"# of channels:"<<std::endl;
-      std::cout<<dataBytes[11];
+      std::cout<<dataBytes[11]<<std::endl;
       std::cout<<std::endl;
 
       //byte 12 is sub_protocol
       std::cout<<"Sub Protocol:"<<std::endl;
-      std::cout<<dataBytes[12];
+      std::cout<<dataBytes[12]<<std::endl;
       std::cout<<std::endl;
 
       //byte 13 should be 0
       std::cout<<"???:"<<std::endl;
-      std::cout<<dataBytes[13];
+      std::cout<<dataBytes[13]<<std::endl;
       std::cout<<std::endl;
 
       //bytes 14 and 15 is a checksum over bytes 8-13. Reconstitute them, print and compare against the same sum computed here
       std::cout<<"End CRC:"<<std::endl;
       for (int i=8; i<13; i++)
         sum += dataBytes[i];
+      printf("%02x ", sum);
       std::cout<<std::endl;
 
+      rcvdSum = dataBytes[14] << 8 | dataBytes[15];
       std::cout<<"Actual CRC:"<<std::endl;
-      std::cout<<dataBytes[14]<<std::endl;
-      std::cout<<dataBytes[15]<<std::endl;
+      printf("%02x ", rcvdSum);
+      std::cout<<std::endl;
  
       std::cout << "***********************************\n";
     }
