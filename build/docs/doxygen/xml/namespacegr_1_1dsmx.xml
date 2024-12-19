@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacegr_1_1dsmx" kind="namespace" language="C++">
+    <compoundname>gr::dsmx</compoundname>
+    <innerclass refid="classgr_1_1dsmx_1_1bindListener" prot="public">gr::dsmx::bindListener</innerclass>
+    <innerclass refid="classgr_1_1dsmx_1_1bindListener__impl" prot="public">gr::dsmx::bindListener_impl</innerclass>
+    <innerclass refid="classgr_1_1dsmx_1_1Despreader" prot="public">gr::dsmx::Despreader</innerclass>
+    <innerclass refid="classgr_1_1dsmx_1_1Despreader__impl" prot="public">gr::dsmx::Despreader_impl</innerclass>
+    <innerclass refid="classgr_1_1dsmx_1_1preambleDetection" prot="public">gr::dsmx::preambleDetection</innerclass>
+    <innerclass refid="classgr_1_1dsmx_1_1preambleDetection__impl" prot="public">gr::dsmx::preambleDetection_impl</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacegr_1_1dsmx_1a9befc80be1913ac546032fa9a660dbcc" prot="public" static="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t gr::dsmx::pncodes[5][9][8]</definition>
+        <argsstring>[5][9][8]</argsstring>
+        <name>pncodes</name>
+        <qualifiedname>gr::dsmx::pncodes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="85" column="22" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" bodystart="85" bodyend="142"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/bindListener.h" line="29" column="3"/>
+  </compounddef>
+</doxygen>

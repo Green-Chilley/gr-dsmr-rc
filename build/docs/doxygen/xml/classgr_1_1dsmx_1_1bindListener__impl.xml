@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classgr_1_1dsmx_1_1bindListener__impl" kind="class" language="C++" prot="public">
+    <compoundname>gr::dsmx::bindListener_impl</compoundname>
+    <basecompoundref refid="classgr_1_1dsmx_1_1bindListener" prot="public" virt="non-virtual">gr::dsmx::bindListener</basecompoundref>
+    <includes refid="bindListener__impl_8h" local="no">bindListener_impl.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classgr_1_1dsmx_1_1bindListener__impl_1ac37d3203457006ec3ef4a58250374107" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::dsmx::bindListener_impl::d_nbr_samples_to_process</definition>
+        <argsstring></argsstring>
+        <name>d_nbr_samples_to_process</name>
+        <qualifiedname>gr::dsmx::bindListener_impl::d_nbr_samples_to_process</qualifiedname>
+        <initializer>= 16 * 8 * 64</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="35" column="12" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1dsmx_1_1bindListener__impl_1a2af2d13fdc2c1d23dc450379c92f52f3" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::dsmx::bindListener_impl::d_samples_processed</definition>
+        <argsstring></argsstring>
+        <name>d_samples_processed</name>
+        <qualifiedname>gr::dsmx::bindListener_impl::d_samples_processed</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="36" column="12" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1dsmx_1_1bindListener__impl_1aca3963ee280d9baeaafbeb0d6980ccc5" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::dsmx::bindListener_impl::d_nbr_offsets</definition>
+        <argsstring></argsstring>
+        <name>d_nbr_offsets</name>
+        <qualifiedname>gr::dsmx::bindListener_impl::d_nbr_offsets</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="37" column="12" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1dsmx_1_1bindListener__impl_1a132986bd79573241b29651da259cafea" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::vector&lt; uint32_t &gt; &gt;</type>
+        <definition>std::vector&lt;std::vector&lt;uint32_t&gt; &gt; gr::dsmx::bindListener_impl::d_buffer32</definition>
+        <argsstring></argsstring>
+        <name>d_buffer32</name>
+        <qualifiedname>gr::dsmx::bindListener_impl::d_buffer32</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="38" column="20" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1dsmx_1_1bindListener__impl_1abf50e1e9996c5a1f4b976791ee86e070" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::vector&lt; uint64_t &gt; &gt;</type>
+        <definition>std::vector&lt;std::vector&lt;uint64_t&gt; &gt; gr::dsmx::bindListener_impl::d_buffer</definition>
+        <argsstring></argsstring>
+        <name>d_buffer</name>
+        <qualifiedname>gr::dsmx::bindListener_impl::d_buffer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="39" column="20" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1dsmx_1_1bindListener__impl_1a63534939fb62da01e9e22cf2abd58913" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::vector&lt; uint8_t &gt; &gt;</type>
+        <definition>std::vector&lt;std::vector&lt;uint8_t&gt; &gt; gr::dsmx::bindListener_impl::d_data_chunks</definition>
+        <argsstring></argsstring>
+        <name>d_data_chunks</name>
+        <qualifiedname>gr::dsmx::bindListener_impl::d_data_chunks</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="40" column="20" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1dsmx_1_1bindListener__impl_1a16834f08fa9953c73b46275788b6bf90" prot="private" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t gr::dsmx::bindListener_impl::d_crc_recieved</definition>
+        <argsstring></argsstring>
+        <name>d_crc_recieved</name>
+        <qualifiedname>gr::dsmx::bindListener_impl::d_crc_recieved</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="41" column="16" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1dsmx_1_1bindListener__impl_1acf5f18b2772e6b5f612d2393beb762c4" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::dsmx::bindListener_impl::d_state</definition>
+        <argsstring></argsstring>
+        <name>d_state</name>
+        <qualifiedname>gr::dsmx::bindListener_impl::d_state</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="42" column="12" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1dsmx_1_1bindListener__impl_1a9231bf103c8f8e36859866db3cd7e405" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::dsmx::bindListener_impl::d_not_Found</definition>
+        <argsstring></argsstring>
+        <name>d_not_Found</name>
+        <qualifiedname>gr::dsmx::bindListener_impl::d_not_Found</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="43" column="12" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1dsmx_1_1bindListener__impl_1a1a6598dfa655c8296afca88fe984217e" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::dsmx::bindListener_impl::d_calls_offset0</definition>
+        <argsstring></argsstring>
+        <name>d_calls_offset0</name>
+        <qualifiedname>gr::dsmx::bindListener_impl::d_calls_offset0</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="44" column="12" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1dsmx_1_1bindListener__impl_1af6153ce396a7f7b429b5c330792001bf" prot="private" static="no" mutable="no">
+        <type>const uint64_t</type>
+        <definition>const uint64_t gr::dsmx::bindListener_impl::pncode</definition>
+        <argsstring></argsstring>
+        <name>pncode</name>
+        <qualifiedname>gr::dsmx::bindListener_impl::pncode</qualifiedname>
+        <initializer>= 0xD7A154B15E89AE86</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="46" column="23" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1dsmx_1_1bindListener__impl_1aaee86fd6a5bae2197ac40d90d5803996" prot="private" static="no" mutable="no">
+        <type>const uint64_t</type>
+        <definition>const uint64_t gr::dsmx::bindListener_impl::inverted_pncode</definition>
+        <argsstring></argsstring>
+        <name>inverted_pncode</name>
+        <qualifiedname>gr::dsmx::bindListener_impl::inverted_pncode</qualifiedname>
+        <initializer>= 0x6175917A8D2A85EB</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="47" column="23" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1dsmx_1_1bindListener__impl_1aca8f86319754d9cbaece61bc54821888" prot="private" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t gr::dsmx::bindListener_impl::pncodes[5][9][8]</definition>
+        <argsstring>[5][9][8]</argsstring>
+        <name>pncodes</name>
+        <qualifiedname>gr::dsmx::bindListener_impl::pncodes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="49" column="16" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" bodystart="49" bodyend="106"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgr_1_1dsmx_1_1bindListener__impl_1a351e7aee13f176fce1d66fd9fe538920" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>gr::dsmx::bindListener_impl::bindListener_impl</definition>
+        <argsstring>()</argsstring>
+        <name>bindListener_impl</name>
+        <qualifiedname>gr::dsmx::bindListener_impl::bindListener_impl</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="109" column="7"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1dsmx_1_1bindListener__impl_1ab03a867ac45965d8ff3bc237ae63104f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>gr::dsmx::bindListener_impl::~bindListener_impl</definition>
+        <argsstring>()</argsstring>
+        <name>~bindListener_impl</name>
+        <qualifiedname>gr::dsmx::bindListener_impl::~bindListener_impl</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="110" column="7"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1dsmx_1_1bindListener__impl_1a6177bb7d2236e561985b0e3bb3b34d39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int gr::dsmx::bindListener_impl::work</definition>
+        <argsstring>(int noutput_items, gr_vector_const_void_star &amp;input_items, gr_vector_void_star &amp;output_items)</argsstring>
+        <name>work</name>
+        <qualifiedname>gr::dsmx::bindListener_impl::work</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>noutput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_const_void_star &amp;</type>
+          <declname>input_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_void_star &amp;</type>
+          <declname>output_items</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="113" column="11"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>gr::dsmx::bindListener</label>
+        <link refid="classgr_1_1dsmx_1_1bindListener"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>gr::dsmx::bindListener_impl</label>
+        <link refid="classgr_1_1dsmx_1_1bindListener__impl"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>gr::sync_block</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>gr::dsmx::bindListener</label>
+        <link refid="classgr_1_1dsmx_1_1bindListener"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>gr::dsmx::bindListener_impl</label>
+        <link refid="classgr_1_1dsmx_1_1bindListener__impl"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>gr::sync_block</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" line="32" column="5" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h" bodystart="33" bodyend="116"/>
+    <listofallmembers>
+      <member refid="classgr_1_1dsmx_1_1bindListener__impl_1a351e7aee13f176fce1d66fd9fe538920" prot="public" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>bindListener_impl</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener__impl_1abf50e1e9996c5a1f4b976791ee86e070" prot="private" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>d_buffer</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener__impl_1a132986bd79573241b29651da259cafea" prot="private" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>d_buffer32</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener__impl_1a1a6598dfa655c8296afca88fe984217e" prot="private" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>d_calls_offset0</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener__impl_1a16834f08fa9953c73b46275788b6bf90" prot="private" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>d_crc_recieved</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener__impl_1a63534939fb62da01e9e22cf2abd58913" prot="private" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>d_data_chunks</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener__impl_1aca3963ee280d9baeaafbeb0d6980ccc5" prot="private" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>d_nbr_offsets</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener__impl_1ac37d3203457006ec3ef4a58250374107" prot="private" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>d_nbr_samples_to_process</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener__impl_1a9231bf103c8f8e36859866db3cd7e405" prot="private" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>d_not_Found</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener__impl_1a2af2d13fdc2c1d23dc450379c92f52f3" prot="private" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>d_samples_processed</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener__impl_1acf5f18b2772e6b5f612d2393beb762c4" prot="private" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>d_state</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener__impl_1aaee86fd6a5bae2197ac40d90d5803996" prot="private" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>inverted_pncode</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener_1a11b7daa9cb37e13b230644e974d25dc4" prot="public" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>make</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener__impl_1af6153ce396a7f7b429b5c330792001bf" prot="private" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>pncode</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener__impl_1aca8f86319754d9cbaece61bc54821888" prot="private" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>pncodes</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener_1a97fca2b63284b7f930fd84de398285e6" prot="public" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>sptr</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener__impl_1a6177bb7d2236e561985b0e3bb3b34d39" prot="public" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>work</name></member>
+      <member refid="classgr_1_1dsmx_1_1bindListener__impl_1ab03a867ac45965d8ff3bc237ae63104f" prot="public" virt="non-virtual"><scope>gr::dsmx::bindListener_impl</scope><name>~bindListener_impl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

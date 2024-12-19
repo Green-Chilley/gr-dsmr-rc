@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_9dc418fe374655783905d3079c2e4732" kind="dir">
+    <compoundname>docstrings</compoundname>
+    <innerfile refid="bindListener__pydoc__template_8h">bindListener_pydoc_template.h</innerfile>
+    <innerfile refid="Despreader__pydoc__template_8h">Despreader_pydoc_template.h</innerfile>
+    <innerfile refid="preambleDetection__pydoc__template_8h">preambleDetection_pydoc_template.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/docstrings/"/>
+  </compounddef>
+</doxygen>

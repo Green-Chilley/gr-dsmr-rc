@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_97aefd0d527b934f1d99a682da8fe6a9" kind="dir">
+    <compoundname>lib</compoundname>
+    <innerfile refid="bindListener__impl_8h">bindListener_impl.h</innerfile>
+    <innerfile refid="Despreader__impl_8h">Despreader_impl.h</innerfile>
+    <innerfile refid="preambleDetection__impl_8h">preambleDetection_impl.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/leo/Desktop/gr-dsmx-rc/lib/"/>
+  </compounddef>
+</doxygen>

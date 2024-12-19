@@ -1,0 +1,44 @@
+[
+{
+  "directory": "/home/leo/Desktop/gr-dsmx-rc/build/lib",
+  "command": "/usr/bin/c++ -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_THREAD_DYN_LINK -DBOOST_THREAD_NO_LIB -DFMT_SHARED -DGR_CTRLPORT -DGR_MPLIB_GMP -DGR_PERFORMANCE_COUNTERS -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -Dgnuradio_dsmx_EXPORTS -I/home/leo/Desktop/gr-dsmx-rc/lib/../include  -fvisibility=hidden -Wsign-compare -Wall -Wno-uninitialized -Wignored-qualifiers -Wcast-qual -O3 -DNDEBUG -std=c++17 -fPIC -o CMakeFiles/gnuradio-dsmx.dir/preambleDetection_impl.cc.o -c /home/leo/Desktop/gr-dsmx-rc/lib/preambleDetection_impl.cc",
+  "file": "/home/leo/Desktop/gr-dsmx-rc/lib/preambleDetection_impl.cc",
+  "output": "lib/CMakeFiles/gnuradio-dsmx.dir/preambleDetection_impl.cc.o"
+},
+{
+  "directory": "/home/leo/Desktop/gr-dsmx-rc/build/lib",
+  "command": "/usr/bin/c++ -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_THREAD_DYN_LINK -DBOOST_THREAD_NO_LIB -DFMT_SHARED -DGR_CTRLPORT -DGR_MPLIB_GMP -DGR_PERFORMANCE_COUNTERS -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -Dgnuradio_dsmx_EXPORTS -I/home/leo/Desktop/gr-dsmx-rc/lib/../include  -fvisibility=hidden -Wsign-compare -Wall -Wno-uninitialized -Wignored-qualifiers -Wcast-qual -O3 -DNDEBUG -std=c++17 -fPIC -o CMakeFiles/gnuradio-dsmx.dir/Despreader_impl.cc.o -c /home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.cc",
+  "file": "/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.cc",
+  "output": "lib/CMakeFiles/gnuradio-dsmx.dir/Despreader_impl.cc.o"
+},
+{
+  "directory": "/home/leo/Desktop/gr-dsmx-rc/build/lib",
+  "command": "/usr/bin/c++ -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_THREAD_DYN_LINK -DBOOST_THREAD_NO_LIB -DFMT_SHARED -DGR_CTRLPORT -DGR_MPLIB_GMP -DGR_PERFORMANCE_COUNTERS -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -Dgnuradio_dsmx_EXPORTS -I/home/leo/Desktop/gr-dsmx-rc/lib/../include  -fvisibility=hidden -Wsign-compare -Wall -Wno-uninitialized -Wignored-qualifiers -Wcast-qual -O3 -DNDEBUG -std=c++17 -fPIC -o CMakeFiles/gnuradio-dsmx.dir/bindListener_impl.cc.o -c /home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.cc",
+  "file": "/home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.cc",
+  "output": "lib/CMakeFiles/gnuradio-dsmx.dir/bindListener_impl.cc.o"
+},
+{
+  "directory": "/home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/bindings",
+  "command": "/usr/bin/c++ -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_DATE_TIME_DYN_LINK -DBOOST_DATE_TIME_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_PROGRAM_OPTIONS_NO_LIB -DBOOST_REGEX_DYN_LINK -DBOOST_REGEX_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DBOOST_THREAD_DYN_LINK -DBOOST_THREAD_NO_LIB -DBOOST_UNIT_TEST_FRAMEWORK_DYN_LINK -DBOOST_UNIT_TEST_FRAMEWORK_NO_LIB -DFMT_SHARED -DGR_CTRLPORT -DGR_MPLIB_GMP -DGR_PERFORMANCE_COUNTERS -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -Ddsmx_python_EXPORTS -I/home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/bindings -I/home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/../../../lib -I/home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/../../../include -I/home/leo/Desktop/gr-dsmx-rc/lib/../include -isystem /usr/include/python3.12 -isystem /usr/lib/python3/dist-packages/numpy/core/include  -fvisibility=hidden -Wsign-compare -Wall -Wno-uninitialized -Wignored-qualifiers -Wcast-qual -O3 -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wno-unused-variable -flto -fno-fat-lto-objects -o CMakeFiles/dsmx_python.dir/bindListener_python.cc.o -c /home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/bindListener_python.cc",
+  "file": "/home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/bindListener_python.cc",
+  "output": "python/dsmx/bindings/CMakeFiles/dsmx_python.dir/bindListener_python.cc.o"
+},
+{
+  "directory": "/home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/bindings",
+  "command": "/usr/bin/c++ -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_DATE_TIME_DYN_LINK -DBOOST_DATE_TIME_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_PROGRAM_OPTIONS_NO_LIB -DBOOST_REGEX_DYN_LINK -DBOOST_REGEX_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DBOOST_THREAD_DYN_LINK -DBOOST_THREAD_NO_LIB -DBOOST_UNIT_TEST_FRAMEWORK_DYN_LINK -DBOOST_UNIT_TEST_FRAMEWORK_NO_LIB -DFMT_SHARED -DGR_CTRLPORT -DGR_MPLIB_GMP -DGR_PERFORMANCE_COUNTERS -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -Ddsmx_python_EXPORTS -I/home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/bindings -I/home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/../../../lib -I/home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/../../../include -I/home/leo/Desktop/gr-dsmx-rc/lib/../include -isystem /usr/include/python3.12 -isystem /usr/lib/python3/dist-packages/numpy/core/include  -fvisibility=hidden -Wsign-compare -Wall -Wno-uninitialized -Wignored-qualifiers -Wcast-qual -O3 -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wno-unused-variable -flto -fno-fat-lto-objects -o CMakeFiles/dsmx_python.dir/Despreader_python.cc.o -c /home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/Despreader_python.cc",
+  "file": "/home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/Despreader_python.cc",
+  "output": "python/dsmx/bindings/CMakeFiles/dsmx_python.dir/Despreader_python.cc.o"
+},
+{
+  "directory": "/home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/bindings",
+  "command": "/usr/bin/c++ -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_DATE_TIME_DYN_LINK -DBOOST_DATE_TIME_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_PROGRAM_OPTIONS_NO_LIB -DBOOST_REGEX_DYN_LINK -DBOOST_REGEX_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DBOOST_THREAD_DYN_LINK -DBOOST_THREAD_NO_LIB -DBOOST_UNIT_TEST_FRAMEWORK_DYN_LINK -DBOOST_UNIT_TEST_FRAMEWORK_NO_LIB -DFMT_SHARED -DGR_CTRLPORT -DGR_MPLIB_GMP -DGR_PERFORMANCE_COUNTERS -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -Ddsmx_python_EXPORTS -I/home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/bindings -I/home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/../../../lib -I/home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/../../../include -I/home/leo/Desktop/gr-dsmx-rc/lib/../include -isystem /usr/include/python3.12 -isystem /usr/lib/python3/dist-packages/numpy/core/include  -fvisibility=hidden -Wsign-compare -Wall -Wno-uninitialized -Wignored-qualifiers -Wcast-qual -O3 -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wno-unused-variable -flto -fno-fat-lto-objects -o CMakeFiles/dsmx_python.dir/preambleDetection_python.cc.o -c /home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/preambleDetection_python.cc",
+  "file": "/home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/preambleDetection_python.cc",
+  "output": "python/dsmx/bindings/CMakeFiles/dsmx_python.dir/preambleDetection_python.cc.o"
+},
+{
+  "directory": "/home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/bindings",
+  "command": "/usr/bin/c++ -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_DATE_TIME_DYN_LINK -DBOOST_DATE_TIME_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_PROGRAM_OPTIONS_NO_LIB -DBOOST_REGEX_DYN_LINK -DBOOST_REGEX_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DBOOST_THREAD_DYN_LINK -DBOOST_THREAD_NO_LIB -DBOOST_UNIT_TEST_FRAMEWORK_DYN_LINK -DBOOST_UNIT_TEST_FRAMEWORK_NO_LIB -DFMT_SHARED -DGR_CTRLPORT -DGR_MPLIB_GMP -DGR_PERFORMANCE_COUNTERS -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -Ddsmx_python_EXPORTS -I/home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/bindings -I/home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/../../../lib -I/home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/../../../include -I/home/leo/Desktop/gr-dsmx-rc/lib/../include -isystem /usr/include/python3.12 -isystem /usr/lib/python3/dist-packages/numpy/core/include  -fvisibility=hidden -Wsign-compare -Wall -Wno-uninitialized -Wignored-qualifiers -Wcast-qual -O3 -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wno-unused-variable -flto -fno-fat-lto-objects -o CMakeFiles/dsmx_python.dir/python_bindings.cc.o -c /home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/python_bindings.cc",
+  "file": "/home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/python_bindings.cc",
+  "output": "python/dsmx/bindings/CMakeFiles/dsmx_python.dir/python_bindings.cc.o"
+}
+]

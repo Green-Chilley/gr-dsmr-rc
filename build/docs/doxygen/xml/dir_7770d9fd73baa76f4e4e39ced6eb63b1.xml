@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_7770d9fd73baa76f4e4e39ced6eb63b1" kind="dir">
+    <compoundname>dsmx</compoundname>
+    <innerfile refid="api_8h">api.h</innerfile>
+    <innerfile refid="bindListener_8h">bindListener.h</innerfile>
+    <innerfile refid="Despreader_8h">Despreader.h</innerfile>
+    <innerfile refid="preambleDetection_8h">preambleDetection.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/"/>
+  </compounddef>
+</doxygen>

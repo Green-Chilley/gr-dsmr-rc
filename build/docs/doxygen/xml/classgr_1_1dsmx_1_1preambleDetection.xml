@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classgr_1_1dsmx_1_1preambleDetection" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>gr::dsmx::preambleDetection</compoundname>
+    <basecompoundref prot="public" virt="virtual">gr::sync_block</basecompoundref>
+    <derivedcompoundref refid="classgr_1_1dsmx_1_1preambleDetection__impl" prot="public" virt="non-virtual">gr::dsmx::preambleDetection_impl</derivedcompoundref>
+    <includes refid="preambleDetection_8h" local="no">preambleDetection.h</includes>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classgr_1_1dsmx_1_1preambleDetection_1af23f91a4966abf6b927adaf8225d232c" prot="public" static="no">
+        <type>std::shared_ptr&lt; <ref refid="classgr_1_1dsmx_1_1preambleDetection" kindref="compound">preambleDetection</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;preambleDetection&gt; gr::dsmx::preambleDetection::sptr</definition>
+        <argsstring></argsstring>
+        <name>sptr</name>
+        <qualifiedname>gr::dsmx::preambleDetection::sptr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/preambleDetection.h" line="39" column="31" bodyfile="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/preambleDetection.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classgr_1_1dsmx_1_1preambleDetection_1a6012dc9c6a057e7839e54b11205a9cbf" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classgr_1_1dsmx_1_1preambleDetection_1af23f91a4966abf6b927adaf8225d232c" kindref="member">sptr</ref></type>
+        <definition>static sptr gr::dsmx::preambleDetection::make</definition>
+        <argsstring>(int channel)</argsstring>
+        <name>make</name>
+        <qualifiedname>gr::dsmx::preambleDetection::make</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+<para>Return a shared_ptr to a new instance of <ref refid="classgr_1_1dsmx_1_1preambleDetection" kindref="compound">dsmx::preambleDetection</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>To avoid accidental use of raw pointers, <ref refid="classgr_1_1dsmx_1_1preambleDetection" kindref="compound">dsmx::preambleDetection</ref>&apos;s constructor is in a private implementation class. <ref refid="classgr_1_1dsmx_1_1preambleDetection_1a6012dc9c6a057e7839e54b11205a9cbf" kindref="member">dsmx::preambleDetection::make</ref> is the public interface for creating new instances. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/preambleDetection.h" line="49" column="19"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgr_1_1dsmx_1_1preambleDetection_1a81cd935f664db631dce8bfe6b19cf80f" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void gr::dsmx::preambleDetection::set_new_channel</definition>
+        <argsstring>(int new_channel)=0</argsstring>
+        <name>set_new_channel</name>
+        <qualifiedname>gr::dsmx::preambleDetection::set_new_channel</qualifiedname>
+        <reimplementedby refid="classgr_1_1dsmx_1_1preambleDetection__impl_1afd23625869cdb3f8926dfcf90557d405">set_new_channel</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>new_channel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/preambleDetection.h" line="51" column="20"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>&lt;+description of block+&gt; </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>gr::dsmx::preambleDetection</label>
+        <link refid="classgr_1_1dsmx_1_1preambleDetection"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>gr::dsmx::preambleDetection_impl</label>
+        <link refid="classgr_1_1dsmx_1_1preambleDetection__impl"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>gr::sync_block</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>gr::dsmx::preambleDetection</label>
+        <link refid="classgr_1_1dsmx_1_1preambleDetection"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>gr::sync_block</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/preambleDetection.h" line="36" column="5" bodyfile="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/preambleDetection.h" bodystart="37" bodyend="52"/>
+    <listofallmembers>
+      <member refid="classgr_1_1dsmx_1_1preambleDetection_1a6012dc9c6a057e7839e54b11205a9cbf" prot="public" virt="non-virtual"><scope>gr::dsmx::preambleDetection</scope><name>make</name></member>
+      <member refid="classgr_1_1dsmx_1_1preambleDetection_1a81cd935f664db631dce8bfe6b19cf80f" prot="public" virt="pure-virtual"><scope>gr::dsmx::preambleDetection</scope><name>set_new_channel</name></member>
+      <member refid="classgr_1_1dsmx_1_1preambleDetection_1af23f91a4966abf6b927adaf8225d232c" prot="public" virt="non-virtual"><scope>gr::dsmx::preambleDetection</scope><name>sptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

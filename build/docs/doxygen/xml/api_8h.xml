@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="api_8h" kind="file" language="C++">
+    <compoundname>api.h</compoundname>
+    <includes local="no">gnuradio/attributes.h</includes>
+    <includedby refid="Despreader_8h" local="no">Despreader.h</includedby>
+    <includedby refid="bindListener_8h" local="no">bindListener.h</includedby>
+    <includedby refid="preambleDetection_8h" local="no">preambleDetection.h</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>api.h</label>
+        <link refid="api_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>gnuradio/attributes.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>Despreader.h</label>
+        <link refid="Despreader_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>api.h</label>
+        <link refid="api_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>bindListener.h</label>
+        <link refid="bindListener_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>preambleDetection.h</label>
+        <link refid="preambleDetection_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Despreader_impl.h</label>
+        <link refid="Despreader__impl_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>bindListener_impl.h</label>
+        <link refid="bindListener__impl_8h"/>
+      </node>
+      <node id="7">
+        <label>preambleDetection_impl.h</label>
+        <link refid="preambleDetection__impl_8h"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="api_8h_1a4e1d8169232abc4dba4c00e2d2d307b5" prot="public" static="no">
+        <name>DSMX_API</name>
+        <initializer>__GR_ATTR_IMPORT</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/api.h" line="19" column="10" bodyfile="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/api.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/api.h"/>
+  </compounddef>
+</doxygen>

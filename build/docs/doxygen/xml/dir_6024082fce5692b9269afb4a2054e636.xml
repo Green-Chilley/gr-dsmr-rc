@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_6024082fce5692b9269afb4a2054e636" kind="dir">
+    <compoundname>bindings</compoundname>
+    <innerdir refid="dir_9dc418fe374655783905d3079c2e4732">docstrings</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/"/>
+  </compounddef>
+</doxygen>

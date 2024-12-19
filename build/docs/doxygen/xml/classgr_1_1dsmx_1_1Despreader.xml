@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classgr_1_1dsmx_1_1Despreader" kind="class" language="C++" prot="public">
+    <compoundname>gr::dsmx::Despreader</compoundname>
+    <basecompoundref prot="public" virt="virtual">gr::sync_block</basecompoundref>
+    <derivedcompoundref refid="classgr_1_1dsmx_1_1Despreader__impl" prot="public" virt="non-virtual">gr::dsmx::Despreader_impl</derivedcompoundref>
+    <includes refid="Despreader_8h" local="no">Despreader.h</includes>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classgr_1_1dsmx_1_1Despreader_1a930de05b3d9afba32211ee3aae216043" prot="public" static="no">
+        <type>std::shared_ptr&lt; <ref refid="classgr_1_1dsmx_1_1Despreader" kindref="compound">Despreader</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;Despreader&gt; gr::dsmx::Despreader::sptr</definition>
+        <argsstring></argsstring>
+        <name>sptr</name>
+        <qualifiedname>gr::dsmx::Despreader::sptr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/Despreader.h" line="39" column="31" bodyfile="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/Despreader.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader_1ae3fa7e26f1010e90ce04dcd23c35656d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classgr_1_1dsmx_1_1Despreader_1a930de05b3d9afba32211ee3aae216043" kindref="member">sptr</ref></type>
+        <definition>static sptr gr::dsmx::Despreader::make</definition>
+        <argsstring>()</argsstring>
+        <name>make</name>
+        <qualifiedname>gr::dsmx::Despreader::make</qualifiedname>
+        <briefdescription>
+<para>Return a shared_ptr to a new instance of <ref refid="classgr_1_1dsmx_1_1Despreader" kindref="compound">dsmx::Despreader</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>To avoid accidental use of raw pointers, <ref refid="classgr_1_1dsmx_1_1Despreader" kindref="compound">dsmx::Despreader</ref>&apos;s constructor is in a private implementation class. <ref refid="classgr_1_1dsmx_1_1Despreader_1ae3fa7e26f1010e90ce04dcd23c35656d" kindref="member">dsmx::Despreader::make</ref> is the public interface for creating new instances. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/Despreader.h" line="49" column="19"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>&lt;+description of block+&gt; </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>gr::dsmx::Despreader</label>
+        <link refid="classgr_1_1dsmx_1_1Despreader"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>gr::dsmx::Despreader_impl</label>
+        <link refid="classgr_1_1dsmx_1_1Despreader__impl"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>gr::sync_block</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>gr::dsmx::Despreader</label>
+        <link refid="classgr_1_1dsmx_1_1Despreader"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>gr::sync_block</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/Despreader.h" line="36" column="5" bodyfile="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/Despreader.h" bodystart="37" bodyend="50"/>
+    <listofallmembers>
+      <member refid="classgr_1_1dsmx_1_1Despreader_1ae3fa7e26f1010e90ce04dcd23c35656d" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader</scope><name>make</name></member>
+      <member refid="classgr_1_1dsmx_1_1Despreader_1a930de05b3d9afba32211ee3aae216043" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader</scope><name>sptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
