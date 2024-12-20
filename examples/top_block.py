@@ -17,8 +17,8 @@ from gnuradio import blocks
 from gnuradio import digital
 from gnuradio import filter
 from gnuradio import eng_notation
-from gnuradio import gr
 from gnuradio.filter import firdes
+from gnuradio import gr
 from gnuradio.fft import window
 import sys
 import signal
@@ -242,6 +242,15 @@ class top_block(gr.top_block, Qt.QWidget):
         self._max_intensity_range = qtgui.Range(0, 500, 1, 50, 200)
         self._max_intensity_win = qtgui.RangeWidget(self._max_intensity_range, self.set_max_intensity, "'max_intensity'", "counter_slider", float, QtCore.Qt.Horizontal)
         self.tabs_layout_0.addWidget(self._max_intensity_win)
+        self.low_pass_filter_0 = filter.fir_filter_ccf(
+            1,
+            firdes.low_pass(
+                1,
+                samp_rate,
+                0.8e6,
+                0.4e6,
+                window.WIN_HAMMING,
+                6.76))
         self.dsmx_preambleDetection_0 = dsmx.preambleDetection(channel)
         self.dsmx_Despreader_0 = dsmx.Despreader()
         self.digital_symbol_sync_xx_0 = digital.symbol_sync_ff(
@@ -276,8 +285,9 @@ class top_block(gr.top_block, Qt.QWidget):
         self.connect((self.digital_correlate_access_code_tag_xx_0, 0), (self.dsmx_preambleDetection_0, 0))
         self.connect((self.digital_symbol_sync_xx_0, 0), (self.digital_binary_slicer_fb_1, 0))
         self.connect((self.digital_symbol_sync_xx_0, 0), (self.qtgui_time_sink_x_1_1, 1))
-        self.connect((self.uhd_usrp_source_0, 0), (self.analog_quadrature_demod_cf_1, 0))
+        self.connect((self.low_pass_filter_0, 0), (self.analog_quadrature_demod_cf_1, 0))
         self.connect((self.uhd_usrp_source_0, 0), (self.blocks_file_sink_0_1, 0))
+        self.connect((self.uhd_usrp_source_0, 0), (self.low_pass_filter_0, 0))
         self.connect((self.uhd_usrp_source_0, 0), (self.qtgui_sink_x_0, 0))
 
 
@@ -297,6 +307,7 @@ class top_block(gr.top_block, Qt.QWidget):
         self.set_gui_samp_rate(self.samp_rate)
         self.set_intermediate_samp_rate(self.samp_rate)
         self.analog_quadrature_demod_cf_1.set_gain((self.samp_rate/(2*math.pi*self.f_deviation)))
+        self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate, 0.8e6, 0.4e6, window.WIN_HAMMING, 6.76))
         self.qtgui_sink_x_0.set_frequency_range((((self.channel+1) * 1e6) + 2.4e9), self.samp_rate)
 
     def get_rootdir(self):
