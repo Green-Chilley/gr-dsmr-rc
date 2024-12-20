@@ -1,5 +1,5 @@
 python/dsmx/bindings/CMakeFiles/dsmx_python.dir/bindListener_python.cc.o: \
- /home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/bindListener_python.cc \
+ /home/leo/Desktop/gr-dsmr-rc/python/dsmx/bindings/bindListener_python.cc \
  /usr/include/stdc-predef.h /usr/include/pybind11/complex.h \
  /usr/include/pybind11/pybind11.h /usr/include/pybind11/detail/class.h \
  /usr/include/pybind11/attr.h /usr/include/pybind11/detail/common.h \
@@ -395,8 +395,8 @@ python/dsmx/bindings/CMakeFiles/dsmx_python.dir/bindListener_python.cc.o: \
  /usr/include/c++/14/bits/gslice_array.h \
  /usr/include/c++/14/bits/mask_array.h \
  /usr/include/c++/14/bits/indirect_array.h /usr/include/c++/14/variant \
- /home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/../../../include/gnuradio/dsmx/bindListener.h \
- /home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/../../../include/gnuradio/dsmx/api.h \
+ /home/leo/Desktop/gr-dsmr-rc/python/dsmx/bindings/../../../include/gnuradio/dsmx/bindListener.h \
+ /home/leo/Desktop/gr-dsmr-rc/python/dsmx/bindings/../../../include/gnuradio/dsmx/api.h \
  /usr/include/gnuradio/attributes.h /usr/include/gnuradio/sync_block.h \
  /usr/include/gnuradio/api.h /usr/include/gnuradio/block.h \
  /usr/include/gnuradio/basic_block.h /usr/include/gnuradio/io_signature.h \
@@ -1156,5 +1156,5 @@ python/dsmx/bindings/CMakeFiles/dsmx_python.dir/bindListener_python.cc.o: \
  /usr/include/gmpxx.h /usr/include/c++/14/cfloat \
  /usr/lib/gcc/x86_64-linux-gnu/14/include/float.h \
  /usr/include/x86_64-linux-gnu/gmp.h \
- /home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/bindings/bindListener_pydoc.h \
- /home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/bindings/pydoc_macros.h
+ /home/leo/Desktop/gr-dsmr-rc/build/python/dsmx/bindings/bindListener_pydoc.h \
+ /home/leo/Desktop/gr-dsmr-rc/build/python/dsmx/bindings/pydoc_macros.h

@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="46" column="11" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" bodystart="46" bodyend="-1"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="47" column="11" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classgr_1_1dsmx_1_1Despreader__impl_1a19dba5c3819d95935c22b45518d8271b" prot="private" static="no" mutable="no">
         <type>int</type>
@@ -31,7 +31,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="46" column="16" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" bodystart="46" bodyend="-1"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="47" column="16" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classgr_1_1dsmx_1_1Despreader__impl_1ae7fd2b5cdaf391f79d60366bb194028f" prot="private" static="no" mutable="no">
         <type>int</type>
@@ -45,7 +45,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="47" column="11" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" bodystart="47" bodyend="-1"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="48" column="11" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classgr_1_1dsmx_1_1Despreader__impl_1a60b57ef24e99db182a464903558265b2" prot="private" static="no" mutable="no">
         <type>pmt::pmt_t</type>
@@ -59,7 +59,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="48" column="18" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" bodystart="48" bodyend="-1"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="49" column="18" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classgr_1_1dsmx_1_1Despreader__impl_1ae5518fe9a6782f92732fcc155bae45d9" prot="private" static="no" mutable="no">
         <type>pmt::pmt_t</type>
@@ -73,7 +73,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="49" column="18" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" bodystart="49" bodyend="-1"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="50" column="18" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classgr_1_1dsmx_1_1Despreader__impl_1ad576a14c6fea96f0dd48d398f9d86907" prot="private" static="no" mutable="no">
         <type>gr::types::vector_type</type>
@@ -87,7 +87,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="50" column="30" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" bodystart="50" bodyend="-1"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="51" column="30" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classgr_1_1dsmx_1_1Despreader__impl_1a3fa3e198388044592ebafbaa71b877d3" prot="private" static="no" mutable="no">
         <type>uint8_t</type>
@@ -101,7 +101,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="51" column="15" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" bodystart="51" bodyend="-1"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="52" column="15" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classgr_1_1dsmx_1_1Despreader__impl_1abfd1ad9cec642679dd15749146a6f512" prot="private" static="no" mutable="no">
         <type>uint16_t</type>
@@ -115,7 +115,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="52" column="16" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" bodystart="52" bodyend="-1"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="53" column="16" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classgr_1_1dsmx_1_1Despreader__impl_1ad23567f27d2784931a6a37acd80bc788" prot="private" static="no" mutable="no">
         <type>uint16_t</type>
@@ -129,7 +129,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="52" column="30" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" bodystart="52" bodyend="-1"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="53" column="30" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classgr_1_1dsmx_1_1Despreader__impl_1abfc15dc0f82ba61646bada08967f25bb" prot="private" static="no" mutable="no">
         <type>uint16_t</type>
@@ -143,7 +143,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="53" column="16" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" bodystart="53" bodyend="-1"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="54" column="16" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classgr_1_1dsmx_1_1Despreader__impl_1aa5b7f9e45e0a4fee4fa71ae187ade35a" prot="private" static="no" mutable="no">
         <type>uint16_t</type>
@@ -157,7 +157,49 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="53" column="32" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" bodystart="53" bodyend="-1"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="54" column="32" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1dsmx_1_1Despreader__impl_1a93e93484d6f880b042bbfbaed597643b" prot="private" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t gr::dsmx::Despreader_impl::mfg_id[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>mfg_id</name>
+        <qualifiedname>gr::dsmx::Despreader_impl::mfg_id</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="55" column="16" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1dsmx_1_1Despreader__impl_1a6ffe56bdbe908803807db0117002e538" prot="private" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t gr::dsmx::Despreader_impl::sum</definition>
+        <argsstring></argsstring>
+        <name>sum</name>
+        <qualifiedname>gr::dsmx::Despreader_impl::sum</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="56" column="16" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1dsmx_1_1Despreader__impl_1a6bd70a7a7a679e922eb42672b32a589e" prot="private" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t gr::dsmx::Despreader_impl::rcvdSum</definition>
+        <argsstring></argsstring>
+        <name>rcvdSum</name>
+        <qualifiedname>gr::dsmx::Despreader_impl::rcvdSum</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="57" column="16" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="57" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-attrib">
@@ -173,7 +215,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="75" column="12" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" bodystart="75" bodyend="-1"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="80" column="12" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classgr_1_1dsmx_1_1Despreader__impl_1a8c4591415e773341bb772610ba581782" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -187,7 +229,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="76" column="16" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" bodystart="76" bodyend="-1"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="81" column="16" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="81" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-func">
@@ -207,7 +249,25 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="35" column="12"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="35" column="12"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1a7c767188eaf03eb84a0448860b4fab21" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::dsmx::Despreader_impl::callback_SDR</definition>
+        <argsstring>(pmt::pmt_t msg)</argsstring>
+        <name>callback_SDR</name>
+        <qualifiedname>gr::dsmx::Despreader_impl::callback_SDR</qualifiedname>
+        <param>
+          <type>pmt::pmt_t</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="36" column="12"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1a0c5e6221d6849ce8b82b08e8839bcfb9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -229,7 +289,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="36" column="12"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="37" column="12"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1a7db0ba1e5e5a3066f7bc610e8cd8793c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -251,7 +311,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="37" column="12"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="38" column="12"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1a1235fae641982cc2c2babaa3fb2bce80" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -273,7 +333,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="38" column="12"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="39" column="12"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1a04d863900cc12b23fc8040ed7f3cbfd3" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -291,7 +351,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="39" column="12"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="40" column="12"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1afbe85c7790eca03af7f1cd18e8843791" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -309,7 +369,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="40" column="11"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="41" column="11"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1aaada9d805cc4feb090be5c95715c17d2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -340,7 +400,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="41" column="16"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="42" column="16"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1ae1d91fe42e5bb776d7528c209e52dc60" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -367,7 +427,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="42" column="16"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="43" column="16"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -383,7 +443,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="60" column="7"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="64" column="7"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1a532c054e01ef2ee794287651ec5bcd93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -397,7 +457,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="61" column="7"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="65" column="7"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1a2bcec950a91b0aa2f37559394628e13b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -419,7 +479,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="69" column="12"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="73" column="12"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1a210db844ad774e59039ebc7d12ff61f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -445,7 +505,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="73" column="16"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="78" column="16"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1a9f8958624e59ed699c824d5417ef9f4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -462,7 +522,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="74" column="12"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="79" column="12"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1aabd5cadd427206deeaa462a2b818a264" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -488,7 +548,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="80" column="11"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="85" column="11"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-static-func">
@@ -508,7 +568,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="64" column="22"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="68" column="22"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1ab40137d2a4a5ef2946bef359cb328af3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -526,7 +586,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="65" column="23"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="69" column="23"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1a0975e5493a25123280fdd65a0272213a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -544,7 +604,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="66" column="23"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="70" column="23"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1ad3571ce1604d50b6aa1a03b0cb5b1c23" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -562,7 +622,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="67" column="23"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="71" column="23"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1a338c22c7bd5f7d180f0406315782066e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -580,7 +640,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="68" column="23"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="72" column="23"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1a7f4d3bae6cd463048053d4f9e9af3c87" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -599,7 +659,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="70" column="23"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="74" column="23"/>
       </memberdef>
       <memberdef kind="function" id="classgr_1_1dsmx_1_1Despreader__impl_1acea5b84cf58bdc20ae53eeaac2a67900" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -618,7 +678,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="71" column="23"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="75" column="23"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -659,10 +719,11 @@
         <label>gr::sync_block</label>
       </node>
     </collaborationgraph>
-    <location file="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" line="31" column="5" bodyfile="/home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h" bodystart="32" bodyend="83"/>
+    <location file="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" line="31" column="5" bodyfile="/home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h" bodystart="32" bodyend="88"/>
     <listofallmembers>
       <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a2bcec950a91b0aa2f37559394628e13b" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>calc_dsmx_channel</name></member>
       <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a3b070c484d7c56877430d0ec77ddd7be" prot="private" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>callback</name></member>
+      <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a7c767188eaf03eb84a0448860b4fab21" prot="private" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>callback_SDR</name></member>
       <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a7f4d3bae6cd463048053d4f9e9af3c87" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>cast864</name></member>
       <member refid="classgr_1_1dsmx_1_1Despreader__impl_1acea5b84cf58bdc20ae53eeaac2a67900" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>cast864reverse</name></member>
       <member refid="classgr_1_1dsmx_1_1Despreader__impl_1aaada9d805cc4feb090be5c95715c17d2" prot="private" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>crc_calc</name></member>
@@ -688,11 +749,14 @@
       <member refid="classgr_1_1dsmx_1_1Despreader__impl_1afbe85c7790eca03af7f1cd18e8843791" prot="private" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>get_next_channel</name></member>
       <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a9f8958624e59ed699c824d5417ef9f4d" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>init_crc16_tab</name></member>
       <member refid="classgr_1_1dsmx_1_1Despreader_1ae3fa7e26f1010e90ce04dcd23c35656d" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>make</name></member>
+      <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a93e93484d6f880b042bbfbaed597643b" prot="private" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>mfg_id</name></member>
+      <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a6bd70a7a7a679e922eb42672b32a589e" prot="private" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>rcvdSum</name></member>
       <member refid="classgr_1_1dsmx_1_1Despreader__impl_1ab8cd3aa967eca7fc616f72a24f110f0f" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>reverse</name></member>
       <member refid="classgr_1_1dsmx_1_1Despreader__impl_1ad3571ce1604d50b6aa1a03b0cb5b1c23" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>reverse_all</name></member>
       <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a0975e5493a25123280fdd65a0272213a" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>reverse_bits_in_bytes</name></member>
       <member refid="classgr_1_1dsmx_1_1Despreader__impl_1ab40137d2a4a5ef2946bef359cb328af3" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>reverse_bytes</name></member>
       <member refid="classgr_1_1dsmx_1_1Despreader_1a930de05b3d9afba32211ee3aae216043" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>sptr</name></member>
+      <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a6ffe56bdbe908803807db0117002e538" prot="private" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>sum</name></member>
       <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a338c22c7bd5f7d180f0406315782066e" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>switch_to_crc_pn_scheme</name></member>
       <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a210db844ad774e59039ebc7d12ff61f3" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>update_crc_16</name></member>
       <member refid="classgr_1_1dsmx_1_1Despreader__impl_1aabd5cadd427206deeaa462a2b818a264" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader_impl</scope><name>work</name></member>

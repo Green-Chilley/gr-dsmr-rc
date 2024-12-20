@@ -1,4 +1,4 @@
-# Install script for directory: /home/leo/Desktop/gr-dsmx-rc/grc
+# Install script for directory: /home/leo/Desktop/gr-dsmr-rc/grc
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,9 +44,9 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gnuradio/grc/blocks" TYPE FILE FILES
-    "/home/leo/Desktop/gr-dsmx-rc/grc/dsmx_preambleDetection.block.yml"
-    "/home/leo/Desktop/gr-dsmx-rc/grc/dsmx_Despreader.block.yml"
-    "/home/leo/Desktop/gr-dsmx-rc/grc/dsmx_bindListener.block.yml"
+    "/home/leo/Desktop/gr-dsmr-rc/grc/dsmx_preambleDetection.block.yml"
+    "/home/leo/Desktop/gr-dsmr-rc/grc/dsmx_Despreader.block.yml"
+    "/home/leo/Desktop/gr-dsmr-rc/grc/dsmx_bindListener.block.yml"
     )
 endif()
 

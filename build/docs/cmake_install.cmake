@@ -1,4 +1,4 @@
-# Install script for directory: /home/leo/Desktop/gr-dsmx-rc/docs
+# Install script for directory: /home/leo/Desktop/gr-dsmr-rc/docs
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/leo/Desktop/gr-dsmx-rc/build/docs/doxygen/cmake_install.cmake")
+  include("/home/leo/Desktop/gr-dsmr-rc/build/docs/doxygen/cmake_install.cmake")
 
 endif()
 

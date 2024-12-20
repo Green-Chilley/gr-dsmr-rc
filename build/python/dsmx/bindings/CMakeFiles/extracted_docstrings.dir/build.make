@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leo/Desktop/gr-dsmx-rc
+CMAKE_SOURCE_DIR = /home/leo/Desktop/gr-dsmr-rc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leo/Desktop/gr-dsmx-rc/build
+CMAKE_BINARY_DIR = /home/leo/Desktop/gr-dsmr-rc/build
 
 # Utility rule file for extracted_docstrings.
 
@@ -69,8 +69,8 @@ include python/dsmx/bindings/CMakeFiles/extracted_docstrings.dir/progress.make
 python/dsmx/bindings/CMakeFiles/extracted_docstrings: python/dsmx/bindings/extracted_docstrings.json
 
 python/dsmx/bindings/extracted_docstrings.json: lib/libgnuradio-dsmx.so.1.0.0.0
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/leo/Desktop/gr-dsmx-rc/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Scraping generated documentation for docstrings ..."
-	cd /home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/bindings && /usr/bin/python3 /home/leo/Desktop/gr-dsmx-rc/docs/doxygen/update_pydoc.py scrape --xml_path /home/leo/Desktop/gr-dsmx-rc/build/docs/doxygen/xml --json_path /home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/bindings/extracted_docstrings.json
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/leo/Desktop/gr-dsmr-rc/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Scraping generated documentation for docstrings ..."
+	cd /home/leo/Desktop/gr-dsmr-rc/build/python/dsmx/bindings && /usr/bin/python3 /home/leo/Desktop/gr-dsmr-rc/docs/doxygen/update_pydoc.py scrape --xml_path /home/leo/Desktop/gr-dsmr-rc/build/docs/doxygen/xml --json_path /home/leo/Desktop/gr-dsmr-rc/build/python/dsmx/bindings/extracted_docstrings.json
 
 extracted_docstrings: python/dsmx/bindings/CMakeFiles/extracted_docstrings
 extracted_docstrings: python/dsmx/bindings/extracted_docstrings.json
@@ -82,10 +82,10 @@ python/dsmx/bindings/CMakeFiles/extracted_docstrings.dir/build: extracted_docstr
 .PHONY : python/dsmx/bindings/CMakeFiles/extracted_docstrings.dir/build
 
 python/dsmx/bindings/CMakeFiles/extracted_docstrings.dir/clean:
-	cd /home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/bindings && $(CMAKE_COMMAND) -P CMakeFiles/extracted_docstrings.dir/cmake_clean.cmake
+	cd /home/leo/Desktop/gr-dsmr-rc/build/python/dsmx/bindings && $(CMAKE_COMMAND) -P CMakeFiles/extracted_docstrings.dir/cmake_clean.cmake
 .PHONY : python/dsmx/bindings/CMakeFiles/extracted_docstrings.dir/clean
 
 python/dsmx/bindings/CMakeFiles/extracted_docstrings.dir/depend:
-	cd /home/leo/Desktop/gr-dsmx-rc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/leo/Desktop/gr-dsmx-rc /home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings /home/leo/Desktop/gr-dsmx-rc/build /home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/bindings /home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/bindings/CMakeFiles/extracted_docstrings.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/leo/Desktop/gr-dsmr-rc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/leo/Desktop/gr-dsmr-rc /home/leo/Desktop/gr-dsmr-rc/python/dsmx/bindings /home/leo/Desktop/gr-dsmr-rc/build /home/leo/Desktop/gr-dsmr-rc/build/python/dsmx/bindings /home/leo/Desktop/gr-dsmr-rc/build/python/dsmx/bindings/CMakeFiles/extracted_docstrings.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : python/dsmx/bindings/CMakeFiles/extracted_docstrings.dir/depend
 

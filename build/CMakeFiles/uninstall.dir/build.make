@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leo/Desktop/gr-dsmx-rc
+CMAKE_SOURCE_DIR = /home/leo/Desktop/gr-dsmr-rc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leo/Desktop/gr-dsmx-rc/build
+CMAKE_BINARY_DIR = /home/leo/Desktop/gr-dsmr-rc/build
 
 # Utility rule file for uninstall.
 
@@ -67,7 +67,7 @@ include CMakeFiles/uninstall.dir/compiler_depend.make
 include CMakeFiles/uninstall.dir/progress.make
 
 CMakeFiles/uninstall:
-	/usr/bin/cmake -P /home/leo/Desktop/gr-dsmx-rc/build/cmake_uninstall.cmake
+	/usr/bin/cmake -P /home/leo/Desktop/gr-dsmr-rc/build/cmake_uninstall.cmake
 
 uninstall: CMakeFiles/uninstall
 uninstall: CMakeFiles/uninstall.dir/build.make
@@ -82,6 +82,6 @@ CMakeFiles/uninstall.dir/clean:
 .PHONY : CMakeFiles/uninstall.dir/clean
 
 CMakeFiles/uninstall.dir/depend:
-	cd /home/leo/Desktop/gr-dsmx-rc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/leo/Desktop/gr-dsmx-rc /home/leo/Desktop/gr-dsmx-rc /home/leo/Desktop/gr-dsmx-rc/build /home/leo/Desktop/gr-dsmx-rc/build /home/leo/Desktop/gr-dsmx-rc/build/CMakeFiles/uninstall.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/leo/Desktop/gr-dsmr-rc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/leo/Desktop/gr-dsmr-rc /home/leo/Desktop/gr-dsmr-rc /home/leo/Desktop/gr-dsmr-rc/build /home/leo/Desktop/gr-dsmr-rc/build /home/leo/Desktop/gr-dsmr-rc/build/CMakeFiles/uninstall.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/uninstall.dir/depend
 

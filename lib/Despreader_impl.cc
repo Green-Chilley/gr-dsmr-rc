@@ -133,22 +133,6 @@ namespace gr {
       return -1;
     }
 
-
-    int decodeSingleByte(uint64_t data, uint64_t pn_data0){
-      int offset = 0;
-      int shift;
-      unsigned char threshold = 10;
-      shift = correlate(~pn_data0, data, threshold);
-      if (shift < 0) {
-        offset = 64;
-        shift = correlate(pn_data0, data, threshold);
-      }
-      if (shift >= 0) {
-        return shift + offset;
-      }
-      return -1;
-    }
-
     //Despreads data
     int decodeByte(uint64_t data, uint64_t pn_data0, uint64_t pn_data1){
       int offset = 0;
@@ -185,12 +169,11 @@ namespace gr {
     }
 
     int decodeBit(uint64_t data, uint64_t pn_data0){
-      int threshold1;
-      int threshold0;
-      threshold1 = difference(data, pn_data0);
-      threshold0 = difference(data, ~pn_data0);
-      if (threshold1 > threshold0) // if the hamming distance in the data and pncode is greater than the hamming distance in the data and inverse of pncode
-        return 1;
+      int match1 = difference(data, pn_data0);
+      int match0 = difference(data, ~pn_data0);
+      // if the hamming distance in the data and pncode is less than the hamming distance in the data and inverse of pncode, presumably it's the correct decoding
+      if (match1 < match0)
+        return 1; 
       else
         return 0;
     }
@@ -211,7 +194,6 @@ namespace gr {
       return casted;
     }
 
-#ifdef BIND_VERSION
 void Despreader_impl::callback_SDR(pmt::pmt_t msg){
       pmt::pmt_t meta = pmt::car(msg);
       pmt::pmt_t vector = pmt::cdr(msg);
@@ -254,7 +236,7 @@ void Despreader_impl::callback_SDR(pmt::pmt_t msg){
           // collect each bit into the byte. This is assuming little-endian transmission, which might be wrong
           dataBytes[length] |= decodeBit(cast864(&data[i]), cast864reverse(pncodes[d_row][data_col0])) << bit;
         }
-        length+=1;
+        length++;
       }
       std::cout << "despreaded length = " << length << std::endl;
       std::cout << "contents (despreaded) = " << std::endl;
@@ -262,17 +244,20 @@ void Despreader_impl::callback_SDR(pmt::pmt_t msg){
         printf("%02x ",dataBytes[i] );
       }
       std::cout << std::endl;
- 
-      //put in a check to confirm we have 16 bytes of data and print an error instead of decoding the frame
 
-      if ((sizeof(dataBytes)) != 16) {
-        printf("Decoding failure");
+      //put in a check to confirm we have 16 bytes of data and print an error instead of decoding the frame
+      if (length < 16) {
+        printf("Decoding failure, length too short");
+        return;
+      }
+
+      if (length > 16) {
+        printf("Decoding failure length longer than expected");
         return;
       }
      
       //reconstitute 4x MFG_ID bytes into an int here and print, twice
       
-      sum = 384 - 16;
       mfg_id[0] = 0xff ^ dataBytes[0];
       mfg_id[1] = 0xff ^ dataBytes[1];
       mfg_id[2] = 0xff ^ dataBytes[2];
@@ -289,15 +274,15 @@ void Despreader_impl::callback_SDR(pmt::pmt_t msg){
       std::cout<<std::endl;
 
       //reconstitute 2 bytes of checksum here, print and compare to received data
-
-      std::cout<<"CRC:"<<std::endl;
-      for (int i=0; i<8; i++) // potential off by one error here
+      int sum = 384 - 16;
+      std::cout<<"Calculated checksum 1:"<<std::endl;
+      for (int i=0; i<8; i++) // potential off by one error here, but should be right
         sum += dataBytes[i];
       printf("%02x ", sum);
       std::cout<<std::endl;
 
       rcvdSum = dataBytes[8] << 8 | dataBytes[9];
-      std::cout<<"Actual CRC:"<<std::endl;
+      std::cout<<"Received checksum 1:"<<std::endl;
       printf("%04x ", rcvdSum);
       std::cout<<std::endl;
 
@@ -312,28 +297,26 @@ void Despreader_impl::callback_SDR(pmt::pmt_t msg){
       std::cout<<std::endl;
 
       //byte 13 should be 0
-      std::cout<<"???:"<<std::endl;
+      std::cout<<"Unknown zero byte:"<<std::endl;
       std::cout<<dataBytes[13]<<std::endl;
       std::cout<<std::endl;
 
       //bytes 14 and 15 is a checksum over bytes 8-13. Reconstitute them, print and compare against the same sum computed here
-      std::cout<<"End CRC:"<<std::endl;
-      for (int i=8; i<13; i++)
+      std::cout<<"Calculated checksum 2:"<<std::endl;
+      for (int i=8; i<14; i++)
         sum += dataBytes[i];
       printf("%02x ", sum);
       std::cout<<std::endl;
 
       rcvdSum = dataBytes[14] << 8 | dataBytes[15];
-      std::cout<<"Actual CRC:"<<std::endl;
+      std::cout<<"Received checksum 2:"<<std::endl;
       printf("%02x ", rcvdSum);
       std::cout<<std::endl;
  
       std::cout << "***********************************\n";
     }
 
-#endif
-#ifndef BIND_VERSION
-    void Despreader_impl::callback(pmt::pmt_t msg){
+    void Despreader_impl::callback_8DR(pmt::pmt_t msg){
       pmt::pmt_t meta = pmt::car(msg);
       pmt::pmt_t vector = pmt::cdr(msg);
 
@@ -446,6 +429,15 @@ void Despreader_impl::callback_SDR(pmt::pmt_t msg){
       std::cout << "***********************************\n";
     }
 
+#ifdef BIND_VERSION
+    void Despreader_impl::callback(pmt::pmt_t msg){
+      this->callback_SDR(msg);
+    }
+#endif
+#ifndef BIND_VERSION
+    void Despreader_impl::callback(pmt::pmt_t msg){
+      this->callback_8DR(msg);
+    }
 #endif
 
     uint16_t Despreader_impl::crc_seed_find(uint16_t data[8], uint8_t length, uint16_t transmitted){
@@ -704,7 +696,7 @@ void Despreader_impl::callback_SDR(pmt::pmt_t msg){
                  io_signature::make(0, 0, 0))
     {
       message_port_register_in(pmt::mp("Msg"));
-      // set_msg_handler(pmt::mp("Msg"), [this](pmt::pmt_t msg) { this->callback(msg); });
+      // set_msg_handler(pmt::mp("Msg"), [this](pmt::pmt_t msg) { this->callback_8DR(msg); });
       set_msg_handler(pmt::mp("Msg"), [this](pmt::pmt_t msg) { this->callback_SDR(msg); });
       crc_tab16_init = false;
       message_port_register_out(pmt::mp("pdus"));
@@ -741,3 +733,4 @@ void Despreader_impl::callback_SDR(pmt::pmt_t msg){
 
   } /* namespace dsmx */
 } /* namespace gr */
+

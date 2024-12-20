@@ -34,6 +34,7 @@ namespace gr {
       // Nothing to declare in this block.
       void callback(pmt::pmt_t msg);
       void callback_SDR(pmt::pmt_t msg);
+      void callback_8DR(pmt::pmt_t msg);
       void crc_update(uint16_t data, bool reverse);
       void crc_update(uint8_t data, bool reverse);
       void crc_seed_set(uint8_t seed_MSB, uint8_t seed_LSB);
@@ -268,3 +269,4 @@ namespace gr {
 } // namespace gr
 
 #endif /* INCLUDED_DSMX_DESPREADER_IMPL_H */
+

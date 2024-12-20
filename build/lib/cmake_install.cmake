@@ -1,4 +1,4 @@
-# Install script for directory: /home/leo/Desktop/gr-dsmx-rc/lib
+# Install script for directory: /home/leo/Desktop/gr-dsmr-rc/lib
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -55,8 +55,8 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
     endif()
   endforeach()
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu" TYPE SHARED_LIBRARY FILES
-    "/home/leo/Desktop/gr-dsmx-rc/build/lib/libgnuradio-dsmx.so.1.0.0.0"
-    "/home/leo/Desktop/gr-dsmx-rc/build/lib/libgnuradio-dsmx.so.1.0.0"
+    "/home/leo/Desktop/gr-dsmr-rc/build/lib/libgnuradio-dsmx.so.1.0.0.0"
+    "/home/leo/Desktop/gr-dsmr-rc/build/lib/libgnuradio-dsmx.so.1.0.0"
     )
   foreach(file
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libgnuradio-dsmx.so.1.0.0.0"
@@ -72,14 +72,14 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu" TYPE SHARED_LIBRARY FILES "/home/leo/Desktop/gr-dsmx-rc/build/lib/libgnuradio-dsmx.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu" TYPE SHARED_LIBRARY FILES "/home/leo/Desktop/gr-dsmr-rc/build/lib/libgnuradio-dsmx.so")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/gnuradio-dsmx/gnuradio-dsmxTargets.cmake")
     file(DIFFERENT _cmake_export_file_changed FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/gnuradio-dsmx/gnuradio-dsmxTargets.cmake"
-         "/home/leo/Desktop/gr-dsmx-rc/build/lib/CMakeFiles/Export/151c7eb55610bb5691ce577723f7e973/gnuradio-dsmxTargets.cmake")
+         "/home/leo/Desktop/gr-dsmr-rc/build/lib/CMakeFiles/Export/151c7eb55610bb5691ce577723f7e973/gnuradio-dsmxTargets.cmake")
     if(_cmake_export_file_changed)
       file(GLOB _cmake_old_config_files "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/gnuradio-dsmx/gnuradio-dsmxTargets-*.cmake")
       if(_cmake_old_config_files)
@@ -92,13 +92,13 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
     endif()
     unset(_cmake_export_file_changed)
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/gnuradio-dsmx" TYPE FILE FILES "/home/leo/Desktop/gr-dsmx-rc/build/lib/CMakeFiles/Export/151c7eb55610bb5691ce577723f7e973/gnuradio-dsmxTargets.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/gnuradio-dsmx" TYPE FILE FILES "/home/leo/Desktop/gr-dsmr-rc/build/lib/CMakeFiles/Export/151c7eb55610bb5691ce577723f7e973/gnuradio-dsmxTargets.cmake")
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/gnuradio-dsmx" TYPE FILE FILES "/home/leo/Desktop/gr-dsmx-rc/build/lib/CMakeFiles/Export/151c7eb55610bb5691ce577723f7e973/gnuradio-dsmxTargets-release.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/gnuradio-dsmx" TYPE FILE FILES "/home/leo/Desktop/gr-dsmr-rc/build/lib/CMakeFiles/Export/151c7eb55610bb5691ce577723f7e973/gnuradio-dsmxTargets-release.cmake")
   endif()
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/gnuradio-dsmx" TYPE FILE FILES "/home/leo/Desktop/gr-dsmx-rc/build/lib/cmake/Modules/gnuradio-dsmxConfig.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/gnuradio-dsmx" TYPE FILE FILES "/home/leo/Desktop/gr-dsmr-rc/build/lib/cmake/Modules/gnuradio-dsmxConfig.cmake")
 endif()
 

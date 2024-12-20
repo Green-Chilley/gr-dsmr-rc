@@ -88,120 +88,245 @@ $(document).ready(function(){initNavTree('Despreader__impl_8h_source.html',''); 
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>     <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>      <span class="comment">// Nothing to declare in this block.</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>      <span class="keywordtype">void</span> callback(pmt::pmt_t msg);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>      <span class="keywordtype">void</span> crc_update(uint16_t data, <span class="keywordtype">bool</span> <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#ab8cd3aa967eca7fc616f72a24f110f0f">reverse</a>);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>      <span class="keywordtype">void</span> crc_update(uint8_t data, <span class="keywordtype">bool</span> <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#ab8cd3aa967eca7fc616f72a24f110f0f">reverse</a>);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>      <span class="keywordtype">void</span> crc_seed_set(uint8_t seed_MSB, uint8_t seed_LSB);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>      <span class="keywordtype">void</span> crc_seed_set(uint16_t seed);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>      <span class="keywordtype">int</span> get_next_channel(<span class="keywordtype">int</span> current);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>      uint16_t crc_calc(uint16_t data[8], uint8_t length, uint16_t seed, <span class="keywordtype">bool</span> <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#ab8cd3aa967eca7fc616f72a24f110f0f">reverse</a>);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>      uint16_t crc_seed_find(uint16_t data[8], uint8_t length, uint16_t transmitted);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>      <span class="keywordtype">void</span> callback_SDR(pmt::pmt_t msg);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>      <span class="keywordtype">void</span> crc_update(uint16_t data, <span class="keywordtype">bool</span> <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#ab8cd3aa967eca7fc616f72a24f110f0f">reverse</a>);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>      <span class="keywordtype">void</span> crc_update(uint8_t data, <span class="keywordtype">bool</span> <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#ab8cd3aa967eca7fc616f72a24f110f0f">reverse</a>);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>      <span class="keywordtype">void</span> crc_seed_set(uint8_t seed_MSB, uint8_t seed_LSB);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>      <span class="keywordtype">void</span> crc_seed_set(uint16_t seed);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>      <span class="keywordtype">int</span> get_next_channel(<span class="keywordtype">int</span> current);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>      uint16_t crc_calc(uint16_t data[8], uint8_t length, uint16_t seed, <span class="keywordtype">bool</span> <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#ab8cd3aa967eca7fc616f72a24f110f0f">reverse</a>);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>      uint16_t crc_seed_find(uint16_t data[8], uint8_t length, uint16_t transmitted);</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>      <span class="keywordtype">int</span> d_row,d_column;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>      <span class="keywordtype">int</span> d_channel;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>      pmt::pmt_t d_pdu_meta;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>      pmt::pmt_t d_pdu_vector;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>      gr::types::vector_type d_type;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>      uint8_t d_channels[23];</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>      uint16_t d_data_chunks[8], d_crc_recieved;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>      uint16_t d_high_reminder, d_reminder;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>      <span class="comment">//uint64_t altcode = 0x88E1D631265FBD40;</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>      <span class="keywordtype">int</span> d_row,d_column;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>      <span class="keywordtype">int</span> d_channel;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>      pmt::pmt_t d_pdu_meta;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>      pmt::pmt_t d_pdu_vector;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>      gr::types::vector_type d_type;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>      uint8_t d_channels[23];</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>      uint16_t d_data_chunks[8], d_crc_recieved;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>      uint16_t d_high_reminder, d_reminder;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>      uint16_t mfg_id[4];</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>      uint16_t sum;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>      uint16_t rcvdSum;</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>     <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#acb9bd117391d2e0000deefc32740e22a">   60</a></span>      <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#acb9bd117391d2e0000deefc32740e22a">Despreader_impl</a>();</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a532c054e01ef2ee794287651ec5bcd93">   61</a></span>      <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#a532c054e01ef2ee794287651ec5bcd93">~Despreader_impl</a>();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>      <span class="comment">//uint64_t altcode = 0x88E1D631265FBD40;</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#ab8cd3aa967eca7fc616f72a24f110f0f">   64</a></span>      <span class="keyword">static</span> uint8_t <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#ab8cd3aa967eca7fc616f72a24f110f0f">reverse</a>(uint8_t b);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#ab40137d2a4a5ef2946bef359cb328af3">   65</a></span>      <span class="keyword">static</span> uint16_t <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#ab40137d2a4a5ef2946bef359cb328af3">reverse_bytes</a>(uint16_t b);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a0975e5493a25123280fdd65a0272213a">   66</a></span>      <span class="keyword">static</span> uint16_t <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#a0975e5493a25123280fdd65a0272213a">reverse_bits_in_bytes</a>(uint16_t b);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#ad3571ce1604d50b6aa1a03b0cb5b1c23">   67</a></span>      <span class="keyword">static</span> uint16_t <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#ad3571ce1604d50b6aa1a03b0cb5b1c23">reverse_all</a>(uint16_t b);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a338c22c7bd5f7d180f0406315782066e">   68</a></span>      <span class="keyword">static</span> uint16_t <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#a338c22c7bd5f7d180f0406315782066e">switch_to_crc_pn_scheme</a>(uint16_t b);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a2bcec950a91b0aa2f37559394628e13b">   69</a></span>      <span class="keywordtype">void</span> <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#a2bcec950a91b0aa2f37559394628e13b">calc_dsmx_channel</a>(uint16_t byte01, uint16_t byte23);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a7f4d3bae6cd463048053d4f9e9af3c87">   70</a></span>      <span class="keyword">static</span> uint64_t <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#a7f4d3bae6cd463048053d4f9e9af3c87">cast864</a>(uint8_t data[8]);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#acea5b84cf58bdc20ae53eeaac2a67900">   71</a></span>      <span class="keyword">static</span> uint64_t <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#acea5b84cf58bdc20ae53eeaac2a67900">cast864reverse</a>(uint8_t data[8]);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a210db844ad774e59039ebc7d12ff61f3">   73</a></span>      uint16_t <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#a210db844ad774e59039ebc7d12ff61f3">update_crc_16</a>( uint16_t crc, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> c , <span class="keywordtype">bool</span> <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#ab8cd3aa967eca7fc616f72a24f110f0f">reverse</a>);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a9f8958624e59ed699c824d5417ef9f4d">   74</a></span>      <span class="keywordtype">void</span> <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#a9f8958624e59ed699c824d5417ef9f4d">init_crc16_tab</a>( <span class="keywordtype">void</span> );</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a58a8ba566e4e34e14978ef6caed62b95">   75</a></span>      <span class="keywordtype">bool</span> <a class="code hl_variable" href="classgr_1_1dsmx_1_1Despreader__impl.html#a58a8ba566e4e34e14978ef6caed62b95">crc_tab16_init</a>;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a8c4591415e773341bb772610ba581782">   76</a></span>      uint16_t <a class="code hl_variable" href="classgr_1_1dsmx_1_1Despreader__impl.html#a8c4591415e773341bb772610ba581782">crc_tab16</a>[256];</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>     <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#acb9bd117391d2e0000deefc32740e22a">   64</a></span>      <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#acb9bd117391d2e0000deefc32740e22a">Despreader_impl</a>();</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a532c054e01ef2ee794287651ec5bcd93">   65</a></span>      <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#a532c054e01ef2ee794287651ec5bcd93">~Despreader_impl</a>();</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#ab8cd3aa967eca7fc616f72a24f110f0f">   68</a></span>      <span class="keyword">static</span> uint8_t <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#ab8cd3aa967eca7fc616f72a24f110f0f">reverse</a>(uint8_t b);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#ab40137d2a4a5ef2946bef359cb328af3">   69</a></span>      <span class="keyword">static</span> uint16_t <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#ab40137d2a4a5ef2946bef359cb328af3">reverse_bytes</a>(uint16_t b);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a0975e5493a25123280fdd65a0272213a">   70</a></span>      <span class="keyword">static</span> uint16_t <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#a0975e5493a25123280fdd65a0272213a">reverse_bits_in_bytes</a>(uint16_t b);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#ad3571ce1604d50b6aa1a03b0cb5b1c23">   71</a></span>      <span class="keyword">static</span> uint16_t <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#ad3571ce1604d50b6aa1a03b0cb5b1c23">reverse_all</a>(uint16_t b);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a338c22c7bd5f7d180f0406315782066e">   72</a></span>      <span class="keyword">static</span> uint16_t <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#a338c22c7bd5f7d180f0406315782066e">switch_to_crc_pn_scheme</a>(uint16_t b);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a2bcec950a91b0aa2f37559394628e13b">   73</a></span>      <span class="keywordtype">void</span> <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#a2bcec950a91b0aa2f37559394628e13b">calc_dsmx_channel</a>(uint16_t byte01, uint16_t byte23);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a7f4d3bae6cd463048053d4f9e9af3c87">   74</a></span>      <span class="keyword">static</span> uint64_t <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#a7f4d3bae6cd463048053d4f9e9af3c87">cast864</a>(uint8_t data[8]);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#acea5b84cf58bdc20ae53eeaac2a67900">   75</a></span>      <span class="keyword">static</span> uint64_t <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#acea5b84cf58bdc20ae53eeaac2a67900">cast864reverse</a>(uint8_t data[8]);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>      </div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>      <span class="comment">// Where all the action really happens</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#aabd5cadd427206deeaa462a2b818a264">   80</a></span>      <span class="keywordtype">int</span> <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#aabd5cadd427206deeaa462a2b818a264">work</a>(<span class="keywordtype">int</span> noutput_items,</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>         gr_vector_const_void_star &amp;input_items,</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>         gr_vector_void_star &amp;output_items);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    };</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a210db844ad774e59039ebc7d12ff61f3">   78</a></span>      uint16_t <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#a210db844ad774e59039ebc7d12ff61f3">update_crc_16</a>( uint16_t crc, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> c , <span class="keywordtype">bool</span> <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#ab8cd3aa967eca7fc616f72a24f110f0f">reverse</a>);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a9f8958624e59ed699c824d5417ef9f4d">   79</a></span>      <span class="keywordtype">void</span> <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#a9f8958624e59ed699c824d5417ef9f4d">init_crc16_tab</a>( <span class="keywordtype">void</span> );</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a58a8ba566e4e34e14978ef6caed62b95">   80</a></span>      <span class="keywordtype">bool</span> <a class="code hl_variable" href="classgr_1_1dsmx_1_1Despreader__impl.html#a58a8ba566e4e34e14978ef6caed62b95">crc_tab16_init</a>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#a8c4591415e773341bb772610ba581782">   81</a></span>      uint16_t <a class="code hl_variable" href="classgr_1_1dsmx_1_1Despreader__impl.html#a8c4591415e773341bb772610ba581782">crc_tab16</a>[256];</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>      <span class="comment">// Where all the action really happens</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="classgr_1_1dsmx_1_1Despreader__impl.html#aabd5cadd427206deeaa462a2b818a264">   85</a></span>      <span class="keywordtype">int</span> <a class="code hl_function" href="classgr_1_1dsmx_1_1Despreader__impl.html#aabd5cadd427206deeaa462a2b818a264">work</a>(<span class="keywordtype">int</span> noutput_items,</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>         gr_vector_const_void_star &amp;input_items,</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>         gr_vector_void_star &amp;output_items);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    };</div>
 </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="foldopen" id="foldopen00085" data-start="{" data-end="};">
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="namespacegr_1_1dsmx.html#a9befc80be1913ac546032fa9a660dbcc">   85</a></span>      <span class="keyword">static</span> uint8_t <a class="code hl_variable" href="namespacegr_1_1dsmx.html#a9befc80be1913ac546032fa9a660dbcc">pncodes</a>[5][9][8] = {</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>      <span class="comment">/* Note these are in order transmitted (LSB 1st) */</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>      { <span class="comment">/* Row 0 */</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="comment">/* Col 0 */</span> {0x03, 0xBC, 0x6E, 0x8A, 0xEF, 0xBD, 0xFE, 0xF8},</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="comment">/* Col 1 */</span> {0x88, 0x17, 0x13, 0x3B, 0x2D, 0xBF, 0x06, 0xD6},</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="comment">/* Col 2 */</span> {0xF1, 0x94, 0x30, 0x21, 0xA1, 0x1C, 0x88, 0xA9},</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="comment">/* Col 3 */</span> {0xD0, 0xD2, 0x8E, 0xBC, 0x82, 0x2F, 0xE3, 0xB4},</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="comment">/* Col 4 */</span> {0x8C, 0xFA, 0x47, 0x9B, 0x83, 0xA5, 0x66, 0xD0},</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="comment">/* Col 5 */</span> {0x07, 0xBD, 0x9F, 0x26, 0xC8, 0x31, 0x0F, 0xB8},</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="comment">/* Col 6 */</span> {0xEF, 0x03, 0x95, 0x89, 0xB4, 0x71, 0x61, 0x9D},</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="comment">/* Col 7 */</span> {0x40, 0xBA, 0x97, 0xD5, 0x86, 0x4F, 0xCC, 0xD1},</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="comment">/* Col 8 */</span> {0xD7, 0xA1, 0x54, 0xB1, 0x5E, 0x89, 0xAE, 0x86}</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>      },</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>      { <span class="comment">/* Row 1 */</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="comment">/* Col 0 */</span> {0x83, 0xF7, 0xA8, 0x2D, 0x7A, 0x44, 0x64, 0xD3},</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="comment">/* Col 1 */</span> {0x3F, 0x2C, 0x4E, 0xAA, 0x71, 0x48, 0x7A, 0xC9},</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="comment">/* Col 2 */</span> {0x17, 0xFF, 0x9E, 0x21, 0x36, 0x90, 0xC7, 0x82},</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="comment">/* Col 3 */</span> {0xBC, 0x5D, 0x9A, 0x5B, 0xEE, 0x7F, 0x42, 0xEB},</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="comment">/* Col 4 */</span> {0x24, 0xF5, 0xDD, 0xF8, 0x7A, 0x77, 0x74, 0xE7},</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="comment">/* Col 5 */</span> {0x3D, 0x70, 0x7C, 0x94, 0xDC, 0x84, 0xAD, 0x95},</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="comment">/* Col 6 */</span> {0x1E, 0x6A, 0xF0, 0x37, 0x52, 0x7B, 0x11, 0xD4},</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="comment">/* Col 7 */</span> {0x62, 0xF5, 0x2B, 0xAA, 0xFC, 0x33, 0xBF, 0xAF},</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="comment">/* Col 8 */</span> {0x40, 0x56, 0x32, 0xD9, 0x0F, 0xD9, 0x5D, 0x97}</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>      },</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>      { <span class="comment">/* Row 2 */</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="comment">/* Col 0 */</span> {0x40, 0x56, 0x32, 0xD9, 0x0F, 0xD9, 0x5D, 0x97},</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="comment">/* Col 1 */</span> {0x8E, 0x4A, 0xD0, 0xA9, 0xA7, 0xFF, 0x20, 0xCA},</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="comment">/* Col 2 */</span> {0x4C, 0x97, 0x9D, 0xBF, 0xB8, 0x3D, 0xB5, 0xBE},</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="comment">/* Col 3 */</span> {0x0C, 0x5D, 0x24, 0x30, 0x9F, 0xCA, 0x6D, 0xBD},</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="comment">/* Col 4 */</span> {0x50, 0x14, 0x33, 0xDE, 0xF1, 0x78, 0x95, 0xAD},</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="comment">/* Col 5 */</span> {0x0C, 0x3C, 0xFA, 0xF9, 0xF0, 0xF2, 0x10, 0xC9},</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="comment">/* Col 6 */</span> {0xF4, 0xDA, 0x06, 0xDB, 0xBF, 0x4E, 0x6F, 0xB3},</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="comment">/* Col 7 */</span> {0x9E, 0x08, 0xD1, 0xAE, 0x59, 0x5E, 0xE8, 0xF0},</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="comment">/* Col 8 */</span> {0xC0, 0x90, 0x8F, 0xBB, 0x7C, 0x8E, 0x2B, 0x8E}</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>      },</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>      { <span class="comment">/* Row 3 */</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="comment">/* Col 0 */</span> {0xC0, 0x90, 0x8F, 0xBB, 0x7C, 0x8E, 0x2B, 0x8E},</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="comment">/* Col 1 */</span> {0x80, 0x69, 0x26, 0x80, 0x08, 0xF8, 0x49, 0xE7},</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="comment">/* Col 2 */</span> {0x7D, 0x2D, 0x49, 0x54, 0xD0, 0x80, 0x40, 0xC1},</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="comment">/* Col 3 */</span> {0xB6, 0xF2, 0xE6, 0x1B, 0x80, 0x5A, 0x36, 0xB4},</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="comment">/* Col 4 */</span> {0x42, 0xAE, 0x9C, 0x1C, 0xDA, 0x67, 0x05, 0xF6},</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="comment">/* Col 5 */</span> {0x9B, 0x75, 0xF7, 0xE0, 0x14, 0x8D, 0xB5, 0x80},</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="comment">/* Col 6 */</span> {0xBF, 0x54, 0x98, 0xB9, 0xB7, 0x30, 0x5A, 0x88},</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="comment">/* Col 7 */</span> {0x35, 0xD1, 0xFC, 0x97, 0x23, 0xD4, 0xC9, 0x88},</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="comment">/* Col 8 */</span> {0xE1, 0xD6, 0x31, 0x26, 0x5F, 0xBD, 0x40, 0x93}</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>      },</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>      { <span class="comment">/* Row 4 */</span></div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="comment">/* Col 0 */</span> {0xE1, 0xD6, 0x31, 0x26, 0x5F, 0xBD, 0x40, 0x93},</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="comment">/* Col 1 */</span> {0xDC, 0x68, 0x08, 0x99, 0x97, 0xAE, 0xAF, 0x8C},</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="comment">/* Col 2 */</span> {0xC3, 0x0E, 0x01, 0x16, 0x0E, 0x32, 0x06, 0xBA},</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="comment">/* Col 3 */</span> {0xE0, 0x83, 0x01, 0xFA, 0xAB, 0x3E, 0x8F, 0xAC},</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="comment">/* Col 4 */</span> {0x5C, 0xD5, 0x9C, 0xB8, 0x46, 0x9C, 0x7D, 0x84},</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="comment">/* Col 5 */</span> {0xF1, 0xC6, 0xFE, 0x5C, 0x9D, 0xA5, 0x4F, 0xB7},</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="comment">/* Col 6 */</span> {0x58, 0xB5, 0xB3, 0xDD, 0x0E, 0x28, 0xF1, 0xB0},</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="comment">/* Col 7 */</span> {0x5F, 0x30, 0x3B, 0x56, 0x96, 0x45, 0xF4, 0xA1},</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="comment">/* Col 8 */</span> {0x03, 0xBC, 0x6E, 0x8A, 0xEF, 0xBD, 0xFE, 0xF8}</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>      },</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    };</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="foldopen" id="foldopen00091" data-start="{" data-end="};">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="namespacegr_1_1dsmx.html#a9befc80be1913ac546032fa9a660dbcc">   91</a></span>      <span class="keyword">static</span> uint8_t <a class="code hl_variable" href="namespacegr_1_1dsmx.html#a9befc80be1913ac546032fa9a660dbcc">pncodes</a>[5][9][8] = {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>      <span class="comment">/* Note these are in order transmitted (LSB 1st) */</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>      { <span class="comment">/* Row 0 */</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="comment">/* Col 0 */</span> {0x03, 0xBC, 0x6E, 0x8A, 0xEF, 0xBD, 0xFE, 0xF8},</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="comment">/* Col 1 */</span> {0x88, 0x17, 0x13, 0x3B, 0x2D, 0xBF, 0x06, 0xD6},</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="comment">/* Col 2 */</span> {0xF1, 0x94, 0x30, 0x21, 0xA1, 0x1C, 0x88, 0xA9},</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="comment">/* Col 3 */</span> {0xD0, 0xD2, 0x8E, 0xBC, 0x82, 0x2F, 0xE3, 0xB4},</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="comment">/* Col 4 */</span> {0x8C, 0xFA, 0x47, 0x9B, 0x83, 0xA5, 0x66, 0xD0},</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="comment">/* Col 5 */</span> {0x07, 0xBD, 0x9F, 0x26, 0xC8, 0x31, 0x0F, 0xB8},</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="comment">/* Col 6 */</span> {0xEF, 0x03, 0x95, 0x89, 0xB4, 0x71, 0x61, 0x9D},</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="comment">/* Col 7 */</span> {0x40, 0xBA, 0x97, 0xD5, 0x86, 0x4F, 0xCC, 0xD1},</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="comment">/* Col 8 */</span> {0xD7, 0xA1, 0x54, 0xB1, 0x5E, 0x89, 0xAE, 0x86}</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>      },</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>      { <span class="comment">/* Row 1 */</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="comment">/* Col 0 */</span> {0x83, 0xF7, 0xA8, 0x2D, 0x7A, 0x44, 0x64, 0xD3},</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="comment">/* Col 1 */</span> {0x3F, 0x2C, 0x4E, 0xAA, 0x71, 0x48, 0x7A, 0xC9},</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="comment">/* Col 2 */</span> {0x17, 0xFF, 0x9E, 0x21, 0x36, 0x90, 0xC7, 0x82},</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="comment">/* Col 3 */</span> {0xBC, 0x5D, 0x9A, 0x5B, 0xEE, 0x7F, 0x42, 0xEB},</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="comment">/* Col 4 */</span> {0x24, 0xF5, 0xDD, 0xF8, 0x7A, 0x77, 0x74, 0xE7},</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="comment">/* Col 5 */</span> {0x3D, 0x70, 0x7C, 0x94, 0xDC, 0x84, 0xAD, 0x95},</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="comment">/* Col 6 */</span> {0x1E, 0x6A, 0xF0, 0x37, 0x52, 0x7B, 0x11, 0xD4},</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="comment">/* Col 7 */</span> {0x62, 0xF5, 0x2B, 0xAA, 0xFC, 0x33, 0xBF, 0xAF},</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="comment">/* Col 8 */</span> {0x40, 0x56, 0x32, 0xD9, 0x0F, 0xD9, 0x5D, 0x97}</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>      },</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>      { <span class="comment">/* Row 2 */</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="comment">/* Col 0 */</span> {0x40, 0x56, 0x32, 0xD9, 0x0F, 0xD9, 0x5D, 0x97},</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="comment">/* Col 1 */</span> {0x8E, 0x4A, 0xD0, 0xA9, 0xA7, 0xFF, 0x20, 0xCA},</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="comment">/* Col 2 */</span> {0x4C, 0x97, 0x9D, 0xBF, 0xB8, 0x3D, 0xB5, 0xBE},</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="comment">/* Col 3 */</span> {0x0C, 0x5D, 0x24, 0x30, 0x9F, 0xCA, 0x6D, 0xBD},</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="comment">/* Col 4 */</span> {0x50, 0x14, 0x33, 0xDE, 0xF1, 0x78, 0x95, 0xAD},</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="comment">/* Col 5 */</span> {0x0C, 0x3C, 0xFA, 0xF9, 0xF0, 0xF2, 0x10, 0xC9},</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="comment">/* Col 6 */</span> {0xF4, 0xDA, 0x06, 0xDB, 0xBF, 0x4E, 0x6F, 0xB3},</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="comment">/* Col 7 */</span> {0x9E, 0x08, 0xD1, 0xAE, 0x59, 0x5E, 0xE8, 0xF0},</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="comment">/* Col 8 */</span> {0xC0, 0x90, 0x8F, 0xBB, 0x7C, 0x8E, 0x2B, 0x8E}</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>      },</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>      { <span class="comment">/* Row 3 */</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="comment">/* Col 0 */</span> {0xC0, 0x90, 0x8F, 0xBB, 0x7C, 0x8E, 0x2B, 0x8E},</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="comment">/* Col 1 */</span> {0x80, 0x69, 0x26, 0x80, 0x08, 0xF8, 0x49, 0xE7},</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="comment">/* Col 2 */</span> {0x7D, 0x2D, 0x49, 0x54, 0xD0, 0x80, 0x40, 0xC1},</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="comment">/* Col 3 */</span> {0xB6, 0xF2, 0xE6, 0x1B, 0x80, 0x5A, 0x36, 0xB4},</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="comment">/* Col 4 */</span> {0x42, 0xAE, 0x9C, 0x1C, 0xDA, 0x67, 0x05, 0xF6},</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="comment">/* Col 5 */</span> {0x9B, 0x75, 0xF7, 0xE0, 0x14, 0x8D, 0xB5, 0x80},</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="comment">/* Col 6 */</span> {0xBF, 0x54, 0x98, 0xB9, 0xB7, 0x30, 0x5A, 0x88},</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="comment">/* Col 7 */</span> {0x35, 0xD1, 0xFC, 0x97, 0x23, 0xD4, 0xC9, 0x88},</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="comment">/* Col 8 */</span> {0xE1, 0xD6, 0x31, 0x26, 0x5F, 0xBD, 0x40, 0x93}</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>      },</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>      { <span class="comment">/* Row 4 */</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="comment">/* Col 0 */</span> {0xE1, 0xD6, 0x31, 0x26, 0x5F, 0xBD, 0x40, 0x93},</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="comment">/* Col 1 */</span> {0xDC, 0x68, 0x08, 0x99, 0x97, 0xAE, 0xAF, 0x8C},</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="comment">/* Col 2 */</span> {0xC3, 0x0E, 0x01, 0x16, 0x0E, 0x32, 0x06, 0xBA},</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="comment">/* Col 3 */</span> {0xE0, 0x83, 0x01, 0xFA, 0xAB, 0x3E, 0x8F, 0xAC},</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="comment">/* Col 4 */</span> {0x5C, 0xD5, 0x9C, 0xB8, 0x46, 0x9C, 0x7D, 0x84},</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="comment">/* Col 5 */</span> {0xF1, 0xC6, 0xFE, 0x5C, 0x9D, 0xA5, 0x4F, 0xB7},</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="comment">/* Col 6 */</span> {0x58, 0xB5, 0xB3, 0xDD, 0x0E, 0x28, 0xF1, 0xB0},</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="comment">/* Col 7 */</span> {0x5F, 0x30, 0x3B, 0x56, 0x96, 0x45, 0xF4, 0xA1},</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="comment">/* Col 8 */</span> {0x03, 0xBC, 0x6E, 0x8A, 0xEF, 0xBD, 0xFE, 0xF8}</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>      },</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    };</div>
 </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>  } <span class="comment">// namespace dsmx</span></div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>} <span class="comment">// namespace gr</span></div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="preprocessor">#endif </span><span class="comment">/* INCLUDED_DSMX_DESPREADER_IMPL_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="comment">// static uint8_t pncodes[5][9][8] = {</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="comment">//   { /* Row 0 */</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="comment">//     /* Col 0 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="comment">//     /* Col 1 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="comment">//     /* Col 2 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="comment">//     /* Col 3 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="comment">//     /* Col 4 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="comment">//     /* Col 5 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="comment">//     /* Col 6 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="comment">//     /* Col 7 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="comment">//     /* Col 8 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2}</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="comment">//   },</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="comment">//   { /* Row 1 */</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="comment">//     /* Col 0 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="comment">//     /* Col 1 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="comment">//     /* Col 2 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="comment">//     /* Col 3 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="comment">//     /* Col 4 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="comment">//     /* Col 5 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="comment">//     /* Col 6 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="comment">//     /* Col 7 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="comment">//     /* Col 8 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2}</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="comment">//   },</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="comment">//   { /* Row 2 */</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="comment">//     /* Col 0 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="comment">//     /* Col 1 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment">//     /* Col 2 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="comment">//     /* Col 3 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="comment">//     /* Col 4 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="comment">//     /* Col 5 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="comment">//     /* Col 6 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="comment">//     /* Col 7 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="comment">//     /* Col 8 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2}</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="comment">//   },</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="comment">//   { /* Row 3 */</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="comment">//     /* Col 0 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment">//     /* Col 1 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="comment">//     /* Col 2 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment">//     /* Col 3 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment">//     /* Col 4 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="comment">//     /* Col 5 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="comment">//     /* Col 6 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="comment">//     /* Col 7 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="comment">//     /* Col 8 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2}</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="comment">//   },</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="comment">//     { /* Row 4 */</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="comment">//     /* Col 0 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="comment">//     /* Col 1 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="comment">//     /* Col 2 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="comment">//     /* Col 3 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="comment">//     /* Col 4 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="comment">//     /* Col 5 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="comment">//     /* Col 6 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="comment">//     /* Col 7 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2},</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="comment">//     /* Col 8 */ {0x04, 0xD4, 0x99, 0x37, 0xE1, 0x37, 0x75, 0xD2}</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="comment">//   }</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="comment">// };</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="comment">// static uint8_t pncodes[5][9][8] = {</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="comment">//   { /* Row 0 */</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="comment">//     /* Col 0 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="comment">//     /* Col 1 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="comment">//     /* Col 2 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="comment">//     /* Col 3 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="comment">//     /* Col 4 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="comment">//     /* Col 5 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="comment">//     /* Col 6 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="comment">//     /* Col 7 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="comment">//     /* Col 8 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D}</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="comment">//   },</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="comment">//   { /* Row 1 */</span></div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="comment">//     /* Col 0 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="comment">//     /* Col 1 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="comment">//     /* Col 2 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="comment">//     /* Col 3 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="comment">//     /* Col 4 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="comment">//     /* Col 5 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="comment">//     /* Col 6 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="comment">//     /* Col 7 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="comment">//     /* Col 8 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D}</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="comment">//   },</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="comment">//   { /* Row 2 */</span></div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="comment">//     /* Col 0 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="comment">//     /* Col 1 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="comment">//     /* Col 2 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="comment">//     /* Col 3 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="comment">//     /* Col 4 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="comment">//     /* Col 5 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="comment">//     /* Col 6 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="comment">//     /* Col 7 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="comment">//     /* Col 8 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D}</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="comment">//   },</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="comment">//   { /* Row 3 */</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="comment">//     /* Col 0 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="comment">//     /* Col 1 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="comment">//     /* Col 2 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="comment">//     /* Col 3 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="comment">//     /* Col 4 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span><span class="comment">//     /* Col 5 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="comment">//     /* Col 6 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="comment">//     /* Col 7 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="comment">//     /* Col 8 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D}</span></div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="comment">//   },</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span><span class="comment">//     { /* Row 4 */</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="comment">//     /* Col 0 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="comment">//     /* Col 1 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="comment">//     /* Col 2 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="comment">//     /* Col 3 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="comment">//     /* Col 4 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="comment">//     /* Col 5 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="comment">//     /* Col 6 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="comment">//     /* Col 7 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D},</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="comment">//     /* Col 8 */ {0xFB, 0x2B, 0x66, 0xC8, 0x1E, 0xC8, 0x8A, 0x2D}</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="comment">//   }</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span><span class="comment">// };</span></div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    </div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>  } <span class="comment">// namespace dsmx</span></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>} <span class="comment">// namespace gr</span></div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="preprocessor">#endif </span><span class="comment">/* INCLUDED_DSMX_DESPREADER_IMPL_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
 <div class="ttc" id="aDespreader_8h_html"><div class="ttname"><a href="Despreader_8h.html">Despreader.h</a></div></div>
 <div class="ttc" id="aclassgr_1_1dsmx_1_1Despreader__impl_html"><div class="ttname"><a href="classgr_1_1dsmx_1_1Despreader__impl.html">gr::dsmx::Despreader_impl</a></div><div class="ttdef"><b>Definition</b> Despreader_impl.h:32</div></div>
 <div class="ttc" id="aclassgr_1_1dsmx_1_1Despreader__impl_html_a0975e5493a25123280fdd65a0272213a"><div class="ttname"><a href="classgr_1_1dsmx_1_1Despreader__impl.html#a0975e5493a25123280fdd65a0272213a">gr::dsmx::Despreader_impl::reverse_bits_in_bytes</a></div><div class="ttdeci">static uint16_t reverse_bits_in_bytes(uint16_t b)</div></div>
@@ -209,9 +334,9 @@ $(document).ready(function(){initNavTree('Despreader__impl_8h_source.html',''); 
 <div class="ttc" id="aclassgr_1_1dsmx_1_1Despreader__impl_html_a2bcec950a91b0aa2f37559394628e13b"><div class="ttname"><a href="classgr_1_1dsmx_1_1Despreader__impl.html#a2bcec950a91b0aa2f37559394628e13b">gr::dsmx::Despreader_impl::calc_dsmx_channel</a></div><div class="ttdeci">void calc_dsmx_channel(uint16_t byte01, uint16_t byte23)</div></div>
 <div class="ttc" id="aclassgr_1_1dsmx_1_1Despreader__impl_html_a338c22c7bd5f7d180f0406315782066e"><div class="ttname"><a href="classgr_1_1dsmx_1_1Despreader__impl.html#a338c22c7bd5f7d180f0406315782066e">gr::dsmx::Despreader_impl::switch_to_crc_pn_scheme</a></div><div class="ttdeci">static uint16_t switch_to_crc_pn_scheme(uint16_t b)</div></div>
 <div class="ttc" id="aclassgr_1_1dsmx_1_1Despreader__impl_html_a532c054e01ef2ee794287651ec5bcd93"><div class="ttname"><a href="classgr_1_1dsmx_1_1Despreader__impl.html#a532c054e01ef2ee794287651ec5bcd93">gr::dsmx::Despreader_impl::~Despreader_impl</a></div><div class="ttdeci">~Despreader_impl()</div></div>
-<div class="ttc" id="aclassgr_1_1dsmx_1_1Despreader__impl_html_a58a8ba566e4e34e14978ef6caed62b95"><div class="ttname"><a href="classgr_1_1dsmx_1_1Despreader__impl.html#a58a8ba566e4e34e14978ef6caed62b95">gr::dsmx::Despreader_impl::crc_tab16_init</a></div><div class="ttdeci">bool crc_tab16_init</div><div class="ttdef"><b>Definition</b> Despreader_impl.h:75</div></div>
+<div class="ttc" id="aclassgr_1_1dsmx_1_1Despreader__impl_html_a58a8ba566e4e34e14978ef6caed62b95"><div class="ttname"><a href="classgr_1_1dsmx_1_1Despreader__impl.html#a58a8ba566e4e34e14978ef6caed62b95">gr::dsmx::Despreader_impl::crc_tab16_init</a></div><div class="ttdeci">bool crc_tab16_init</div><div class="ttdef"><b>Definition</b> Despreader_impl.h:80</div></div>
 <div class="ttc" id="aclassgr_1_1dsmx_1_1Despreader__impl_html_a7f4d3bae6cd463048053d4f9e9af3c87"><div class="ttname"><a href="classgr_1_1dsmx_1_1Despreader__impl.html#a7f4d3bae6cd463048053d4f9e9af3c87">gr::dsmx::Despreader_impl::cast864</a></div><div class="ttdeci">static uint64_t cast864(uint8_t data[8])</div></div>
-<div class="ttc" id="aclassgr_1_1dsmx_1_1Despreader__impl_html_a8c4591415e773341bb772610ba581782"><div class="ttname"><a href="classgr_1_1dsmx_1_1Despreader__impl.html#a8c4591415e773341bb772610ba581782">gr::dsmx::Despreader_impl::crc_tab16</a></div><div class="ttdeci">uint16_t crc_tab16[256]</div><div class="ttdef"><b>Definition</b> Despreader_impl.h:76</div></div>
+<div class="ttc" id="aclassgr_1_1dsmx_1_1Despreader__impl_html_a8c4591415e773341bb772610ba581782"><div class="ttname"><a href="classgr_1_1dsmx_1_1Despreader__impl.html#a8c4591415e773341bb772610ba581782">gr::dsmx::Despreader_impl::crc_tab16</a></div><div class="ttdeci">uint16_t crc_tab16[256]</div><div class="ttdef"><b>Definition</b> Despreader_impl.h:81</div></div>
 <div class="ttc" id="aclassgr_1_1dsmx_1_1Despreader__impl_html_a9f8958624e59ed699c824d5417ef9f4d"><div class="ttname"><a href="classgr_1_1dsmx_1_1Despreader__impl.html#a9f8958624e59ed699c824d5417ef9f4d">gr::dsmx::Despreader_impl::init_crc16_tab</a></div><div class="ttdeci">void init_crc16_tab(void)</div></div>
 <div class="ttc" id="aclassgr_1_1dsmx_1_1Despreader__impl_html_aabd5cadd427206deeaa462a2b818a264"><div class="ttname"><a href="classgr_1_1dsmx_1_1Despreader__impl.html#aabd5cadd427206deeaa462a2b818a264">gr::dsmx::Despreader_impl::work</a></div><div class="ttdeci">int work(int noutput_items, gr_vector_const_void_star &amp;input_items, gr_vector_void_star &amp;output_items)</div></div>
 <div class="ttc" id="aclassgr_1_1dsmx_1_1Despreader__impl_html_ab40137d2a4a5ef2946bef359cb328af3"><div class="ttname"><a href="classgr_1_1dsmx_1_1Despreader__impl.html#ab40137d2a4a5ef2946bef359cb328af3">gr::dsmx::Despreader_impl::reverse_bytes</a></div><div class="ttdeci">static uint16_t reverse_bytes(uint16_t b)</div></div>
@@ -220,7 +345,7 @@ $(document).ready(function(){initNavTree('Despreader__impl_8h_source.html',''); 
 <div class="ttc" id="aclassgr_1_1dsmx_1_1Despreader__impl_html_acea5b84cf58bdc20ae53eeaac2a67900"><div class="ttname"><a href="classgr_1_1dsmx_1_1Despreader__impl.html#acea5b84cf58bdc20ae53eeaac2a67900">gr::dsmx::Despreader_impl::cast864reverse</a></div><div class="ttdeci">static uint64_t cast864reverse(uint8_t data[8])</div></div>
 <div class="ttc" id="aclassgr_1_1dsmx_1_1Despreader__impl_html_ad3571ce1604d50b6aa1a03b0cb5b1c23"><div class="ttname"><a href="classgr_1_1dsmx_1_1Despreader__impl.html#ad3571ce1604d50b6aa1a03b0cb5b1c23">gr::dsmx::Despreader_impl::reverse_all</a></div><div class="ttdeci">static uint16_t reverse_all(uint16_t b)</div></div>
 <div class="ttc" id="aclassgr_1_1dsmx_1_1Despreader_html"><div class="ttname"><a href="classgr_1_1dsmx_1_1Despreader.html">gr::dsmx::Despreader</a></div><div class="ttdoc">&lt;+description of block+&gt;</div><div class="ttdef"><b>Definition</b> Despreader.h:37</div></div>
-<div class="ttc" id="anamespacegr_1_1dsmx_html_a9befc80be1913ac546032fa9a660dbcc"><div class="ttname"><a href="namespacegr_1_1dsmx.html#a9befc80be1913ac546032fa9a660dbcc">gr::dsmx::pncodes</a></div><div class="ttdeci">static uint8_t pncodes[5][9][8]</div><div class="ttdef"><b>Definition</b> Despreader_impl.h:85</div></div>
+<div class="ttc" id="anamespacegr_1_1dsmx_html_a9befc80be1913ac546032fa9a660dbcc"><div class="ttname"><a href="namespacegr_1_1dsmx.html#a9befc80be1913ac546032fa9a660dbcc">gr::dsmx::pncodes</a></div><div class="ttdeci">static uint8_t pncodes[5][9][8]</div><div class="ttdef"><b>Definition</b> Despreader_impl.h:91</div></div>
 <div class="ttc" id="anamespacegr_html"><div class="ttname"><a href="namespacegr.html">gr</a></div><div class="ttdef"><b>Definition</b> bindListener.h:28</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

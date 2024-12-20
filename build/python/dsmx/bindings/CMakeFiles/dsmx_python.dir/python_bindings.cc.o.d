@@ -1,5 +1,5 @@
 python/dsmx/bindings/CMakeFiles/dsmx_python.dir/python_bindings.cc.o: \
- /home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/python_bindings.cc \
+ /home/leo/Desktop/gr-dsmr-rc/python/dsmx/bindings/python_bindings.cc \
  /usr/include/stdc-predef.h /usr/include/pybind11/pybind11.h \
  /usr/include/pybind11/detail/class.h /usr/include/pybind11/attr.h \
  /usr/include/pybind11/detail/common.h /usr/include/python3.12/Python.h \

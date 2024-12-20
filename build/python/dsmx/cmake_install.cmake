@@ -1,4 +1,4 @@
-# Install script for directory: /home/leo/Desktop/gr-dsmx-rc/python/dsmx
+# Install script for directory: /home/leo/Desktop/gr-dsmr-rc/python/dsmx
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -43,12 +43,12 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3.12/dist-packages/gnuradio/dsmx" TYPE FILE FILES "/home/leo/Desktop/gr-dsmx-rc/python/dsmx/__init__.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3.12/dist-packages/gnuradio/dsmx" TYPE FILE FILES "/home/leo/Desktop/gr-dsmr-rc/python/dsmx/__init__.py")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/bindings/cmake_install.cmake")
+  include("/home/leo/Desktop/gr-dsmr-rc/build/python/dsmx/bindings/cmake_install.cmake")
 
 endif()
 

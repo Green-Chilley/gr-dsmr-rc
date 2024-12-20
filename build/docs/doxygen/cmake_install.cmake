@@ -1,4 +1,4 @@
-# Install script for directory: /home/leo/Desktop/gr-dsmx-rc/docs/doxygen
+# Install script for directory: /home/leo/Desktop/gr-dsmr-rc/docs/doxygen
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,8 +44,8 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/doc/gr-dsmx" TYPE DIRECTORY FILES
-    "/home/leo/Desktop/gr-dsmx-rc/build/docs/doxygen/xml"
-    "/home/leo/Desktop/gr-dsmx-rc/build/docs/doxygen/html"
+    "/home/leo/Desktop/gr-dsmr-rc/build/docs/doxygen/xml"
+    "/home/leo/Desktop/gr-dsmr-rc/build/docs/doxygen/html"
     )
 endif()
 

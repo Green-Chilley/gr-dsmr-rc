@@ -38,9 +38,13 @@
     <member refid="classgr_1_1dsmx_1_1Despreader__impl_1ad23567f27d2784931a6a37acd80bc788" kind="variable"><name>d_crc_recieved</name></member>
     <member refid="classgr_1_1dsmx_1_1Despreader__impl_1abfc15dc0f82ba61646bada08967f25bb" kind="variable"><name>d_high_reminder</name></member>
     <member refid="classgr_1_1dsmx_1_1Despreader__impl_1aa5b7f9e45e0a4fee4fa71ae187ade35a" kind="variable"><name>d_reminder</name></member>
+    <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a93e93484d6f880b042bbfbaed597643b" kind="variable"><name>mfg_id</name></member>
+    <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a6ffe56bdbe908803807db0117002e538" kind="variable"><name>sum</name></member>
+    <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a6bd70a7a7a679e922eb42672b32a589e" kind="variable"><name>rcvdSum</name></member>
     <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a58a8ba566e4e34e14978ef6caed62b95" kind="variable"><name>crc_tab16_init</name></member>
     <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a8c4591415e773341bb772610ba581782" kind="variable"><name>crc_tab16</name></member>
     <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a3b070c484d7c56877430d0ec77ddd7be" kind="function"><name>callback</name></member>
+    <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a7c767188eaf03eb84a0448860b4fab21" kind="function"><name>callback_SDR</name></member>
     <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a0c5e6221d6849ce8b82b08e8839bcfb9" kind="function"><name>crc_update</name></member>
     <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a7db0ba1e5e5a3066f7bc610e8cd8793c" kind="function"><name>crc_update</name></member>
     <member refid="classgr_1_1dsmx_1_1Despreader__impl_1a1235fae641982cc2c2babaa3fb2bce80" kind="function"><name>crc_seed_set</name></member>
@@ -78,7 +82,7 @@
     <member refid="classgr_1_1dsmx_1_1preambleDetection__impl_1a54cf34fc6b81728d55e191b449ca4847" kind="variable"><name>d_channel</name></member>
     <member refid="classgr_1_1dsmx_1_1preambleDetection__impl_1ad8b73eae5d59ba871fb68a1accbfaab1" kind="variable"><name>d_error_threshold</name></member>
     <member refid="classgr_1_1dsmx_1_1preambleDetection__impl_1a18476c616b4d853c3a2a7ada0fbc9aa8" kind="variable"><name>d_sopBuffer</name></member>
-    <member refid="classgr_1_1dsmx_1_1preambleDetection__impl_1a79a1d96b96584c7521201d77b158be5d" kind="variable"><name>d_dataBuffer</name></member>
+    <member refid="classgr_1_1dsmx_1_1preambleDetection__impl_1ab3d18761a15e70a9b09d0fe2caa8fcf9" kind="variable"><name>d_dataBuffer</name></member>
     <member refid="classgr_1_1dsmx_1_1preambleDetection__impl_1a99c626214393ef326a268325af138a70" kind="variable"><name>d_pdu_meta</name></member>
     <member refid="classgr_1_1dsmx_1_1preambleDetection__impl_1a015ed88845085d6d5384a22f0da94c6c" kind="variable"><name>d_pdu_vector</name></member>
     <member refid="classgr_1_1dsmx_1_1preambleDetection__impl_1a7ab5df14d291e61b272270d2e6c212f0" kind="variable"><name>d_type</name></member>

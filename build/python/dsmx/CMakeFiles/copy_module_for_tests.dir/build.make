@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leo/Desktop/gr-dsmx-rc
+CMAKE_SOURCE_DIR = /home/leo/Desktop/gr-dsmr-rc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leo/Desktop/gr-dsmx-rc/build
+CMAKE_BINARY_DIR = /home/leo/Desktop/gr-dsmr-rc/build
 
 # Utility rule file for copy_module_for_tests.
 
@@ -67,7 +67,7 @@ include python/dsmx/CMakeFiles/copy_module_for_tests.dir/compiler_depend.make
 include python/dsmx/CMakeFiles/copy_module_for_tests.dir/progress.make
 
 python/dsmx/CMakeFiles/copy_module_for_tests:
-	cd /home/leo/Desktop/gr-dsmx-rc/build/python/dsmx && /usr/bin/cmake -E copy_directory /home/leo/Desktop/gr-dsmx-rc/python/dsmx /home/leo/Desktop/gr-dsmx-rc/build/test_modules/gnuradio/dsmx/
+	cd /home/leo/Desktop/gr-dsmr-rc/build/python/dsmx && /usr/bin/cmake -E copy_directory /home/leo/Desktop/gr-dsmr-rc/python/dsmx /home/leo/Desktop/gr-dsmr-rc/build/test_modules/gnuradio/dsmx/
 
 copy_module_for_tests: python/dsmx/CMakeFiles/copy_module_for_tests
 copy_module_for_tests: python/dsmx/CMakeFiles/copy_module_for_tests.dir/build.make
@@ -78,10 +78,10 @@ python/dsmx/CMakeFiles/copy_module_for_tests.dir/build: copy_module_for_tests
 .PHONY : python/dsmx/CMakeFiles/copy_module_for_tests.dir/build
 
 python/dsmx/CMakeFiles/copy_module_for_tests.dir/clean:
-	cd /home/leo/Desktop/gr-dsmx-rc/build/python/dsmx && $(CMAKE_COMMAND) -P CMakeFiles/copy_module_for_tests.dir/cmake_clean.cmake
+	cd /home/leo/Desktop/gr-dsmr-rc/build/python/dsmx && $(CMAKE_COMMAND) -P CMakeFiles/copy_module_for_tests.dir/cmake_clean.cmake
 .PHONY : python/dsmx/CMakeFiles/copy_module_for_tests.dir/clean
 
 python/dsmx/CMakeFiles/copy_module_for_tests.dir/depend:
-	cd /home/leo/Desktop/gr-dsmx-rc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/leo/Desktop/gr-dsmx-rc /home/leo/Desktop/gr-dsmx-rc/python/dsmx /home/leo/Desktop/gr-dsmx-rc/build /home/leo/Desktop/gr-dsmx-rc/build/python/dsmx /home/leo/Desktop/gr-dsmx-rc/build/python/dsmx/CMakeFiles/copy_module_for_tests.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/leo/Desktop/gr-dsmr-rc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/leo/Desktop/gr-dsmr-rc /home/leo/Desktop/gr-dsmr-rc/python/dsmx /home/leo/Desktop/gr-dsmr-rc/build /home/leo/Desktop/gr-dsmr-rc/build/python/dsmx /home/leo/Desktop/gr-dsmr-rc/build/python/dsmx/CMakeFiles/copy_module_for_tests.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : python/dsmx/CMakeFiles/copy_module_for_tests.dir/depend
 

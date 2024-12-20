@@ -1,7 +1,7 @@
-PASS: /home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/docstrings/bindListener_pydoc_template.h
-PASS: /home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/docstrings/bindListener_pydoc_template.h
-PASS: /home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/docstrings/preambleDetection_pydoc_template.h
-PASS: /home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/docstrings/preambleDetection_pydoc_template.h
-PASS: /home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/docstrings/preambleDetection_pydoc_template.h
-PASS: /home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/docstrings/Despreader_pydoc_template.h
-PASS: /home/leo/Desktop/gr-dsmx-rc/python/dsmx/bindings/docstrings/Despreader_pydoc_template.h
+PASS: /home/leo/Desktop/gr-dsmr-rc/python/dsmx/bindings/docstrings/bindListener_pydoc_template.h
+PASS: /home/leo/Desktop/gr-dsmr-rc/python/dsmx/bindings/docstrings/bindListener_pydoc_template.h
+PASS: /home/leo/Desktop/gr-dsmr-rc/python/dsmx/bindings/docstrings/preambleDetection_pydoc_template.h
+PASS: /home/leo/Desktop/gr-dsmr-rc/python/dsmx/bindings/docstrings/preambleDetection_pydoc_template.h
+PASS: /home/leo/Desktop/gr-dsmr-rc/python/dsmx/bindings/docstrings/preambleDetection_pydoc_template.h
+PASS: /home/leo/Desktop/gr-dsmr-rc/python/dsmx/bindings/docstrings/Despreader_pydoc_template.h
+PASS: /home/leo/Desktop/gr-dsmr-rc/python/dsmx/bindings/docstrings/Despreader_pydoc_template.h

@@ -1,5 +1,5 @@
 lib/CMakeFiles/gnuradio-dsmx.dir/bindListener_impl.cc.o: \
- /home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.cc \
+ /home/leo/Desktop/gr-dsmr-rc/lib/bindListener_impl.cc \
  /usr/include/stdc-predef.h /usr/include/gnuradio/io_signature.h \
  /usr/include/spdlog/tweakme.h /usr/include/gnuradio/api.h \
  /usr/include/gnuradio/attributes.h /usr/include/spdlog/fmt/fmt.h \
@@ -999,11 +999,11 @@ lib/CMakeFiles/gnuradio-dsmx.dir/bindListener_impl.cc.o: \
  /usr/include/pmt/pmt_sugar.h \
  /usr/include/gnuradio/messages/msg_accepter.h \
  /usr/include/gnuradio/transfer_type.h /usr/include/c++/14/iostream \
- /home/leo/Desktop/gr-dsmx-rc/lib/bindListener_impl.h \
- /home/leo/Desktop/gr-dsmx-rc/lib/Despreader_impl.h \
+ /home/leo/Desktop/gr-dsmr-rc/lib/bindListener_impl.h \
+ /home/leo/Desktop/gr-dsmr-rc/lib/Despreader_impl.h \
  /usr/include/gnuradio/pdu.h \
- /home/leo/Desktop/gr-dsmx-rc/lib/../include/gnuradio/dsmx/Despreader.h \
- /home/leo/Desktop/gr-dsmx-rc/lib/../include/gnuradio/dsmx/api.h \
+ /home/leo/Desktop/gr-dsmr-rc/lib/../include/gnuradio/dsmx/Despreader.h \
+ /home/leo/Desktop/gr-dsmr-rc/lib/../include/gnuradio/dsmx/api.h \
  /usr/include/gnuradio/sync_block.h /usr/include/gnuradio/block.h \
  /usr/include/gnuradio/basic_block.h /usr/include/gnuradio/msg_accepter.h \
  /usr/include/gnuradio/sptr_magic.h /usr/include/c++/14/deque \
@@ -1022,4 +1022,4 @@ lib/CMakeFiles/gnuradio-dsmx.dir/bindListener_impl.cc.o: \
  /usr/include/gmpxx.h /usr/include/c++/14/cfloat \
  /usr/lib/gcc/x86_64-linux-gnu/14/include/float.h \
  /usr/include/x86_64-linux-gnu/gmp.h \
- /home/leo/Desktop/gr-dsmx-rc/lib/../include/gnuradio/dsmx/bindListener.h
+ /home/leo/Desktop/gr-dsmr-rc/lib/../include/gnuradio/dsmx/bindListener.h

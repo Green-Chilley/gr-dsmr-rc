@@ -18,7 +18,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/Despreader.h" line="39" column="31" bodyfile="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/Despreader.h" bodystart="39" bodyend="-1"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/include/gnuradio/dsmx/Despreader.h" line="39" column="31" bodyfile="/home/leo/Desktop/gr-dsmr-rc/include/gnuradio/dsmx/Despreader.h" bodystart="39" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-static-func">
@@ -36,7 +36,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/Despreader.h" line="49" column="19"/>
+        <location file="/home/leo/Desktop/gr-dsmr-rc/include/gnuradio/dsmx/Despreader.h" line="49" column="19"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -72,7 +72,7 @@
         <label>gr::sync_block</label>
       </node>
     </collaborationgraph>
-    <location file="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/Despreader.h" line="36" column="5" bodyfile="/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/Despreader.h" bodystart="37" bodyend="50"/>
+    <location file="/home/leo/Desktop/gr-dsmr-rc/include/gnuradio/dsmx/Despreader.h" line="36" column="5" bodyfile="/home/leo/Desktop/gr-dsmr-rc/include/gnuradio/dsmx/Despreader.h" bodystart="37" bodyend="50"/>
     <listofallmembers>
       <member refid="classgr_1_1dsmx_1_1Despreader_1ae3fa7e26f1010e90ce04dcd23c35656d" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader</scope><name>make</name></member>
       <member refid="classgr_1_1dsmx_1_1Despreader_1a930de05b3d9afba32211ee3aae216043" prot="public" virt="non-virtual"><scope>gr::dsmx::Despreader</scope><name>sptr</name></member>

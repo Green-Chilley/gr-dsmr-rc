@@ -1,4 +1,4 @@
-# Install script for directory: /home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx
+# Install script for directory: /home/leo/Desktop/gr-dsmr-rc/include/gnuradio/dsmx
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,10 +44,10 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/gnuradio/dsmx" TYPE FILE FILES
-    "/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/api.h"
-    "/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/preambleDetection.h"
-    "/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/Despreader.h"
-    "/home/leo/Desktop/gr-dsmx-rc/include/gnuradio/dsmx/bindListener.h"
+    "/home/leo/Desktop/gr-dsmr-rc/include/gnuradio/dsmx/api.h"
+    "/home/leo/Desktop/gr-dsmr-rc/include/gnuradio/dsmx/preambleDetection.h"
+    "/home/leo/Desktop/gr-dsmr-rc/include/gnuradio/dsmx/Despreader.h"
+    "/home/leo/Desktop/gr-dsmr-rc/include/gnuradio/dsmx/bindListener.h"
     )
 endif()
 
