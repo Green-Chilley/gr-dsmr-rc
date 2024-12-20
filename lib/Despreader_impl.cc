@@ -263,27 +263,30 @@ void Despreader_impl::callback_SDR(pmt::pmt_t msg){
       mfg_id[2] = 0xff ^ dataBytes[2];
       mfg_id[3] = 0xff ^ dataBytes[3];
 
+      printf("\n");
       std::cout<<"MFG ID 0-3:"<<std::endl;
       for (int i=0; i<4; i++) 
          printf("%02x", mfg_id[i]);
       std::cout<<std::endl;
+      printf("\n");
 
       std::cout<<"MFG ID 4-7 (actual data):"<<std::endl;
       for (int i=4; i<8; i++) 
         printf("%02x ", 0xff ^ dataBytes[i]);
       std::cout<<std::endl;
+      printf("\n");
 
       //reconstitute 2 bytes of checksum here, print and compare to received data
       int sum = 384 - 16;
       std::cout<<"Calculated checksum 1:"<<std::endl;
       for (int i=0; i<8; i++) // potential off by one error here, but should be right
         sum += dataBytes[i];
-      printf("%02x ", sum);
+      printf("%02x\n", sum);
       std::cout<<std::endl;
 
       rcvdSum = dataBytes[8] << 8 | dataBytes[9];
       std::cout<<"Received checksum 1:"<<std::endl;
-      printf("%04x ", rcvdSum);
+      printf("%04x\n", rcvdSum);
       std::cout<<std::endl;
 
       //byte 11 is number of channels
