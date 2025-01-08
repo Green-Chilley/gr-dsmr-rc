@@ -559,7 +559,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1168, 8.0]
+    coordinate: [1160, 32.0]
     rotation: 0
     state: disabled
 - name: dsmx_preambleDetection_0
@@ -575,7 +575,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1160, 96.0]
+    coordinate: [1152, 96.0]
     rotation: 0
     state: enabled
 - name: fosphor_glfw_sink_c_0
@@ -892,7 +892,7 @@ blocks:
     marker7: '-1'
     marker8: '-1'
     marker9: '-1'
-    name: '"DSMx Signal"'
+    name: '"DSMR Signal"'
     nconnections: '2'
     size: '12000'
     srate: gui_samp_rate
@@ -1477,7 +1477,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [864, 280.0]
+    coordinate: [880, 280.0]
     rotation: 0
     state: enabled
 - name: virtual_sink_1

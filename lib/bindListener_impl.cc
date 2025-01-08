@@ -107,7 +107,7 @@ namespace gr {
                     for(x = 0; x < 9; x++){
                       decoded = decodeBit(d_buffer[offset][(d_samples_processed-offset)/64], Despreader_impl::cast864reverse(pncodes[y][x]), 5);
                       if (decoded !=-1) {
-                        //printf("Offset %d using %dth row and %dth column decodes: \n",offset, y, x, decoded);
+                        // printf("Offset %d using %dth row and %dth column decodes: %d\n",offset, y, x, decoded);
                         break;  //We found what we were looking for
                       }
                     }

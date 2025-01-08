@@ -25,7 +25,7 @@
 #include <gnuradio/io_signature.h>
 #include "Despreader_impl.h"
 
-#define BIND_VERSION 1
+// #define BIND_VERSION 1
 
 namespace gr {
   namespace dsmx {
@@ -130,6 +130,7 @@ namespace gr {
         }
         rotateLeft(&code);
       }
+      
       return -1;
     }
 
@@ -194,7 +195,7 @@ namespace gr {
       return casted;
     }
 
-void Despreader_impl::callback_SDR(pmt::pmt_t msg){
+    void Despreader_impl::callback_SDR(pmt::pmt_t msg){
       pmt::pmt_t meta = pmt::car(msg);
       pmt::pmt_t vector = pmt::cdr(msg);
  
@@ -339,18 +340,15 @@ void Despreader_impl::callback_SDR(pmt::pmt_t msg){
       std::cout << "contents = " << std::endl;
       size_t offset(0);     //Data recovery
       uint8_t* data = (uint8_t*) pmt::uniform_vector_elements(vector, offset);
-      // for(size_t i=0; i<len; i+=16){      //Print raw chips
-      //   printf("%04x: ", ((unsigned int)i));
-      //   for(size_t j=i; j<std::min(i+16,len); j++){
-      //     printf("%02x ",data[j] );
-      //   }
+      for(size_t i=0; i<len; i+=16){      //Print raw chips
+        printf("%04x: ", ((unsigned int)i));
+        for(size_t j=i; j<std::min(i+16,len); j++){
+          printf("%02x ",data[j] );
+        }
 
-      //   std::cout << std::endl;
-      // }
-
-      for(size_t i=0; i<len; i++){      //Print raw chips
-        printf("%02x ",data[i]);
+        std::cout << std::endl;
       }
+
       std::cout << "\n" << std::endl;
 
                 //--------- Decoding
@@ -365,13 +363,34 @@ void Despreader_impl::callback_SDR(pmt::pmt_t msg){
               break;
             }
           }
-          if (decoded == -1) { // original is == -1
+          if (decoded == -1) {
             printf("%s\n", "Decoding failure");
             return;
           }
         }
+        
+        printf("%02x ",decoded);         //Print des données décodées 2 octets par ligne
 
-        printf("%02x",decoded);         //Print des données décodées 2 octets par ligne
+// This section here is for 64 chip decoding for 64 8DR
+
+        // if(i % (8*2) == 0){
+        // }         //--------Dispatch to various buffers
+        // if(i==0){                       //First Byte is length
+        //   length = decoded;
+        // }
+        // else{
+        //   if(i < (8* (16+1))){             //16 bytes of data, each made from 8 bytes of chips and offset of one byte for the length byte
+        //     if (i % (8*2) != 0)       //We want to regroup data 2 bytes by 2 bytes, stating after the first byte of length
+        //       d_data_chunks[i / (8*2)] = decoded;
+        //     else
+        //       d_data_chunks[i / (8*2) - 1] = (d_data_chunks[i / (8*2) - 1] << 8) | decoded;
+        //   }
+        //   else                        //2 bytes of CRC
+        //     d_crc_recieved = (d_crc_recieved << 8) | decoded;
+        // }
+
+
+// 32 8DR decoding
         if(i % (8*2) == 0){
         }         //--------Dispatch to various buffers
         if(i==0){                       //First Byte is length
@@ -390,14 +409,18 @@ void Despreader_impl::callback_SDR(pmt::pmt_t msg){
       }
       //-----------Print tentative experimental pn scheme
       std::cout << std::endl;
-      /*for (size_t i = 0; i < 8; i++) {
-        printf("%04X\n", Despreader_impl::switch_to_crc_pn_scheme(d_data_chunks[i]));
-      }*/
+      // for (size_t i = 0; i < 8; i++) {
+      //   printf("%04X\n", Despreader_impl::switch_to_crc_pn_scheme(d_data_chunks[i]));
+      // }
 
       //-----------Print channel data
       for(int i=1;i<8;i++){
         printf("Packet: %u, Channel: %u, Value: %f\n", d_data_chunks[i]>>15, (d_data_chunks[i]>>11) & 0xF, ((d_data_chunks[i] & 0x7FF)/1024.0) - 1);
+        // printf("DSMR interpretation Channel: %u, Value: %d\n", (d_data_chunks[i]>>12) & 0xF, (d_data_chunks[i] & 0xFFF) - 2048);
+        // printf("Raw data: %d\n", d_data_chunks[i]);
+        std::cout<<std::endl;
       }
+
       //uint16_t test[8] = {0x1234,0x5678,0x9101,0x1121,0x3141,0x5161,0x7181,0x9202};
       //printf("Test CRC: %04X\n", Despreader_impl::crc_calc(test,0x10,0x0000,false));
 
@@ -412,12 +435,14 @@ void Despreader_impl::callback_SDR(pmt::pmt_t msg){
       //----------Channel sequence
       if(id_bytes01 == 0){//Should be if id != 0
 
-        Despreader_impl::calc_dsmx_channel(/*id_bytes01*/0x49B6, d_data_chunks[0]); // remember to change this too
+        Despreader_impl::calc_dsmx_channel(/*id_bytes01*/firstId, /*d_data_chunks[0]*/secondId); // remember to change this too
         int next_channel = Despreader_impl::get_next_channel(d_channel);              //Send all info in message: next channel, radio id and decoded channel values + channel sequence in data vector
         d_pdu_meta = pmt::make_dict();
         d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Next channel"), pmt::mp(next_channel));
-        d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Radio id1"), pmt::mp(/*id_bytes01*/0x49B6)); // original id = 0x49B6
-        d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Radio id2"), pmt::mp(d_data_chunks[0]));
+
+        // These two lines don't actually matter
+        d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Radio id1"), pmt::mp(/*id_bytes01*/firstId)); // original id = 0x49B6
+        d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Radio id2"), pmt::mp(/*d_data_chunks[0]*/secondId));
         for (size_t i = 1; i < 8; i++) {
           char string[5];
           sprintf(string, "%d %d", (d_data_chunks[i]>>15), ((d_data_chunks[i]>>11) & 0xF));
@@ -445,14 +470,15 @@ void Despreader_impl::callback_SDR(pmt::pmt_t msg){
 
     uint16_t Despreader_impl::crc_seed_find(uint16_t data[8], uint8_t length, uint16_t transmitted){
       uint16_t seed = 0;
-      uint16_t id_byte2 = ((data[0]>>8) & 0x00FF);
+      // uint16_t id_byte2 = ((data[0]>>8) & 0x00FF);
+      uint16_t id_byte2 = 0x0D;
       uint16_t crc = 0;
 
       printf("Transmitted:                                                                        %04X\n", transmitted);
       for (uint16_t id_byte0 = 0; id_byte0 <= 0xFF; id_byte0++) {
         for (uint16_t id_byte1 = 0; id_byte1 <= 0xFF; id_byte1++) {
           if ( ((id_byte0 + id_byte1 + id_byte2 + 2) & 0x07) == (d_column & 0x07) ) { //We don't need to try every combination
-            if (id_byte0 == 0x49 && id_byte1 == 0xB6) {         //Debugging test
+            if (id_byte0 == msbId && id_byte1 == lsbId) {         //Debugging test
               printf("%s\n", "On teste bien cette possibilité");
             }
             else
@@ -699,8 +725,8 @@ void Despreader_impl::callback_SDR(pmt::pmt_t msg){
                  io_signature::make(0, 0, 0))
     {
       message_port_register_in(pmt::mp("Msg"));
-      // set_msg_handler(pmt::mp("Msg"), [this](pmt::pmt_t msg) { this->callback_8DR(msg); });
-      set_msg_handler(pmt::mp("Msg"), [this](pmt::pmt_t msg) { this->callback_SDR(msg); });
+      set_msg_handler(pmt::mp("Msg"), [this](pmt::pmt_t msg) { this->callback_8DR(msg); });
+      // set_msg_handler(pmt::mp("Msg"), [this](pmt::pmt_t msg) { this->callback_SDR(msg); });
       crc_tab16_init = false;
       message_port_register_out(pmt::mp("pdus"));
       d_type = gr::types::byte_t;

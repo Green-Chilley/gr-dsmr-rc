@@ -56,7 +56,7 @@ namespace gr {
       d_state = 0;
       d_nbr_offsets = 30 ;
       d_sopBuffer.resize(d_nbr_offsets + 1, std::vector<uint8_t>(128/8, 0));
-      d_error_threshold = 32;
+      d_error_threshold = 5;
     }
 
     /*
@@ -112,8 +112,13 @@ namespace gr {
                     int error = 0;
                     for(int loop = 0; loop < 8; loop++){
                       error+= distance(sopRecieved[loop],pncodes[d_row][x][7-loop]);
+                      // printf("Error calculated: %d\n", error);
                     }
                     if( error <= d_error_threshold){    //Good pn code Found, we now know what column is used and what offset is good to decode
+                      printf("Good pn code: ");
+                      for (int i=0; i<8; i++) {
+                        printf("0x%02x, ", sopRecieved[i]);
+                      }
                       d_column = x;
                       d_offset = offset;
                       d_state++;
@@ -129,18 +134,26 @@ namespace gr {
                 d_not_Found = 0;
               }
               break;
-            case 1: //Check correct data rate ( find NOT(SOP) )
+            case 1: //Check correct data rate ( find NOT(SOP) ) 
+
+            // EDIT BY LEO
+            // We found out that the 2nd SOP symbol is not inverted, so we can proceed with this section by just finding the SOP without the NOT.
+            // DSMR possibly sends 2 SOPs without inverting the 2nd one?
+
               if (d_samples_processed - d_offset > 64 + 4) { //Saut de 4 bits
                 d_sopBuffer[d_offset][(d_samples_processed - d_offset-4)/8] = (d_sopBuffer[d_offset][(d_samples_processed - d_offset-4)/8] << 1) | in[i];
                 if (d_samples_processed - d_offset == 64 + 4 + 64) {
                   for(int loop = 0; loop < 8; loop++){
-                    sopRecieved[loop] = reverse(~d_sopBuffer[d_offset][8 + 7-loop]); //NOT le PN code
+                    // sopRecieved[loop] = reverse(~d_sopBuffer[d_offset][8 + 7-loop]); //NOT le PN code
+                    sopRecieved[loop] = reverse(d_sopBuffer[d_offset][7-loop]); // Process normally for DSMR
                   }
                   int error = 0;
                   for(int loop = 0; loop < 8; loop++){
                     error += distance(sopRecieved[loop],pncodes[d_row][d_column][7-loop]);
+
                   }
                   if( error >= d_error_threshold){ //Too many bit errors
+                    printf("Bad pncode: %d\n", error);
                     d_state = 10;
                   }
                   d_state++;
@@ -155,9 +168,18 @@ namespace gr {
               }
               if((d_samples_processed - d_offset == d_nbr_samples_to_process-1)) {
 
+// Print SOP buffer
+                // printf("offset %02x length %02x\n", d_offset, d_samples_processed);
+                // for (int i=0; i<d_sopBuffer.size(); i++) {
+                //   for (int j=0; j<d_sopBuffer[i].size(); j++) {
+                //     printf("%02x ", d_sopBuffer[i][j]);
+                //   }
+                //   printf("\n");
+                // }
+
                 // Grab data, throw into vector
-                // d_pdu_vector = gr::pdu::make_pdu_vector(d_type, d_dataBuffer, (1+16+2)*8);
-                d_pdu_vector = gr::pdu::make_pdu_vector(d_type, d_dataBuffer, 16*8*8);
+                d_pdu_vector = gr::pdu::make_pdu_vector(d_type, d_dataBuffer, (1+16+2)*8);
+                // d_pdu_vector = gr::pdu::make_pdu_vector(d_type, d_dataBuffer, 16*8*8);
                 d_pdu_meta = pmt::make_dict();
                 d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Column"), pmt::mp(d_column));
                 d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Row"), pmt::mp(d_row));
