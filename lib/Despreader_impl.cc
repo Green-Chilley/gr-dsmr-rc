@@ -114,7 +114,7 @@ namespace gr {
 
     //Find if data matches a given code. Outputs the number of bits the code is rotated
     int correlate(uint64_t code, uint64_t data, unsigned char threshold){
-      threshold = 64 - threshold;
+      threshold = 32 - threshold;
       int count=0;
 
       for(int index=0; index<64;index++){
@@ -138,7 +138,7 @@ namespace gr {
     int decodeByte(uint64_t data, uint64_t pn_data0, uint64_t pn_data1){
       int offset = 0;
       int shift;
-      unsigned char threshold = 10;
+      unsigned char threshold = 0;
       shift = correlate(~pn_data0, data, threshold);
       if(shift < 0){
         offset = 64;
@@ -191,6 +191,22 @@ namespace gr {
       uint64_t casted=0;
       for(int i = 0; i<8;i++){
         casted = (casted<<8) | Despreader_impl::reverse(data[i]);
+      }
+      return casted;
+    }
+
+    uint32_t Despreader_impl::cast432(uint8_t data[4]) {
+      uint32_t casted=0;
+      for (int i=0; i<4; i++) {
+        casted = (casted<<8 | data[i]);
+      }
+      return casted;
+    }
+
+    uint32_t Despreader_impl::cast432reverse(uint8_t data[4]) {
+      uint32_t casted=0;
+      for (int i=0; i<4; i++) {
+        casted = (casted<<8 | Despreader_impl::reverse(data[i]));
       }
       return casted;
     }
@@ -351,13 +367,31 @@ namespace gr {
 
       std::cout << "\n" << std::endl;
 
-                //--------- Decoding
+      //           //--------- Decoding
+      // uint8_t length = 0;
+      // for(size_t i=0; i<len; i+=8){
+      //   int decoded = decodeByte(cast864(&data[i]), cast864reverse(pncodes[d_row][data_col0]), cast864reverse(pncodes[d_row][data_col1]) );
+      //   if (decoded == -1) {
+      //     for (size_t row = 0; row < 5; row++) {
+      //       decoded = decodeByte(cast864(&data[i]), cast864reverse(pncodes[row][data_col0]), cast864reverse(pncodes[row][data_col1]) );
+      //       if (decoded != -1){
+      //         printf("Alternate decoding column found: %d should be different from %d\n", row, d_row);
+      //         break;
+      //       }
+      //     }
+      //     if (decoded == -1) {
+      //       printf("%s\n", "Decoding failure");
+      //       return;
+      //     }
+      //   }
+        
+                //--------- Decoding for 32-chip 8 bit data rate
       uint8_t length = 0;
-      for(size_t i=0; i<len; i+=8){
-        int decoded = decodeByte(cast864(&data[i]), cast864reverse(pncodes[d_row][data_col0]), cast864reverse(pncodes[d_row][data_col1]) );
+      for(size_t i=0; i<len; i+=4){
+        int decoded = decodeByte(cast432(&data[i]), cast432reverse(pncodes[d_row][data_col0]), cast432reverse(pncodes[d_row][data_col1]) );
         if (decoded == -1) {
           for (size_t row = 0; row < 5; row++) {
-            decoded = decodeByte(cast864(&data[i]), cast864reverse(pncodes[row][data_col0]), cast864reverse(pncodes[row][data_col1]) );
+            decoded = decodeByte(cast432(&data[i]), cast432reverse(pncodes[row][data_col0]), cast432reverse(pncodes[row][data_col1]) );
             if (decoded != -1){
               printf("Alternate decoding column found: %d should be different from %d\n", row, d_row);
               break;
@@ -368,29 +402,9 @@ namespace gr {
             return;
           }
         }
-        
+              //---------
+
         printf("%02x ",decoded);         //Print des données décodées 2 octets par ligne
-
-// This section here is for 64 chip decoding for 64 8DR
-
-        // if(i % (8*2) == 0){
-        // }         //--------Dispatch to various buffers
-        // if(i==0){                       //First Byte is length
-        //   length = decoded;
-        // }
-        // else{
-        //   if(i < (8* (16+1))){             //16 bytes of data, each made from 8 bytes of chips and offset of one byte for the length byte
-        //     if (i % (8*2) != 0)       //We want to regroup data 2 bytes by 2 bytes, stating after the first byte of length
-        //       d_data_chunks[i / (8*2)] = decoded;
-        //     else
-        //       d_data_chunks[i / (8*2) - 1] = (d_data_chunks[i / (8*2) - 1] << 8) | decoded;
-        //   }
-        //   else                        //2 bytes of CRC
-        //     d_crc_recieved = (d_crc_recieved << 8) | decoded;
-        // }
-
-
-// 32 8DR decoding
         if(i % (8*2) == 0){
         }         //--------Dispatch to various buffers
         if(i==0){                       //First Byte is length
@@ -407,6 +421,7 @@ namespace gr {
             d_crc_recieved = (d_crc_recieved << 8) | decoded;
         }
       }
+
       //-----------Print tentative experimental pn scheme
       std::cout << std::endl;
       // for (size_t i = 0; i < 8; i++) {
@@ -471,7 +486,7 @@ namespace gr {
     uint16_t Despreader_impl::crc_seed_find(uint16_t data[8], uint8_t length, uint16_t transmitted){
       uint16_t seed = 0;
       // uint16_t id_byte2 = ((data[0]>>8) & 0x00FF);
-      uint16_t id_byte2 = 0x0D;
+      uint16_t id_byte2 = 0x0D; // the 3rd byte of the mfgid
       uint16_t crc = 0;
 
       printf("Transmitted:                                                                        %04X\n", transmitted);

@@ -80,6 +80,9 @@ namespace gr {
       static uint64_t cast864(uint8_t data[8]);
       static uint64_t cast864reverse(uint8_t data[8]);
       
+      static uint32_t cast432(uint8_t data[4]);
+      static uint32_t cast432reverse(uint8_t data[4]);
+      
 
       uint16_t update_crc_16( uint16_t crc, unsigned char c , bool reverse);
       void init_crc16_tab( void );
