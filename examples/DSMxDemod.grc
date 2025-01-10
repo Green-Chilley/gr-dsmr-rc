@@ -559,7 +559,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1160, 32.0]
+    coordinate: [1152, 8.0]
     rotation: 0
     state: disabled
 - name: dsmx_preambleDetection_0
@@ -688,7 +688,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [240, 204.0]
+    coordinate: [264, 180.0]
     rotation: 0
     state: enabled
 - name: qtgui_ledindicator_0

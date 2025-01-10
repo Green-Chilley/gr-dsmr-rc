@@ -88,7 +88,7 @@ Recieves decoded data, prints it, follows the channel sequence and sweeps channe
             self.next_channel = self.sweep_channel(self.next_channel)
             self.window.detectedLabel.config(text = "Sweeping.")
             self.window.channelInfoLabel.config(text = "Current channel: "+str(self.next_channel))
-            self.top_block.set_channel(self.next_channel)
+            #self.top_block.set_channel(self.next_channel)
         self.has_detected_signal = False
 
     def sweep_channel(self, current):

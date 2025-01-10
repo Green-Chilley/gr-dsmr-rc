@@ -50,6 +50,11 @@ namespace gr {
       *code = (*code << 1) | (*code >> (64-1));
     }
 
+    void rotateLeft32(uint32_t* code){
+
+      *code = (*code << 1) | (*code >> (32-1));
+    }
+
     //Reverse bit order in one byte
     uint8_t Despreader_impl::reverse(uint8_t b) {
       b = (b & 0xF0) >> 4 | (b & 0x0F) << 4;
@@ -113,8 +118,32 @@ namespace gr {
 
 
     //Find if data matches a given code. Outputs the number of bits the code is rotated
-    int correlate(uint64_t code, uint64_t data, unsigned char threshold){
+
+    // compare for 32bit data
+    int correlate32(uint32_t code, uint32_t data, unsigned char threshold){
       threshold = 32 - threshold;
+      int count=0;
+
+      for(int index=0; index<32;index++){
+        count = 0;
+
+        for(int i = 0; i<32; i++){
+          if( ((code >> i)& 1) == ((data >> i)& 1) ){
+            count++;
+          }
+        }
+        if( count >= threshold){ // if number of matching bits is greater or equal to threshold (54)
+          // printf("Good match found. Count: %d\n", count);
+          return index; // return number of bits code is rotated
+        }
+        rotateLeft32(&code);
+      }
+      
+      return -1;
+    }
+
+    int correlate(uint64_t code, uint64_t data, unsigned char threshold){
+      threshold = 64 - threshold;
       int count=0;
 
       for(int index=0; index<64;index++){
@@ -135,10 +164,35 @@ namespace gr {
     }
 
     //Despreads data
-    int decodeByte(uint64_t data, uint64_t pn_data0, uint64_t pn_data1){
-      int offset = 0;
+    // Decode for 32bit data
+    int decodeByte32(uint32_t data, uint32_t pn_data0, uint32_t pn_data1){
+      int offset = 10;
       int shift;
-      unsigned char threshold = 0;
+      unsigned char threshold = 8;
+      shift = correlate32(~pn_data0, data, threshold);
+      if(shift < 0){
+        offset = 32;
+        shift = correlate32(pn_data0, data, threshold);
+        if (shift < 0) {
+          offset = 64;
+          shift = correlate32(~pn_data1, data, threshold);
+          if(shift < 0){
+            offset = 128;
+            shift = correlate32(pn_data1, data, threshold);
+          }
+        }
+      }
+      if(shift >= 0){
+        return shift + offset;
+      }
+      return -1;
+
+    }
+
+    int decodeByte(uint64_t data, uint64_t pn_data0, uint64_t pn_data1){
+      int offset = 10;
+      int shift;
+      unsigned char threshold = 10;
       shift = correlate(~pn_data0, data, threshold);
       if(shift < 0){
         offset = 64;
@@ -388,10 +442,10 @@ namespace gr {
                 //--------- Decoding for 32-chip 8 bit data rate
       uint8_t length = 0;
       for(size_t i=0; i<len; i+=4){
-        int decoded = decodeByte(cast432(&data[i]), cast432reverse(pncodes[d_row][data_col0]), cast432reverse(pncodes[d_row][data_col1]) );
+        int decoded = decodeByte32(cast432(&data[i]), cast432reverse(pncodes[d_row][data_col0]), cast432reverse(pncodes[d_row][data_col1]) );
         if (decoded == -1) {
           for (size_t row = 0; row < 5; row++) {
-            decoded = decodeByte(cast432(&data[i]), cast432reverse(pncodes[row][data_col0]), cast432reverse(pncodes[row][data_col1]) );
+            decoded = decodeByte32(cast432(&data[i]), cast432reverse(pncodes[row][data_col0]), cast432reverse(pncodes[row][data_col1]) );
             if (decoded != -1){
               printf("Alternate decoding column found: %d should be different from %d\n", row, d_row);
               break;
@@ -402,8 +456,26 @@ namespace gr {
             return;
           }
         }
-              //---------
 
+      //   printf("%02x ",decoded);         //Print des données décodées 2 octets par ligne
+      //   if(i % (8*2) == 0){
+      //   }         //--------Dispatch to various buffers
+      //   if(i==0){                       //First Byte is length
+      //     length = decoded;
+      //   }
+      //   else{
+      //     if(i < (8* (16+1))){             //16 bytes of data, each made from 8 bytes of chips and offset of one byte for the length byte
+      //       if (i % (8*2) != 0)       //We want to regroup data 2 bytes by 2 bytes, stating after the first byte of length
+      //         d_data_chunks[i / (8*2)] = decoded;
+      //       else
+      //         d_data_chunks[i / (8*2) - 1] = (d_data_chunks[i / (8*2) - 1] << 8) | decoded;
+      //     }
+      //     else                        //2 bytes of CRC
+      //       d_crc_recieved = (d_crc_recieved << 8) | decoded;
+      //   }
+      // }
+
+// Decoding for 32 chip byte data
         printf("%02x ",decoded);         //Print des données décodées 2 octets par ligne
         if(i % (8*2) == 0){
         }         //--------Dispatch to various buffers
@@ -411,11 +483,11 @@ namespace gr {
           length = decoded;
         }
         else{
-          if(i < (8* (16+1))){             //16 bytes of data, each made from 8 bytes of chips and offset of one byte for the length byte
-            if (i % (8*2) != 0)       //We want to regroup data 2 bytes by 2 bytes, stating after the first byte of length
-              d_data_chunks[i / (8*2)] = decoded;
+          if(i < (4* (16+1))){             //16 bytes of data, each made from 8 bytes of chips and offset of one byte for the length byte
+            if (i % (4*2) != 0)       //We want to regroup data 2 bytes by 2 bytes, stating after the first byte of length
+              d_data_chunks[i / (4*2)] = decoded;
             else
-              d_data_chunks[i / (8*2) - 1] = (d_data_chunks[i / (8*2) - 1] << 8) | decoded;
+              d_data_chunks[i / (4*2) - 1] = (d_data_chunks[i / (4*2) - 1] << 8) | decoded;
           }
           else                        //2 bytes of CRC
             d_crc_recieved = (d_crc_recieved << 8) | decoded;
@@ -429,10 +501,10 @@ namespace gr {
       // }
 
       //-----------Print channel data
-      for(int i=1;i<8;i++){
+      for(int i=1;i<4;i++){
         printf("Packet: %u, Channel: %u, Value: %f\n", d_data_chunks[i]>>15, (d_data_chunks[i]>>11) & 0xF, ((d_data_chunks[i] & 0x7FF)/1024.0) - 1);
         // printf("DSMR interpretation Channel: %u, Value: %d\n", (d_data_chunks[i]>>12) & 0xF, (d_data_chunks[i] & 0xFFF) - 2048);
-        // printf("Raw data: %d\n", d_data_chunks[i]);
+        // printf("Raw data: %u\n", d_data_chunks[i]);
         std::cout<<std::endl;
       }
 
@@ -458,7 +530,7 @@ namespace gr {
         // These two lines don't actually matter
         d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Radio id1"), pmt::mp(/*id_bytes01*/firstId)); // original id = 0x49B6
         d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Radio id2"), pmt::mp(/*d_data_chunks[0]*/secondId));
-        for (size_t i = 1; i < 8; i++) {
+        for (size_t i = 1; i < 4; i++) {
           char string[5];
           sprintf(string, "%d %d", (d_data_chunks[i]>>15), ((d_data_chunks[i]>>11) & 0xF));
           d_pdu_meta = dict_add(d_pdu_meta, pmt::intern(string), pmt::mp(d_data_chunks[i] & 0x7FF));

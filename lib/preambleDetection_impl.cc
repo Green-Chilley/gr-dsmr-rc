@@ -178,7 +178,7 @@ namespace gr {
                 // }
 
                 // Grab data, throw into vector
-                d_pdu_vector = gr::pdu::make_pdu_vector(d_type, d_dataBuffer, (1+16+2)*8);
+                d_pdu_vector = gr::pdu::make_pdu_vector(d_type, d_dataBuffer, (1+16+2)*4);
                 // d_pdu_vector = gr::pdu::make_pdu_vector(d_type, d_dataBuffer, 16*8*8);
                 d_pdu_meta = pmt::make_dict();
                 d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Column"), pmt::mp(d_column));

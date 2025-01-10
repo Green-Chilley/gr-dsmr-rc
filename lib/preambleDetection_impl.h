@@ -44,7 +44,7 @@ namespace gr {
       int d_channel;
       int d_error_threshold;
       std::vector<std::vector<uint8_t> > d_sopBuffer;
-      uint8_t d_dataBuffer[(1+16 + 2)*8];
+      uint8_t d_dataBuffer[(1+16 + 2)*4];
       // uint8_t d_dataBuffer[16*8*8];
       pmt::pmt_t d_pdu_meta;
       pmt::pmt_t d_pdu_vector;
