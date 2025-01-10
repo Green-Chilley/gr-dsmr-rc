@@ -120,7 +120,7 @@ namespace gr {
     //Find if data matches a given code. Outputs the number of bits the code is rotated
 
     // compare for 32bit data
-    int correlate32(uint32_t code, uint32_t data, unsigned char threshold){
+    int correlate32(uint64_t code, uint32_t data, unsigned char threshold){
       threshold = 32 - threshold;
       int count=0;
 
@@ -128,7 +128,7 @@ namespace gr {
         count = 0;
 
         for(int i = 0; i<32; i++){
-          if( ((code >> i)& 1) == ((data >> i)& 1) ){
+          if( ((code >> i)& 1) == ((data >> i)& 1) || ((code >> 32+i)& 1) == ((data >> i)& 1) ){
             count++;
           }
         }
@@ -136,7 +136,7 @@ namespace gr {
           // printf("Good match found. Count: %d\n", count);
           return index; // return number of bits code is rotated
         }
-        rotateLeft32(&code);
+        rotateLeft(&code);
       }
       
       return -1;
@@ -165,10 +165,10 @@ namespace gr {
 
     //Despreads data
     // Decode for 32bit data
-    int decodeByte32(uint32_t data, uint32_t pn_data0, uint32_t pn_data1){
+    int decodeByte32(uint32_t data, uint64_t pn_data0, uint64_t pn_data1){
       int offset = 10;
       int shift;
-      unsigned char threshold = 8;
+      unsigned char threshold = 5;
       shift = correlate32(~pn_data0, data, threshold);
       if(shift < 0){
         offset = 32;
