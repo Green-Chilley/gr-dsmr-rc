@@ -24,6 +24,7 @@
 
 #include <gnuradio/io_signature.h>
 #include "Despreader_impl.h"
+#include <algorithm>
 
 // #define BIND_VERSION 1
 
@@ -54,6 +55,10 @@ namespace gr {
 
       *code = (*code << 1) | (*code >> (32-1));
     }
+
+void rotateLeftD32(uint64_t* code){
+  *code = ((*code << 1) & 0xFFFFFFFEFFFFFFFE) | ((*code >> (32-1)) & 0x0000000100000001);
+}
 
     //Reverse bit order in one byte
     uint8_t Despreader_impl::reverse(uint8_t b) {
@@ -123,22 +128,27 @@ namespace gr {
     int correlate32(uint64_t code, uint32_t data, unsigned char threshold){
       threshold = 32 - threshold;
       int count=0;
+      int count2=0;
 
       for(int index=0; index<32;index++){
         count = 0;
+        count2= 0;
 
         for(int i = 0; i<32; i++){
-          if( ((code >> i)& 1) == ((data >> i)& 1) || ((code >> 32+i)& 1) == ((data >> i)& 1) ){
+          if( ((code >> i)& 1) == ((data >> i)& 1) ){
             count++;
           }
+          if ( ((code >> 32+i)& 1) == ((data >> i)& 1) ){
+            count2++;
+          }
         }
-        if( count >= threshold){ // if number of matching bits is greater or equal to threshold (54)
+        if( std::max(count, count2) >= threshold){ // compare both counts and check if one of them for best match
           // printf("Good match found. Count: %d\n", count);
           return index; // return number of bits code is rotated
         }
-        rotateLeft(&code);
+        rotateLeftD32(&code);
       }
-      
+      printf("Count: %d\n", count);
       return -1;
     }
 
@@ -168,7 +178,7 @@ namespace gr {
     int decodeByte32(uint32_t data, uint64_t pn_data0, uint64_t pn_data1){
       int offset = 10;
       int shift;
-      unsigned char threshold = 5;
+      unsigned char threshold = 8;
       shift = correlate32(~pn_data0, data, threshold);
       if(shift < 0){
         offset = 32;
@@ -503,8 +513,8 @@ namespace gr {
       //-----------Print channel data
       for(int i=1;i<4;i++){
         printf("Packet: %u, Channel: %u, Value: %f\n", d_data_chunks[i]>>15, (d_data_chunks[i]>>11) & 0xF, ((d_data_chunks[i] & 0x7FF)/1024.0) - 1);
-        // printf("DSMR interpretation Channel: %u, Value: %d\n", (d_data_chunks[i]>>12) & 0xF, (d_data_chunks[i] & 0xFFF) - 2048);
-        // printf("Raw data: %u\n", d_data_chunks[i]);
+        printf("DSMR interpretation Channel: %u, Value: %d\n", (d_data_chunks[i]>>12) & 0xF, (d_data_chunks[i] & 0xFFF) - 2048);
+        printf("Raw data: %u\n", d_data_chunks[i]);
         std::cout<<std::endl;
       }
 
