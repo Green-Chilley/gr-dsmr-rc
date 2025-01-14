@@ -35,6 +35,11 @@ namespace gr {
 
       // since we are only processing 32 bit chips except for the SOP
       int d_nbr_samples_to_process = (2*64) +   4 + 1   +       32       +  16*32 + 2*32; // = 741
+
+      // in the theoretical case that data is only 3 bytes long for DSMR
+      // int d_nbr_samples_to_process = (2*64) +   4 + 1   +        32      +  3*32 + 2*32; // = 325
+
+
       // int d_nbr_samples_to_process = 16*64*8 + 16;
       int d_sop_part_length = 64 + 4 + 64 + 1;
       int d_samples_processed;

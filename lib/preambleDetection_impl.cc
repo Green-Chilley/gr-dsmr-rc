@@ -119,6 +119,7 @@ namespace gr {
                       for (int i=0; i<8; i++) {
                         printf("0x%02x, ", sopRecieved[i]);
                       }
+                      printf("\n");
                       d_column = x;
                       d_offset = offset;
                       d_state++;

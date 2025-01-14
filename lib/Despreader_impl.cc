@@ -138,17 +138,18 @@ void rotateLeftD32(uint64_t* code){
           if( ((code >> i)& 1) == ((data >> i)& 1) ){
             count++;
           }
-          if ( ((code >> 32+i)& 1) == ((data >> i)& 1) ){
+          if ( ((code >> (32+i))& 1) == ((data >> i)& 1) ){
             count2++;
           }
         }
-        if( std::max(count, count2) >= threshold){ // compare both counts and check if one of them for best match
-          // printf("Good match found. Count: %d\n", count);
+        int bestMatch = std::max(count, count2);
+        if(bestMatch >= threshold){ // compare both counts and check if one of them for best match
+          // printf("Good match found. Match: %d\n", bestMatch);
           return index; // return number of bits code is rotated
         }
+        // printf("Count1: %d | Count2: %d\n", count, count2);
         rotateLeftD32(&code);
       }
-      printf("Count: %d\n", count);
       return -1;
     }
 
@@ -176,7 +177,7 @@ void rotateLeftD32(uint64_t* code){
     //Despreads data
     // Decode for 32bit data
     int decodeByte32(uint32_t data, uint64_t pn_data0, uint64_t pn_data1){
-      int offset = 10;
+      int offset = 0;
       int shift;
       unsigned char threshold = 8;
       shift = correlate32(~pn_data0, data, threshold);
@@ -420,9 +421,9 @@ void rotateLeftD32(uint64_t* code){
       std::cout << "contents = " << std::endl;
       size_t offset(0);     //Data recovery
       uint8_t* data = (uint8_t*) pmt::uniform_vector_elements(vector, offset);
-      for(size_t i=0; i<len; i+=16){      //Print raw chips
-        printf("%04x: ", ((unsigned int)i));
-        for(size_t j=i; j<std::min(i+16,len); j++){
+      for(size_t i=0; i<len; i+=4){      //Print raw chips
+        printf("%02d: ", (i/4)+1);
+        for(size_t j=i; j<std::min(i+4,len); j++){
           printf("%02x ",data[j] );
         }
 
@@ -452,6 +453,7 @@ void rotateLeftD32(uint64_t* code){
                 //--------- Decoding for 32-chip 8 bit data rate
       uint8_t length = 0;
       for(size_t i=0; i<len; i+=4){
+        // printf("Testing for 0x%02x and 0x%02x\n", pncodes[d_row][data_col0][i], pncodes[d_row][data_col1][i]);
         int decoded = decodeByte32(cast432(&data[i]), cast432reverse(pncodes[d_row][data_col0]), cast432reverse(pncodes[d_row][data_col1]) );
         if (decoded == -1) {
           for (size_t row = 0; row < 5; row++) {
