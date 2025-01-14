@@ -179,7 +179,7 @@ namespace gr {
     int decodeByte32(uint32_t data, uint64_t pn_data0, uint64_t pn_data1){
       int offset = 0;
       int shift;
-      unsigned char threshold = 8;
+      unsigned char threshold = 0;
       shift = correlate32(~pn_data0, data, threshold);
       if(shift < 0){
         offset = 32;
@@ -453,7 +453,6 @@ namespace gr {
                 //--------- Decoding for 32-chip 8 bit data rate
       uint8_t length = 0;
       for(size_t i=0; i<len; i+=4){
-        // printf("Testing for 0x%02x and 0x%02x\n", pncodes[d_row][data_col0][i], pncodes[d_row][data_col1][i]);
         int decoded = decodeByte32(cast432(&data[i]), cast864reverse(pncodes[d_row][data_col0]), cast864reverse(pncodes[d_row][data_col1]) );
         if (decoded == -1) {
           for (size_t row = 0; row < 5; row++) {
@@ -489,7 +488,7 @@ namespace gr {
 
 // Decoding for 32 chip byte data
         printf("%02x ",decoded);         //Print des données décodées 2 octets par ligne
-        if(i % (8*2) == 0){
+        if(i % (4*2) == 0){
         }         //--------Dispatch to various buffers
         if(i==0){                       //First Byte is length
           length = decoded;
