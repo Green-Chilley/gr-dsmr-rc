@@ -56,9 +56,9 @@ namespace gr {
       *code = (*code << 1) | (*code >> (32-1));
     }
 
-void rotateLeftD32(uint64_t* code){
-  *code = ((*code << 1) & 0xFFFFFFFEFFFFFFFE) | ((*code >> (32-1)) & 0x0000000100000001);
-}
+    void rotateLeftD32(uint64_t* code){
+      *code = ((*code << 1) & 0xFFFFFFFEFFFFFFFE) | ((*code >> (32-1)) & 0x0000000100000001);
+    }
 
     //Reverse bit order in one byte
     uint8_t Despreader_impl::reverse(uint8_t b) {
@@ -422,7 +422,7 @@ void rotateLeftD32(uint64_t* code){
       size_t offset(0);     //Data recovery
       uint8_t* data = (uint8_t*) pmt::uniform_vector_elements(vector, offset);
       for(size_t i=0; i<len; i+=4){      //Print raw chips
-        printf("%02d: ", (i/4)+1);
+        printf("%02d: ", unsigned((i/4)+1));
         for(size_t j=i; j<std::min(i+4,len); j++){
           printf("%02x ",data[j] );
         }
@@ -454,10 +454,10 @@ void rotateLeftD32(uint64_t* code){
       uint8_t length = 0;
       for(size_t i=0; i<len; i+=4){
         // printf("Testing for 0x%02x and 0x%02x\n", pncodes[d_row][data_col0][i], pncodes[d_row][data_col1][i]);
-        int decoded = decodeByte32(cast432(&data[i]), cast432reverse(pncodes[d_row][data_col0]), cast432reverse(pncodes[d_row][data_col1]) );
+        int decoded = decodeByte32(cast432(&data[i]), cast864reverse(pncodes[d_row][data_col0]), cast864reverse(pncodes[d_row][data_col1]) );
         if (decoded == -1) {
           for (size_t row = 0; row < 5; row++) {
-            decoded = decodeByte32(cast432(&data[i]), cast432reverse(pncodes[row][data_col0]), cast432reverse(pncodes[row][data_col1]) );
+            decoded = decodeByte32(cast432(&data[i]), cast864reverse(pncodes[row][data_col0]), cast864reverse(pncodes[row][data_col1]) );
             if (decoded != -1){
               printf("Alternate decoding column found: %d should be different from %d\n", row, d_row);
               break;

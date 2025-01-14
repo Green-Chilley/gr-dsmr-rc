@@ -56,7 +56,7 @@ Recieves decoded data, prints it, follows the channel sequence and sweeps channe
             string = string + str(item) + ' '               #update GUI
             self.window.detectedLabel.config(text = string)
         string = ''
-        for i in range(0,7):
+        for i in range(0,3):
             tmp = pmt.to_python(pmt.dict_ref(meta,pmt.intern("0 "+str(i)),pmt.PMT_NIL))
             if tmp:
                 self.channel_data[0][i] = tmp
