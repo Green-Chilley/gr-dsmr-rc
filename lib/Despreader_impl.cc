@@ -125,10 +125,10 @@ namespace gr {
     //Find if data matches a given code. Outputs the number of bits the code is rotated
 
     // compare for 32bit data
-    int correlate32(uint64_t code, uint32_t data, unsigned char threshold){
+    int correlate32(uint64_t code, uint32_t data, unsigned int threshold){
       threshold = 32 - threshold;
-      int count=0;
-      int count2=0;
+      unsigned int count=0;
+      unsigned int count2=0;
 
       for(int index=0; index<32;index++){
         count = 0;
@@ -145,9 +145,12 @@ namespace gr {
         int bestMatch = std::max(count, count2);
         if(bestMatch >= threshold){ // compare both counts and check if one of them for best match
           // printf("Good match found. Match: %d\n", bestMatch);
-          return index; // return number of bits code is rotated
+          if(bestMatch == count)
+            return index; // return number of bits code is rotated
+          else
+            return index + 32;
         }
-        // printf("Count1: %d | Count2: %d\n", count, count2);
+        // printf("Index %d Count1: %d | Count2: %d | Code: %lX\n", index, count, count2, code);
         rotateLeftD32(&code);
       }
       return -1;
@@ -174,25 +177,42 @@ namespace gr {
       return -1;
     }
 
-    //Despreads data
+    // Despreads data
     // Decode for 32bit data
     int decodeByte32(uint32_t data, uint64_t pn_data0, uint64_t pn_data1){
-      int offset = 0;
       int shift;
       unsigned char threshold = 0;
-      shift = correlate32(~pn_data0, data, threshold);
+      int offset = 0b00000000;
+      shift = correlate32((~pn_data0)&0xffffffff, data, threshold);
       if(shift < 0){
-        offset = 32;
-        shift = correlate32(pn_data0, data, threshold);
-        if (shift < 0) {
-          offset = 64;
-          shift = correlate32(~pn_data1, data, threshold);
-          if(shift < 0){
-            offset = 128;
-            shift = correlate32(pn_data1, data, threshold);
-          }
-        }
+        offset = 0b00100000;
+        shift = correlate32(((~pn_data0)>>32)&0xffffffff, data, threshold);
       }
+      if(shift < 0){
+        offset = 0b01000000;
+        shift = correlate32(pn_data0&0xffffffff, data, threshold);
+      }
+      if (shift < 0) {
+        offset = 0b01100000;
+        shift = correlate32(((pn_data0)>>32)&0xffffffff, data, threshold);
+      }
+      if(shift < 0){
+        offset = 0b10000000;
+        shift = correlate32((~pn_data1)&0xffffffff, data, threshold);
+      }
+      if(shift < 0){
+        offset = 0b10100000;
+        shift = correlate32(((~pn_data1)>>32)&0xffffffff, data, threshold);
+      }
+      if(shift < 0){
+        offset = 0b11000000;
+        shift = correlate32(pn_data1&0xffffffff, data, threshold);
+      }
+      if(shift < 0){
+        offset = 0b11100000;
+        shift = correlate32(((pn_data1)>>32)&0xffffffff, data, threshold);
+      }
+        
       if(shift >= 0){
         return shift + offset;
       }
@@ -289,7 +309,7 @@ namespace gr {
       d_channel = pmt::to_long(pmt::dict_ref(meta, pmt::intern("Channel"), pmt::PMT_NIL));
       int data_col0 = 7 - d_column;
       int data_col1 = data_col0 + 1;
-      printf("SOP column: %d, data_col0: %d, data_col1: %d, not using all of them\n", d_column, data_col0, data_col1);
+      printf("SOP column: %d, data_col0: %d, data_col1: %d\n", d_column, data_col0, data_col1);
  
       size_t len = pmt::blob_length(vector);
       std::cout << "pdu_length = " << len << std::endl;
@@ -415,6 +435,15 @@ namespace gr {
       int data_col0 = 7 - d_column;
       int data_col1 = data_col0 + 1;
       printf("SOP column: %d, data_col0: %d, data_col1: %d\n", d_column, data_col0, data_col1);
+      printf("col 0 ");
+      for(int i =63; i>=0; i--){
+          printf("%d", (cast864reverse(pncodes[d_row][data_col0]) >> i)&1);
+      }
+      printf("\ncol 1 ");
+      for(int i =63; i>=0; i--){
+          printf("%d", (cast864reverse(pncodes[d_row][data_col1]) >> i)&1);
+      }
+      printf("\n");
 
       size_t len = pmt::blob_length(vector);
       std::cout << "pdu_length = " << len << std::endl;
@@ -425,6 +454,12 @@ namespace gr {
         printf("%02d: ", unsigned((i/4)+1));
         for(size_t j=i; j<std::min(i+4,len); j++){
           printf("%02x ",data[j] );
+        }
+        printf(" ");
+        for(size_t j=i; j<std::min(i+4,len); j++){
+          for(int i =7; i>=0; i--){
+            printf("%d", (data[j] >> i)&1);
+          }
         }
 
         std::cout << std::endl;
@@ -455,13 +490,15 @@ namespace gr {
       for(size_t i=0; i<len; i+=4){
         int decoded = decodeByte32(cast432(&data[i]), cast864reverse(pncodes[d_row][data_col0]), cast864reverse(pncodes[d_row][data_col1]) );
         if (decoded == -1) {
-          for (size_t row = 0; row < 5; row++) {
-            decoded = decodeByte32(cast432(&data[i]), cast864reverse(pncodes[row][data_col0]), cast864reverse(pncodes[row][data_col1]) );
-            if (decoded != -1){
-              printf("Alternate decoding column found: %d should be different from %d\n", row, d_row);
-              break;
-            }
-          }
+          // for (size_t row = 0; row < 5; row++) {
+          //   for (size_t col3 = 0; col3 < 8; col3++) {
+          //     decoded = decodeByte32(cast432(&data[i]), cast864reverse(pncodes[row][col3]), cast864reverse(pncodes[row][col3+1]) );
+          //     if (decoded != -1){
+          //       printf("Alternate decoding column found: r%d c%d should be different from r%d c%d\n", row, col3, d_row, data_col0);
+          //       break;
+          //     }
+          //   }
+          // }
           if (decoded == -1) {
             printf("%s\n", "Decoding failure");
             return;
@@ -515,7 +552,7 @@ namespace gr {
       for(int i=1;i<4;i++){
         printf("Packet: %u, Channel: %u, Value: %f\n", d_data_chunks[i]>>15, (d_data_chunks[i]>>11) & 0xF, ((d_data_chunks[i] & 0x7FF)/1024.0) - 1);
         printf("DSMR interpretation Channel: %u, Value: %d\n", (d_data_chunks[i]>>12) & 0xF, (d_data_chunks[i] & 0xFFF) - 2048);
-        printf("Raw data: %u\n", d_data_chunks[i]);
+        printf("Raw data: %X\n", d_data_chunks[i]);
         std::cout<<std::endl;
       }
 

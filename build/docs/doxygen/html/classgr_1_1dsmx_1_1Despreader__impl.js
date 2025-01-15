@@ -3,6 +3,8 @@ var classgr_1_1dsmx_1_1Despreader__impl =
     [ "Despreader_impl", "classgr_1_1dsmx_1_1Despreader__impl.html#acb9bd117391d2e0000deefc32740e22a", null ],
     [ "~Despreader_impl", "classgr_1_1dsmx_1_1Despreader__impl.html#a532c054e01ef2ee794287651ec5bcd93", null ],
     [ "calc_dsmx_channel", "classgr_1_1dsmx_1_1Despreader__impl.html#a2bcec950a91b0aa2f37559394628e13b", null ],
+    [ "cast432", "classgr_1_1dsmx_1_1Despreader__impl.html#a4cb93c45d7d98c9b64397cfe9c796cec", null ],
+    [ "cast432reverse", "classgr_1_1dsmx_1_1Despreader__impl.html#a53507ac86ec5551153c351ca029e04ce", null ],
     [ "cast864", "classgr_1_1dsmx_1_1Despreader__impl.html#a7f4d3bae6cd463048053d4f9e9af3c87", null ],
     [ "cast864reverse", "classgr_1_1dsmx_1_1Despreader__impl.html#acea5b84cf58bdc20ae53eeaac2a67900", null ],
     [ "init_crc16_tab", "classgr_1_1dsmx_1_1Despreader__impl.html#a9f8958624e59ed699c824d5417ef9f4d", null ],
