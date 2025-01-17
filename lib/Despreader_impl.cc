@@ -18,6 +18,19 @@
  * Boston, MA 02110-1301, USA.
  */
 
+// 3
+#define BIT_PN_NAT 1<<7 
+#define BIT_PN_INV 0<<7
+#define BIT_PN0 0<<6
+#define BIT_PN1 1<<6
+#define BIT_PN_MSH 1<<5
+#define BIT_PN_LSH 0<<5
+
+#define PN_COMBO (BIT_PN0 ^ BIT_PN1 ^ BIT_PN_NAT ^ BIT_PN_INV ^ BIT_PN_MSH ^ BIT_PN_LSH) 
+#if (PN_COMBO != 0b11100000)
+# error "Messed up the PN bit combos."
+#endif
+
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -180,37 +193,38 @@ namespace gr {
     // Despreads data
     // Decode for 32bit data
     int decodeByte32(uint32_t data, uint64_t pn_data0, uint64_t pn_data1){
+
       int shift;
       unsigned char threshold = 0;
-      int offset = 0b00000000;
-      shift = correlate32((~pn_data0)&0xffffffff, data, threshold);
+      int offset = BIT_PN0 | BIT_PN_NAT | BIT_PN_MSH; // 0b01100000
+      shift = correlate32((pn_data0)&0xffffffff, data, threshold);
       if(shift < 0){
-        offset = 0b00100000;
-        shift = correlate32(((~pn_data0)>>32)&0xffffffff, data, threshold);
-      }
-      if(shift < 0){
-        offset = 0b01000000;
-        shift = correlate32(pn_data0&0xffffffff, data, threshold);
-      }
-      if (shift < 0) {
-        offset = 0b01100000;
+        offset = BIT_PN0 | BIT_PN_NAT | BIT_PN_LSH; // 0b01000000
         shift = correlate32(((pn_data0)>>32)&0xffffffff, data, threshold);
       }
       if(shift < 0){
-        offset = 0b10000000;
-        shift = correlate32((~pn_data1)&0xffffffff, data, threshold);
+        offset = BIT_PN0 | BIT_PN_INV | BIT_PN_MSH; // 0b00100000
+        shift = correlate32(~(pn_data0)&0xffffffff, data, threshold);
+      }
+      if (shift < 0) {
+        offset = BIT_PN0 | BIT_PN_INV | BIT_PN_LSH; // 0b00000000
+        shift = correlate32((~(pn_data0)>>32)&0xffffffff, data, threshold);
       }
       if(shift < 0){
-        offset = 0b10100000;
-        shift = correlate32(((~pn_data1)>>32)&0xffffffff, data, threshold);
+        offset = BIT_PN1 | BIT_PN_NAT | BIT_PN_MSH; // 0b11100000
+        shift = correlate32((pn_data1)&0xffffffff, data, threshold);
       }
       if(shift < 0){
-        offset = 0b11000000;
-        shift = correlate32(pn_data1&0xffffffff, data, threshold);
-      }
-      if(shift < 0){
-        offset = 0b11100000;
+        offset = BIT_PN1 | BIT_PN_NAT | BIT_PN_LSH; // 0b11000000
         shift = correlate32(((pn_data1)>>32)&0xffffffff, data, threshold);
+      }
+      if(shift < 0){
+        offset = BIT_PN1 | BIT_PN_INV | BIT_PN_MSH; // 0b10100000
+        shift = correlate32(~(pn_data1)&0xffffffff, data, threshold);
+      }
+      if(shift < 0){
+        offset = BIT_PN1 | BIT_PN_INV | BIT_PN_LSH; // 0b10000000
+        shift = correlate32((~(pn_data1)>>32)&0xffffffff, data, threshold);
       }
         
       if(shift >= 0){
