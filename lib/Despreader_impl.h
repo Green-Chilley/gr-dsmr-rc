@@ -40,8 +40,8 @@ namespace gr {
       void crc_seed_set(uint8_t seed_MSB, uint8_t seed_LSB);
       void crc_seed_set(uint16_t seed);
       int get_next_channel(int current);
-      uint16_t crc_calc(uint16_t data[8], uint8_t length, uint16_t seed, bool reverse);
-      uint16_t crc_seed_find(uint16_t data[8], uint8_t length, uint16_t transmitted);
+      uint16_t crc_calc(uint16_t data[4], uint8_t length, uint16_t seed, bool reverse);
+      uint16_t crc_seed_find(uint16_t data[4], uint8_t length, uint16_t transmitted);
 
 
 
@@ -51,7 +51,7 @@ namespace gr {
       pmt::pmt_t d_pdu_vector;
       gr::types::vector_type d_type;
       uint8_t d_channels[23];
-      uint16_t d_data_chunks[4], d_crc_recieved=0;
+      uint16_t d_data_chunks[8], d_crc_recieved=0;
       uint16_t d_high_reminder, d_reminder;
       uint16_t mfg_id[4];
       uint16_t sum;

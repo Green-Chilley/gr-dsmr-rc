@@ -19,12 +19,20 @@
  */
 
 // 3
-#define BIT_PN_NAT 1<<7 
+// #define BIT_PN_NAT 1<<7 
+// #define BIT_PN_INV 0<<7
+// #define BIT_PN0 0<<6
+// #define BIT_PN1 1<<6
+// #define BIT_PN_MSH 0<<5
+// #define BIT_PN_LSH 1<<5
+
+// 4
+#define BIT_PN_NAT 1<<7
 #define BIT_PN_INV 0<<7
-#define BIT_PN0 0<<6
-#define BIT_PN1 1<<6
-#define BIT_PN_MSH 1<<5
-#define BIT_PN_LSH 0<<5
+#define BIT_PN_MSH 0<<6
+#define BIT_PN_LSH 1<<6
+#define BIT_PN0 0<<5
+#define BIT_PN1 1<<5
 
 #define PN_COMBO (BIT_PN0 ^ BIT_PN1 ^ BIT_PN_NAT ^ BIT_PN_INV ^ BIT_PN_MSH ^ BIT_PN_LSH) 
 #if (PN_COMBO != 0b11100000)
@@ -155,7 +163,7 @@ namespace gr {
             count2++;
           }
         }
-        int bestMatch = std::max(count, count2);
+        unsigned int bestMatch = std::max(count, count2);
         if(bestMatch >= threshold){ // compare both counts and check if one of them for best match
           // printf("Good match found. Match: %d\n", bestMatch);
           if(bestMatch == count)
@@ -195,38 +203,37 @@ namespace gr {
     int decodeByte32(uint32_t data, uint64_t pn_data0, uint64_t pn_data1){
 
       int shift;
-      unsigned char threshold = 0;
+      unsigned char threshold = 4;
       int offset = BIT_PN0 | BIT_PN_NAT | BIT_PN_MSH; // 0b01100000
-      shift = correlate32((pn_data0)&0xffffffff, data, threshold);
+      shift = correlate32(((pn_data0)>>32)&0xffffffff, data, threshold);
       if(shift < 0){
         offset = BIT_PN0 | BIT_PN_NAT | BIT_PN_LSH; // 0b01000000
-        shift = correlate32(((pn_data0)>>32)&0xffffffff, data, threshold);
+        shift = correlate32((pn_data0)&0xffffffff, data, threshold);
+        if(shift < 0){
+          offset = BIT_PN0 | BIT_PN_INV | BIT_PN_MSH; // 0b00100000
+          shift = correlate32((~(pn_data0)>>32)&0xffffffff, data, threshold);
+          if (shift < 0) {
+            offset = BIT_PN0 | BIT_PN_INV | BIT_PN_LSH; // 0b00000000
+            shift = correlate32(~(pn_data0)&0xffffffff, data, threshold);
+            if(shift < 0){
+              offset = BIT_PN1 | BIT_PN_NAT | BIT_PN_MSH; // 0b11100000
+              shift = correlate32(((pn_data1)>>32)&0xffffffff, data, threshold);
+              if(shift < 0){
+                offset = BIT_PN1 | BIT_PN_NAT | BIT_PN_LSH; // 0b11000000
+                shift = correlate32((pn_data1)&0xffffffff, data, threshold);
+                if(shift < 0){
+                  offset = BIT_PN1 | BIT_PN_INV | BIT_PN_MSH; // 0b10100000
+                  shift = correlate32((~(pn_data1)>>32)&0xffffffff, data, threshold);
+                  if(shift < 0){
+                    offset = BIT_PN1 | BIT_PN_INV | BIT_PN_LSH; // 0b10000000
+                    shift = correlate32(~(pn_data1)&0xffffffff, data, threshold);
+                  }                  
+                }                
+              }      
+            }
+          }
+        }
       }
-      if(shift < 0){
-        offset = BIT_PN0 | BIT_PN_INV | BIT_PN_MSH; // 0b00100000
-        shift = correlate32(~(pn_data0)&0xffffffff, data, threshold);
-      }
-      if (shift < 0) {
-        offset = BIT_PN0 | BIT_PN_INV | BIT_PN_LSH; // 0b00000000
-        shift = correlate32((~(pn_data0)>>32)&0xffffffff, data, threshold);
-      }
-      if(shift < 0){
-        offset = BIT_PN1 | BIT_PN_NAT | BIT_PN_MSH; // 0b11100000
-        shift = correlate32((pn_data1)&0xffffffff, data, threshold);
-      }
-      if(shift < 0){
-        offset = BIT_PN1 | BIT_PN_NAT | BIT_PN_LSH; // 0b11000000
-        shift = correlate32(((pn_data1)>>32)&0xffffffff, data, threshold);
-      }
-      if(shift < 0){
-        offset = BIT_PN1 | BIT_PN_INV | BIT_PN_MSH; // 0b10100000
-        shift = correlate32(~(pn_data1)&0xffffffff, data, threshold);
-      }
-      if(shift < 0){
-        offset = BIT_PN1 | BIT_PN_INV | BIT_PN_LSH; // 0b10000000
-        shift = correlate32((~(pn_data1)>>32)&0xffffffff, data, threshold);
-      }
-        
       if(shift >= 0){
         return shift + offset;
       }
@@ -545,7 +552,7 @@ namespace gr {
           length = decoded;
         }
         else{
-          if(i < (4* (16+1))){             //16 bytes of data, each made from 8 bytes of chips and offset of one byte for the length byte
+          if(i < (4* (16+1))){             //16 bytes of data, each made from 4 bytes of chips and offset of one byte for the length byte
             if (i % (4*2) != 0)       //We want to regroup data 2 bytes by 2 bytes, stating after the first byte of length
               d_data_chunks[i / (4*2)] = decoded;
             else
@@ -563,7 +570,7 @@ namespace gr {
       // }
 
       //-----------Print channel data
-      for(int i=1;i<4;i++){
+      for(int i=1;i<8;i++){
         printf("Packet: %u, Channel: %u, Value: %f\n", d_data_chunks[i]>>15, (d_data_chunks[i]>>11) & 0xF, ((d_data_chunks[i] & 0x7FF)/1024.0) - 1);
         printf("DSMR interpretation Channel: %u, Value: %d\n", (d_data_chunks[i]>>12) & 0xF, (d_data_chunks[i] & 0xFFF) - 2048);
         printf("Raw data: %X\n", d_data_chunks[i]);
@@ -592,7 +599,7 @@ namespace gr {
         // These two lines don't actually matter
         d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Radio id1"), pmt::mp(/*id_bytes01*/firstId)); // original id = 0x49B6
         d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Radio id2"), pmt::mp(/*d_data_chunks[0]*/secondId));
-        for (size_t i = 1; i < 4; i++) {
+        for (size_t i = 1; i < 8; i++) {
           char string[5];
           sprintf(string, "%d %d", (d_data_chunks[i]>>15), ((d_data_chunks[i]>>11) & 0xF));
           d_pdu_meta = dict_add(d_pdu_meta, pmt::intern(string), pmt::mp(d_data_chunks[i] & 0x7FF));
@@ -636,7 +643,14 @@ namespace gr {
             printf("seed: %04X\n", seed);
             crc = Despreader_impl::crc_calc(data,length, seed, false);
             printf("crc1 False: %04X\n", crc);
-            //printf("Calculated: %04X \n", crc);
+            //printf("Calculated: %04X \n", crc); 
+
+            // printf("******************\n");
+            // printf("Reverse bytes: %04X\n", Despreader_impl::reverse_bytes(crc));
+            // printf("Reverse bits in bytes: %04X\n", Despreader_impl::reverse_bits_in_bytes(crc));
+            // printf("Reverse all: %04X\n", Despreader_impl::reverse_all(crc));
+            // printf("******************\n");
+
             if(transmitted == crc ){
               printf("Found01! : %02X%02X\n", id_byte1,id_byte0);
               //return ((id_byte0<<8) | id_byte1);
@@ -656,6 +670,14 @@ namespace gr {
 
             crc = ~Despreader_impl::crc_calc(data,length, seed, true);
             printf("Calculated: %04X \n", crc);
+
+            // printf("******************\n");
+            // printf("Reverse bytes: %04X\n", Despreader_impl::reverse_bytes(crc));
+            // printf("Reverse bits in bytes: %04X\n", Despreader_impl::reverse_bits_in_bytes(crc));
+            // printf("Reverse all: %04X\n", Despreader_impl::reverse_all(crc));
+            // printf("******************\n");
+
+
             if(transmitted == crc ){
               printf("Found11! : %02X%02X\n", id_byte1,id_byte0);
               //return ((id_byte0<<8) | id_byte1);
@@ -677,6 +699,14 @@ namespace gr {
             printf("seed: %04X\n", seed);
             crc = Despreader_impl::crc_calc(data,length, seed, false);
             printf("Calculated False: %04X \n", crc);
+
+            // printf("******************\n");
+            // printf("Reverse bytes: %04X\n", Despreader_impl::reverse_bytes(crc));
+            // printf("Reverse bits in bytes: %04X\n", Despreader_impl::reverse_bits_in_bytes(crc));
+            // printf("Reverse all: %04X\n", Despreader_impl::reverse_all(crc));
+            // printf("******************\n");
+
+
             if(transmitted == crc ){
               printf("Found05! : %02X%02X\n", id_byte1,id_byte0);
               //return ((id_byte0<<8) | id_byte1);
@@ -696,6 +726,14 @@ namespace gr {
 
             crc = ~Despreader_impl::crc_calc(data,length, seed, true);
             printf("Calculated: %04X \n", crc);
+
+            // printf("******************\n");
+            // printf("Reverse bytes: %04X\n", Despreader_impl::reverse_bytes(crc));
+            // printf("Reverse bits in bytes: %04X\n", Despreader_impl::reverse_bits_in_bytes(crc));
+            // printf("Reverse all: %04X\n", Despreader_impl::reverse_all(crc));
+            // printf("******************\n");
+
+
             if(transmitted == crc ){
               printf("Found15! : %02X%02X\n", id_byte1,id_byte0);
               //return ((id_byte0<<8) | id_byte1);
@@ -755,14 +793,14 @@ namespace gr {
         } else {
           data_bit = 0;
         }
-        d_high_reminder = (d_reminder & 0x8000) >> 15;
-        d_reminder = (d_reminder << 1) & 0xFFFE;
+        d_high_reminder = (d_reminder & 0x8000) >> 15; // get high order bit of remainder
+        d_reminder = (d_reminder << 1) & 0xFFFE; // shift left one bit and set low order bit to 0
 
 
-        xored = data_bit ^ d_high_reminder;
+        xored = data_bit ^ d_high_reminder; // the high order bit of the current remainder is xored with every data bit sent or received
         d_reminder = d_reminder | xored;
         if( xored ){  //Check if current bit XOR high reminder is 1
-          d_reminder = d_reminder ^ 0x8005;             //XOR with generator polynomial
+          d_reminder = d_reminder ^ 0x8005;             //XOR with generator polynomial 
         }
       }
     }
