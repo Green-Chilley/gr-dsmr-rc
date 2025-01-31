@@ -115,11 +115,11 @@ namespace gr {
                       // printf("Error calculated: %d\n", error);
                     }
                     if( error <= d_error_threshold){    //Good pn code Found, we now know what column is used and what offset is good to decode
-                      printf("Good pn code: ");
-                      for (int i=0; i<8; i++) {
-                        printf("0x%02x, ", sopRecieved[i]);
-                      }
-                      printf("\n");
+                      // printf("Good pn code: ");
+                      // for (int i=0; i<8; i++) {
+                      //   printf("0x%02x, ", sopRecieved[i]);
+                      // }
+                      // printf("\n");
                       d_column = x;
                       d_offset = offset;
                       d_state++;
@@ -137,9 +137,8 @@ namespace gr {
               break;
             case 1: //Check correct data rate ( find NOT(SOP) ) 
 
-            // EDIT BY LEO
             // We found out that the 2nd SOP symbol is not inverted, so we can proceed with this section by just finding the SOP without the NOT.
-            // DSMR possibly sends 2 SOPs without inverting the 2nd one?
+            // DSMR possibly sends 2 SOPs without inverting the 2nd one, meaning it uses a decoding scheme of 8-bit data rate for 32-bit chips
 
               if (d_samples_processed - d_offset > 64 + 4) { //Saut de 4 bits
                 d_sopBuffer[d_offset][(d_samples_processed - d_offset-4)/8] = (d_sopBuffer[d_offset][(d_samples_processed - d_offset-4)/8] << 1) | in[i];

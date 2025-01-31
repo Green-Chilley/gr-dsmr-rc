@@ -43,11 +43,11 @@ Recieves decoded data, prints it, follows the channel sequence and sweeps channe
     def chanChangeCallback(self, msg):
         string = ''
         meta = pmt.car(msg) #Extract the metadata
-        self.next_channel = pmt.to_python(pmt.dict_ref(meta,pmt.intern("Next channel"),pmt.PMT_NIL))
-        self.top_block.set_channel(self.next_channel)   #This call should be done as soon as possible to avoid issues with channel switch delays
+        #self.next_channel = pmt.to_python(pmt.dict_ref(meta,pmt.intern("Next channel"),pmt.PMT_NIL))
+        #self.top_block.set_channel(self.next_channel)   #This call should be done as soon as possible to avoid issues with channel switch delays
 
         radio_id1 = pmt.to_python(pmt.dict_ref(meta,pmt.intern("Radio id1"),pmt.PMT_NIL))
-        radio_id1 = pmt.to_python(pmt.dict_ref(meta,pmt.intern("Radio id1"),pmt.PMT_NIL))
+        radio_id2 = pmt.to_python(pmt.dict_ref(meta,pmt.intern("Radio id2"),pmt.PMT_NIL))
         data = pmt.cdr(msg)         #Data should contain a 23 byte array with the channel sequence to follow.
         if not pmt.is_u8vector(data):
             print('Invalid message type')
@@ -57,13 +57,17 @@ Recieves decoded data, prints it, follows the channel sequence and sweeps channe
             self.window.detectedLabel.config(text = string)
         string = ''
         for i in range(0,7):
-            tmp = pmt.to_python(pmt.dict_ref(meta,pmt.intern("0 "+str(i)),pmt.PMT_NIL))
+            #tmp = pmt.to_python(pmt.dict_ref(meta,pmt.intern("0 "+str(i)),pmt.PMT_NIL))
+            #if tmp:
+            #    self.channel_data[0][i] = tmp
+            #tmp = pmt.to_python(pmt.dict_ref(meta,pmt.intern("1 "+str(i)),pmt.PMT_NIL))     #Extract data coming from a potential 2nd packed (if more than 7 channels are being transmitted) unused
+            tmp = pmt.to_python(pmt.dict_ref(meta,pmt.intern(str(i)),pmt.PMT_NIL))
+            # print(str(i) +" " + str(tmp) + " ")
             if tmp:
-                self.channel_data[0][i] = tmp
-            tmp = pmt.to_python(pmt.dict_ref(meta,pmt.intern("1 "+str(i)),pmt.PMT_NIL))     #Extract data coming from a potential 2nd packed (if more than 7 channels are being transmitted) unused
-            if tmp:
-                self.channel_data[1][i] = tmp
-            string = string + "CH" + str(i) + ": " + '{:03.2f}'.format((self.channel_data[0][i]/1024.0) -1) + " | "
+                self.channel_data[0][i] = int(tmp)
+            else:
+                self.channel_data[0][i] = 8192
+            string = string + "CH" + str(i) + " ID " + str(int(self.channel_data[0][i]) >> 12) + ": " + '{:03.2f}'.format(((int(self.channel_data[0][i]) & 0xfff)/2048.0) -1) + " | "
         self.window.channelInfoLabel.config(text = string)      #update GUI
         self.has_detected_signal = True
 

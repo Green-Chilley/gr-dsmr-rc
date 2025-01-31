@@ -120,6 +120,24 @@ blocks:
     coordinate: [344, 352.0]
     rotation: 0
     state: enabled
+- name: high_taps
+  id: variable_low_pass_filter_taps
+  parameters:
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: 800e3
+    gain: '1.0'
+    samp_rate: samp_rate
+    value: ''
+    width: 400e3
+    win: window.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [464, 1396.0]
+    rotation: 0
+    state: disabled
 - name: intermediate_samp_rate
   id: variable
   parameters:
@@ -132,6 +150,24 @@ blocks:
     coordinate: [16, 488.0]
     rotation: 0
     state: enabled
+- name: low_taps
+  id: variable_low_pass_filter_taps
+  parameters:
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: 800e3
+    gain: '1.0'
+    samp_rate: samp_rate
+    value: ''
+    width: 400e3
+    win: window.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [544, 876.0]
+    rotation: 0
+    state: disabled
 - name: max_intensity
   id: variable_qtgui_range
   parameters:
@@ -226,7 +262,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: 25e6
+    value: 10e6
   states:
     bus_sink: false
     bus_source: false
@@ -292,7 +328,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [528, 8.0]
+    coordinate: [536, 8.0]
     rotation: 0
     state: enabled
 - name: analog_quadrature_demod_cf_1
@@ -308,9 +344,41 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [424, 200.0]
+    coordinate: [464, 184.0]
     rotation: 0
     state: enabled
+- name: analog_quadrature_demod_cf_1_0
+  id: analog_quadrature_demod_cf
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain: samp_rate/(2*math.pi*f_deviation)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [720, 784.0]
+    rotation: 0
+    state: disabled
+- name: analog_quadrature_demod_cf_1_0_0
+  id: analog_quadrature_demod_cf
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain: samp_rate/(2*math.pi*f_deviation)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [704, 1264.0]
+    rotation: 0
+    state: disabled
 - name: blocks_char_to_float_0_1
   id: blocks_char_to_float
   parameters:
@@ -328,6 +396,40 @@ blocks:
     coordinate: [1056.0, 112]
     rotation: 270
     state: enabled
+- name: blocks_char_to_float_0_1_0
+  id: blocks_char_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1400.0, 904]
+    rotation: 270
+    state: disabled
+- name: blocks_char_to_float_0_1_0_0
+  id: blocks_char_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1304.0, 1480]
+    rotation: 270
+    state: disabled
 - name: blocks_file_sink_0
   id: blocks_file_sink
   parameters:
@@ -409,25 +511,29 @@ blocks:
       \        self.startup = True\n        self.next_channel = 3\n\n\n        \"\"\
       \"Called when a decoded packet is recieved\"\"\"\n    def chanChangeCallback(self,\
       \ msg):\n        string = ''\n        meta = pmt.car(msg) #Extract the metadata\n\
-      \        self.next_channel = pmt.to_python(pmt.dict_ref(meta,pmt.intern(\"Next\
-      \ channel\"),pmt.PMT_NIL))\n        self.top_block.set_channel(self.next_channel)\
+      \        #self.next_channel = pmt.to_python(pmt.dict_ref(meta,pmt.intern(\"\
+      Next channel\"),pmt.PMT_NIL))\n        #self.top_block.set_channel(self.next_channel)\
       \   #This call should be done as soon as possible to avoid issues with channel\
       \ switch delays\n\n        radio_id1 = pmt.to_python(pmt.dict_ref(meta,pmt.intern(\"\
-      Radio id1\"),pmt.PMT_NIL))\n        radio_id1 = pmt.to_python(pmt.dict_ref(meta,pmt.intern(\"\
-      Radio id1\"),pmt.PMT_NIL))\n        data = pmt.cdr(msg)         #Data should\
+      Radio id1\"),pmt.PMT_NIL))\n        radio_id2 = pmt.to_python(pmt.dict_ref(meta,pmt.intern(\"\
+      Radio id2\"),pmt.PMT_NIL))\n        data = pmt.cdr(msg)         #Data should\
       \ contain a 23 byte array with the channel sequence to follow.\n        if not\
       \ pmt.is_u8vector(data):\n            print('Invalid message type')\n      \
       \      return\n        for item in pmt.to_python(data):\n            string\
       \ = string + str(item) + ' '               #update GUI\n            self.window.detectedLabel.config(text\
       \ = string)\n        string = ''\n        for i in range(0,7):\n           \
-      \ tmp = pmt.to_python(pmt.dict_ref(meta,pmt.intern(\"0 \"+str(i)),pmt.PMT_NIL))\n\
-      \            if tmp:\n                self.channel_data[0][i] = tmp\n      \
-      \      tmp = pmt.to_python(pmt.dict_ref(meta,pmt.intern(\"1 \"+str(i)),pmt.PMT_NIL))\
+      \ #tmp = pmt.to_python(pmt.dict_ref(meta,pmt.intern(\"0 \"+str(i)),pmt.PMT_NIL))\n\
+      \            #if tmp:\n            #    self.channel_data[0][i] = tmp\n    \
+      \        #tmp = pmt.to_python(pmt.dict_ref(meta,pmt.intern(\"1 \"+str(i)),pmt.PMT_NIL))\
       \     #Extract data coming from a potential 2nd packed (if more than 7 channels\
-      \ are being transmitted) unused\n            if tmp:\n                self.channel_data[1][i]\
-      \ = tmp\n            string = string + \"CH\" + str(i) + \": \" + '{:03.2f}'.format((self.channel_data[0][i]/1024.0)\
-      \ -1) + \" | \"\n        self.window.channelInfoLabel.config(text = string)\
-      \      #update GUI\n        self.has_detected_signal = True\n\n    \"\"\"Called\
+      \ are being transmitted) unused\n            tmp = pmt.to_python(pmt.dict_ref(meta,pmt.intern(str(i)),pmt.PMT_NIL))\n\
+      \            # print(str(i) +\" \" + str(tmp) + \" \")\n            if tmp:\n\
+      \                self.channel_data[0][i] = int(tmp)\n            else:\n   \
+      \             self.channel_data[0][i] = 8192\n            string = string +\
+      \ \"CH\" + str(i) + \" ID \" + str(int(self.channel_data[0][i]) >> 12) + \"\
+      : \" + '{:03.2f}'.format(((int(self.channel_data[0][i]) & 0xfff)/2048.0) -1)\
+      \ + \" | \"\n        self.window.channelInfoLabel.config(text = string)    \
+      \  #update GUI\n        self.has_detected_signal = True\n\n    \"\"\"Called\
       \ once a second\"\"\"\n    def set_top_block(self):\n        prev_frame = inspect.currentframe().f_back\n\
       \        block = prev_frame.f_locals[\"self\"]\n        if self.startup:   \
       \                 #Inititalize. If done in the __init__ function, GRC will try\
@@ -470,7 +576,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1320, 224.0]
+    coordinate: [1472, 128.0]
     rotation: 0
     state: enabled
 - name: digital_binary_slicer_fb_1
@@ -488,6 +594,36 @@ blocks:
     coordinate: [824.0, 120]
     rotation: 90
     state: enabled
+- name: digital_binary_slicer_fb_1_0
+  id: digital_binary_slicer_fb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1192, 752.0]
+    rotation: 0
+    state: disabled
+- name: digital_binary_slicer_fb_1_0_0
+  id: digital_binary_slicer_fb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1096, 1328.0]
+    rotation: 0
+    state: disabled
 - name: digital_correlate_access_code_tag_xx_0
   id: digital_correlate_access_code_tag_xx
   parameters:
@@ -507,6 +643,44 @@ blocks:
     coordinate: [904, 8.0]
     rotation: 0
     state: true
+- name: digital_correlate_access_code_tag_xx_0_0
+  id: digital_correlate_access_code_tag_xx
+  parameters:
+    access_code: '1100110011001100110011001100110011001100110011001100110011001100'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tagname: PreambleFound
+    threshold: '8'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1336, 704.0]
+    rotation: 0
+    state: disabled
+- name: digital_correlate_access_code_tag_xx_0_0_0
+  id: digital_correlate_access_code_tag_xx
+  parameters:
+    access_code: '1100110011001100110011001100110011001100110011001100110011001100'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tagname: PreambleFound
+    threshold: '8'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1240, 1280.0]
+    rotation: 0
+    state: disabled
 - name: digital_symbol_sync_xx_0
   id: digital_symbol_sync_xx
   parameters:
@@ -531,9 +705,63 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [584, 236.0]
+    coordinate: [584, 228.0]
     rotation: 0
     state: enabled
+- name: digital_symbol_sync_xx_0_0
+  id: digital_symbol_sync_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    constellation: digital.constellation_bpsk().base()
+    damping: '1.0'
+    loop_bw: '0.045'
+    max_dev: '0.005'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nfilters: '128'
+    osps: '1'
+    pfb_mf_taps: '[]'
+    resamp_type: digital.IR_MMSE_8TAP
+    sps: sps
+    ted_gain: '0.1'
+    ted_type: digital.TED_MUELLER_AND_MULLER
+    type: ff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [912, 780.0]
+    rotation: 0
+    state: disabled
+- name: digital_symbol_sync_xx_0_0_0
+  id: digital_symbol_sync_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    constellation: digital.constellation_bpsk().base()
+    damping: '1.0'
+    loop_bw: '0.045'
+    max_dev: '0.005'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nfilters: '128'
+    osps: '1'
+    pfb_mf_taps: '[]'
+    resamp_type: digital.IR_MMSE_8TAP
+    sps: sps
+    ted_gain: '0.1'
+    ted_type: digital.TED_MUELLER_AND_MULLER
+    type: ff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [808, 1332.0]
+    rotation: 0
+    state: disabled
 - name: dsmx_Despreader_0
   id: dsmx_Despreader
   parameters:
@@ -549,6 +777,36 @@ blocks:
     coordinate: [1248, 176.0]
     rotation: 0
     state: enabled
+- name: dsmx_Despreader_0_0
+  id: dsmx_Despreader
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1632, 784.0]
+    rotation: 0
+    state: disabled
+- name: dsmx_Despreader_0_0_0
+  id: dsmx_Despreader
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1536, 1360.0]
+    rotation: 0
+    state: disabled
 - name: dsmx_bindListener_0
   id: dsmx_bindListener
   parameters:
@@ -578,6 +836,91 @@ blocks:
     coordinate: [1152, 96.0]
     rotation: 0
     state: enabled
+- name: dsmx_preambleDetection_0_0
+  id: dsmx_preambleDetection
+  parameters:
+    affinity: ''
+    alias: ''
+    channel: channel-1
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1512, 880.0]
+    rotation: 0
+    state: disabled
+- name: dsmx_preambleDetection_0_0_0
+  id: dsmx_preambleDetection
+  parameters:
+    affinity: ''
+    alias: ''
+    channel: channel+1
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1416, 1456.0]
+    rotation: 0
+    state: disabled
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\nimport pmt\nimport csv\nimport time\nimport os\n\n\
+      class blk(gr.sync_block):  # other base classes are basic_block, decim_block,\
+      \ interp_block\n    \"\"\"A python block that takes in values from channels\
+      \ and outputs them as a graph\"\"\"\n\n    def __init__(self, param=1):  # only\
+      \ default arguments here\n        \"\"\"arguments to this function show up as\
+      \ parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n            self,\n\
+      \            name='Graph',   # will show up in GRC\n            in_sig=[],\n\
+      \            out_sig = []\n        )\n        # if an attribute with the same\
+      \ name as a parameter is found,\n        # a callback is registered (properties\
+      \ work, too).\n        self.param = param\n        self.message_port_register_in(pmt.intern(\"\
+      Value\"))\n        self.set_msg_handler(pmt.intern(\"Value\"), self.graph_values)\n\
+      \        self.channel_data = np.zeros((2,7))\n        self.header_written =\
+      \ False\n        self.start_time = time.time()\n\n    def elapsed_time(self):\n\
+      \        curr_time = time.time() - self.start_time\n        return (curr_time)\n\
+      \    \n    def graph_values(self, msg):\n        meta = pmt.car(msg)\n     \
+      \   data = pmt.cdr(msg)\n        if not pmt.is_u8vector(data):\n           \
+      \ print(\"Invalid message type\")\n            return\n        path = 'channel_data.csv2'\n\
+      \        with open(path, 'a+', newline='', encoding='utf-8') as channel_csv:\n\
+      \            c = csv.writer(channel_csv)\n            if not self.header_written:\n\
+      \                c.writerow( ['CH0', 'CH1', 'CH2', 'CH3', 'CH4', 'CH5', 'CH6',\
+      \ 'Time'] )\n                self.header_written = True\n            for i in\
+      \ range(0,7):\n                tmp = pmt.to_python(pmt.dict_ref(meta, pmt.intern(str(i)),\
+      \ pmt.PMT_NIL))\n                if tmp:\n                    self.channel_data[0][i]\
+      \ = int(tmp)\n                else:\n                    self.channel_data[0][i]\
+      \ = 8192\n            curr_time = self.elapsed_time()\n\n            the_data\
+      \ = list()\n            for i in range(0,7):\n                the_data.append('{:03.2f}'.format(((int(self.channel_data[0][i])\
+      \ & 0xfff)/2048.0) -1))\n            the_data.append(curr_time)\n          \
+      \  c.writerow(the_data)\n\n    def work(self, input_items, output_items):\n\
+      \        \"\"\"example: multiply with constant\"\"\"\n        output_items[0][:]\
+      \ = input_items[0] * self.param\n        return len(output_items[0])\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    param: '1'
+  states:
+    _io_cache: ('Graph', 'blk', [('param', '1')], [('Value', 'message', 1)], [], 'A
+      python block that takes in values from channels and outputs them as a graph',
+      ['param'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1424, 224.0]
+    rotation: 0
+    state: disabled
 - name: fosphor_glfw_sink_c_0
   id: fosphor_glfw_sink_c
   parameters:
@@ -613,6 +956,46 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [320, 272.0]
+    rotation: 0
+    state: disabled
+- name: freq_xlating_fir_filter_xxx_0
+  id: freq_xlating_fir_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    center_freq: -2e6
+    comment: ''
+    decim: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate
+    taps: low_taps
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [440, 736.0]
+    rotation: 0
+    state: disabled
+- name: freq_xlating_fir_filter_xxx_0_0
+  id: freq_xlating_fir_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    center_freq: 2e6
+    comment: ''
+    decim: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate
+    taps: high_taps
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [448, 1232.0]
     rotation: 0
     state: disabled
 - name: import_0
@@ -674,7 +1057,7 @@ blocks:
     alias: ''
     beta: '6.76'
     comment: ''
-    cutoff_freq: 0.8e6
+    cutoff_freq: 0.6e6
     decim: '1'
     gain: '1'
     interp: '1'
@@ -688,7 +1071,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [272, 236.0]
+    coordinate: [312, 164.0]
     rotation: 0
     state: enabled
 - name: qtgui_ledindicator_0
@@ -739,7 +1122,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [360, 80.0]
+    coordinate: [400, 64.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0
@@ -836,7 +1219,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [528, 120.0]
+    coordinate: [600, 128.0]
     rotation: 0
     state: disabled
 - name: qtgui_time_sink_x_1_1
@@ -874,8 +1257,8 @@ blocks:
     label1: Recovered Bits
     label10: ''
     label2: Raw Data
-    label3: ''
-    label4: ''
+    label3: RX bits
+    label4: RX raw
     label5: ''
     label6: ''
     label7: ''
@@ -895,7 +1278,7 @@ blocks:
     name: '"DSMR Signal"'
     nconnections: '2'
     size: '12000'
-    srate: gui_samp_rate
+    srate: 1e6
     stemplot: 'False'
     style1: '1'
     style10: '1'
@@ -933,9 +1316,203 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1272, 304.0]
+    coordinate: [1560, 296.0]
     rotation: 0
     state: enabled
+- name: qtgui_time_sink_x_1_1_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'True'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Recovered Bits
+    label10: ''
+    label2: Raw Data
+    label3: RX bits
+    label4: RX raw
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '"rx low Signal"'
+    nconnections: '2'
+    size: '12000'
+    srate: 1e6
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '.0001'
+    tr_level: '1.5'
+    tr_mode: qtgui.TRIG_MODE_TAG
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '"PreambleFound"'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '1'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1136, 1064.0]
+    rotation: 0
+    state: disabled
+- name: qtgui_time_sink_x_1_1_0_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'True'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Recovered Bits
+    label10: ''
+    label2: Raw Data
+    label3: RX bits
+    label4: RX raw
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '"rx high Signal"'
+    nconnections: '2'
+    size: '12000'
+    srate: 1e6
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '.0001'
+    tr_level: '1.5'
+    tr_mode: qtgui.TRIG_MODE_TAG
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '"PreambleFound"'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '1'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1576, 1056.0]
+    rotation: 0
+    state: disabled
 - name: qtgui_waterfall_sink_x_1
   id: qtgui_waterfall_sink_x
   parameters:
@@ -1464,7 +2041,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [32, 128.0]
+    coordinate: [40, 176.0]
     rotation: 0
     state: enabled
 - name: virtual_sink_0
@@ -1477,9 +2054,35 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 280.0]
+    coordinate: [904, 304.0]
     rotation: 0
     state: enabled
+- name: virtual_sink_0_0
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: symbol_sync-RX-low
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1152, 976.0]
+    rotation: 0
+    state: disabled
+- name: virtual_sink_0_0_0
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: symbol_sync-RX-high
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1056, 1552.0]
+    rotation: 0
+    state: disabled
 - name: virtual_sink_1
   id: virtual_sink
   parameters:
@@ -1490,9 +2093,35 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 224.0]
+    coordinate: [904, 224.0]
     rotation: 180
     state: enabled
+- name: virtual_sink_1_0
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: preamble-RX-low
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1200, 904.0]
+    rotation: 180
+    state: disabled
+- name: virtual_sink_1_0_0
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: preamble-RX-high
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1104, 1480.0]
+    rotation: 180
+    state: disabled
 - name: virtual_source_0
   id: virtual_source
   parameters:
@@ -1503,7 +2132,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1056, 304.0]
+    coordinate: [1184, 256.0]
     rotation: 0
     state: enabled
 - name: virtual_source_0_0
@@ -1517,6 +2146,32 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [1056, 408.0]
+    rotation: 0
+    state: disabled
+- name: virtual_source_0_1
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: preamble-RX-low
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [928, 1056.0]
+    rotation: 0
+    state: disabled
+- name: virtual_source_0_1_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: preamble-RX-high
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1320, 1048.0]
     rotation: 0
     state: disabled
 - name: virtual_source_0_2
@@ -1542,9 +2197,22 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1040, 352.0]
+    coordinate: [1168, 312.0]
     rotation: 0
     state: enabled
+- name: virtual_source_1_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: symbol_sync-RX-low
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [880, 1120.0]
+    rotation: 0
+    state: disabled
 - name: virtual_source_1_0_0
   id: virtual_source
   parameters:
@@ -1556,6 +2224,19 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [1040, 456.0]
+    rotation: 0
+    state: disabled
+- name: virtual_source_1_0_1
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: symbol_sync-RX-high
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1320, 1112.0]
     rotation: 0
     state: disabled
 - name: virtual_source_1_1
@@ -1575,26 +2256,53 @@ blocks:
 connections:
 - [analog_quadrature_demod_cf_1, '0', digital_symbol_sync_xx_0, '0']
 - [analog_quadrature_demod_cf_1, '0', qtgui_time_sink_x_0, '0']
+- [analog_quadrature_demod_cf_1_0, '0', digital_symbol_sync_xx_0_0, '0']
+- [analog_quadrature_demod_cf_1_0_0, '0', digital_symbol_sync_xx_0_0_0, '0']
 - [blocks_char_to_float_0_1, '0', virtual_sink_1, '0']
+- [blocks_char_to_float_0_1_0, '0', virtual_sink_1_0, '0']
+- [blocks_char_to_float_0_1_0_0, '0', virtual_sink_1_0_0, '0']
 - [digital_binary_slicer_fb_1, '0', digital_correlate_access_code_tag_xx_0, '0']
+- [digital_binary_slicer_fb_1_0, '0', digital_correlate_access_code_tag_xx_0_0, '0']
+- [digital_binary_slicer_fb_1_0_0, '0', digital_correlate_access_code_tag_xx_0_0_0,
+  '0']
 - [digital_correlate_access_code_tag_xx_0, '0', blocks_char_to_float_0_1, '0']
 - [digital_correlate_access_code_tag_xx_0, '0', dsmx_bindListener_0, '0']
 - [digital_correlate_access_code_tag_xx_0, '0', dsmx_preambleDetection_0, '0']
+- [digital_correlate_access_code_tag_xx_0_0, '0', blocks_char_to_float_0_1_0, '0']
+- [digital_correlate_access_code_tag_xx_0_0, '0', dsmx_preambleDetection_0_0, '0']
+- [digital_correlate_access_code_tag_xx_0_0_0, '0', blocks_char_to_float_0_1_0_0,
+  '0']
+- [digital_correlate_access_code_tag_xx_0_0_0, '0', dsmx_preambleDetection_0_0_0,
+  '0']
 - [digital_symbol_sync_xx_0, '0', digital_binary_slicer_fb_1, '0']
 - [digital_symbol_sync_xx_0, '0', virtual_sink_0, '0']
+- [digital_symbol_sync_xx_0_0, '0', digital_binary_slicer_fb_1_0, '0']
+- [digital_symbol_sync_xx_0_0, '0', virtual_sink_0_0, '0']
+- [digital_symbol_sync_xx_0_0_0, '0', digital_binary_slicer_fb_1_0_0, '0']
+- [digital_symbol_sync_xx_0_0_0, '0', virtual_sink_0_0_0, '0']
 - [dsmx_Despreader_0, pdus, chan_change, ChannelChange]
+- [dsmx_Despreader_0, pdus, epy_block_0, Value]
 - [dsmx_preambleDetection_0, pdus, dsmx_Despreader_0, Msg]
+- [dsmx_preambleDetection_0_0, pdus, dsmx_Despreader_0_0, Msg]
+- [dsmx_preambleDetection_0_0_0, pdus, dsmx_Despreader_0_0_0, Msg]
+- [freq_xlating_fir_filter_xxx_0, '0', analog_quadrature_demod_cf_1_0, '0']
+- [freq_xlating_fir_filter_xxx_0_0, '0', analog_quadrature_demod_cf_1_0_0, '0']
 - [low_pass_filter_0, '0', analog_quadrature_demod_cf_1, '0']
 - [uhd_usrp_source_0, '0', blocks_file_sink_0_1, '0']
 - [uhd_usrp_source_0, '0', fosphor_glfw_sink_c_0, '0']
 - [uhd_usrp_source_0, '0', fosphor_qt_sink_c_0, '0']
+- [uhd_usrp_source_0, '0', freq_xlating_fir_filter_xxx_0, '0']
+- [uhd_usrp_source_0, '0', freq_xlating_fir_filter_xxx_0_0, '0']
 - [uhd_usrp_source_0, '0', low_pass_filter_0, '0']
 - [uhd_usrp_source_0, '0', qtgui_sink_x_0, '0']
 - [virtual_source_0, '0', qtgui_time_sink_x_1_1, '0']
-- [virtual_source_0_0, '0', qtgui_waterfall_sink_x_1, '0']
+- [virtual_source_0_1, '0', qtgui_time_sink_x_1_1_0, '0']
+- [virtual_source_0_1_0, '0', qtgui_time_sink_x_1_1_0_0, '0']
 - [virtual_source_0_2, '0', blocks_file_sink_0, '0']
 - [virtual_source_1, '0', qtgui_time_sink_x_1_1, '1']
+- [virtual_source_1_0, '0', qtgui_time_sink_x_1_1_0, '1']
 - [virtual_source_1_0_0, '0', qtgui_waterfall_sink_x_1, '1']
+- [virtual_source_1_0_1, '0', qtgui_time_sink_x_1_1_0_0, '1']
 - [virtual_source_1_1, '0', blocks_file_sink_0_0, '0']
 
 metadata:

@@ -19,20 +19,21 @@
  */
 
 // 3
-// #define BIT_PN_NAT 1<<7 
-// #define BIT_PN_INV 0<<7
-// #define BIT_PN0 0<<6
-// #define BIT_PN1 1<<6
-// #define BIT_PN_MSH 0<<5
-// #define BIT_PN_LSH 1<<5
 
-// 4
-#define BIT_PN_NAT 1<<7
+#define BIT_PN_NAT 1<<7 
 #define BIT_PN_INV 0<<7
-#define BIT_PN_MSH 0<<6
-#define BIT_PN_LSH 1<<6
-#define BIT_PN0 0<<5
-#define BIT_PN1 1<<5
+#define BIT_PN0 0<<6
+#define BIT_PN1 1<<6
+#define BIT_PN_MSH 0<<5
+#define BIT_PN_LSH 1<<5
+
+// 4 potential arrangement
+// #define BIT_PN_NAT 1<<7
+// #define BIT_PN_INV 0<<7
+// #define BIT_PN_MSH 0<<6
+// #define BIT_PN_LSH 1<<6
+// #define BIT_PN0 0<<5
+// #define BIT_PN1 1<<5
 
 #define PN_COMBO (BIT_PN0 ^ BIT_PN1 ^ BIT_PN_NAT ^ BIT_PN_INV ^ BIT_PN_MSH ^ BIT_PN_LSH) 
 #if (PN_COMBO != 0b11100000)
@@ -77,6 +78,7 @@ namespace gr {
       *code = (*code << 1) | (*code >> (32-1));
     }
 
+    // Rotate each half independently to the left once
     void rotateLeftD32(uint64_t* code){
       *code = ((*code << 1) & 0xFFFFFFFEFFFFFFFE) | ((*code >> (32-1)) & 0x0000000100000001);
     }
@@ -142,18 +144,13 @@ namespace gr {
     }
 
 
-
-    //Find if data matches a given code. Outputs the number of bits the code is rotated
-
-    // compare for 32bit data
+    // Find if data matches a given code. Outputs the number of bits the code is rotated. Compare for 32bit data
     int correlate32(uint64_t code, uint32_t data, unsigned int threshold){
       threshold = 32 - threshold;
-      unsigned int count=0;
-      unsigned int count2=0;
+      unsigned int count=0, count2=0;
 
       for(int index=0; index<32;index++){
-        count = 0;
-        count2= 0;
+        count = 0, count2 = 0;
 
         for(int i = 0; i<32; i++){
           if( ((code >> i)& 1) == ((data >> i)& 1) ){
@@ -164,7 +161,7 @@ namespace gr {
           }
         }
         unsigned int bestMatch = std::max(count, count2);
-        if(bestMatch >= threshold){ // compare both counts and check if one of them for best match
+        if(bestMatch >= threshold){ // compare both counts and check one of them for best match
           // printf("Good match found. Match: %d\n", bestMatch);
           if(bestMatch == count)
             return index; // return number of bits code is rotated
@@ -200,32 +197,45 @@ namespace gr {
 
     // Despreads data
     // Decode for 32bit data
+    /* 
+      During the encoding process, 1 out of 2 pn codes are picked, denoting a bit of 0 or 1. 
+      Then, the decision is made to invert the chosen pn code or not, denoting a bit of 0 or 1. 
+      This is the process for 8 bit data rate for 64 chip encoding.
+
+      But what we found out was that DSMR uses 8 bit data rate for 32 chips, because of the
+      SOP code scheme.
+
+      So there is one more process of choosing the left or right half of the pn code, denoting a
+      bit of 0 or 1.
+
+      This is essentially what this function does for 8 bit data rate 32 chip encoding.
+    */
     int decodeByte32(uint32_t data, uint64_t pn_data0, uint64_t pn_data1){
 
       int shift;
       unsigned char threshold = 4;
-      int offset = BIT_PN0 | BIT_PN_NAT | BIT_PN_MSH; // 0b01100000
+      int offset = BIT_PN0 | BIT_PN_NAT | BIT_PN_MSH; // 0b01000000
       shift = correlate32(((pn_data0)>>32)&0xffffffff, data, threshold);
       if(shift < 0){
-        offset = BIT_PN0 | BIT_PN_NAT | BIT_PN_LSH; // 0b01000000
+        offset = BIT_PN0 | BIT_PN_NAT | BIT_PN_LSH; // 0b01100000
         shift = correlate32((pn_data0)&0xffffffff, data, threshold);
         if(shift < 0){
-          offset = BIT_PN0 | BIT_PN_INV | BIT_PN_MSH; // 0b00100000
+          offset = BIT_PN0 | BIT_PN_INV | BIT_PN_MSH; // 0b00000000
           shift = correlate32((~(pn_data0)>>32)&0xffffffff, data, threshold);
           if (shift < 0) {
-            offset = BIT_PN0 | BIT_PN_INV | BIT_PN_LSH; // 0b00000000
+            offset = BIT_PN0 | BIT_PN_INV | BIT_PN_LSH; // 0b00100000
             shift = correlate32(~(pn_data0)&0xffffffff, data, threshold);
             if(shift < 0){
-              offset = BIT_PN1 | BIT_PN_NAT | BIT_PN_MSH; // 0b11100000
+              offset = BIT_PN1 | BIT_PN_NAT | BIT_PN_MSH; // 0b11000000
               shift = correlate32(((pn_data1)>>32)&0xffffffff, data, threshold);
               if(shift < 0){
-                offset = BIT_PN1 | BIT_PN_NAT | BIT_PN_LSH; // 0b11000000
+                offset = BIT_PN1 | BIT_PN_NAT | BIT_PN_LSH; // 0b11100000
                 shift = correlate32((pn_data1)&0xffffffff, data, threshold);
                 if(shift < 0){
-                  offset = BIT_PN1 | BIT_PN_INV | BIT_PN_MSH; // 0b10100000
+                  offset = BIT_PN1 | BIT_PN_INV | BIT_PN_MSH; // 0b10000000
                   shift = correlate32((~(pn_data1)>>32)&0xffffffff, data, threshold);
                   if(shift < 0){
-                    offset = BIT_PN1 | BIT_PN_INV | BIT_PN_LSH; // 0b10000000
+                    offset = BIT_PN1 | BIT_PN_INV | BIT_PN_LSH; // 0b10100000
                     shift = correlate32(~(pn_data1)&0xffffffff, data, threshold);
                   }                  
                 }                
@@ -317,6 +327,7 @@ namespace gr {
       return casted;
     }
 
+    // Single Data Rate mode
     void Despreader_impl::callback_SDR(pmt::pmt_t msg){
       pmt::pmt_t meta = pmt::car(msg);
       pmt::pmt_t vector = pmt::cdr(msg);
@@ -442,6 +453,7 @@ namespace gr {
       std::cout << "***********************************\n";
     }
 
+    // 8-bit data rate mode
     void Despreader_impl::callback_8DR(pmt::pmt_t msg){
       pmt::pmt_t meta = pmt::car(msg);
       pmt::pmt_t vector = pmt::cdr(msg);
@@ -545,7 +557,10 @@ namespace gr {
       // }
 
 // Decoding for 32 chip byte data
+
+        
         printf("%02x ",decoded);         //Print des données décodées 2 octets par ligne
+        d_data_bytes[i/4] = 0;
         if(i % (4*2) == 0){
         }         //--------Dispatch to various buffers
         if(i==0){                       //First Byte is length
@@ -562,55 +577,123 @@ namespace gr {
             d_crc_recieved = (d_crc_recieved << 8) | decoded;
         }
       }
-
+        
       //-----------Print tentative experimental pn scheme
       std::cout << std::endl;
       // for (size_t i = 0; i < 8; i++) {
       //   printf("%04X\n", Despreader_impl::switch_to_crc_pn_scheme(d_data_chunks[i]));
       // }
-
-      //-----------Print channel data
-      for(int i=1;i<8;i++){
-        printf("Packet: %u, Channel: %u, Value: %f\n", d_data_chunks[i]>>15, (d_data_chunks[i]>>11) & 0xF, ((d_data_chunks[i] & 0x7FF)/1024.0) - 1);
-        printf("DSMR interpretation Channel: %u, Value: %d\n", (d_data_chunks[i]>>12) & 0xF, (d_data_chunks[i] & 0xFFF) - 2048);
-        printf("Raw data: %X\n", d_data_chunks[i]);
-        std::cout<<std::endl;
-      }
-
-      //uint16_t test[8] = {0x1234,0x5678,0x9101,0x1121,0x3141,0x5161,0x7181,0x9202};
-      //printf("Test CRC: %04X\n", Despreader_impl::crc_calc(test,0x10,0x0000,false));
-
-      //----------CRC to CRC experimental pn scheme
-      /*printf(" Before %04X\n", d_crc_recieved);
-      d_crc_recieved = Despreader_impl::switch_to_crc_pn_scheme(d_crc_recieved);
-      printf(" After %04X\n", d_crc_recieved );*/
-
-      uint16_t id_bytes01 = Despreader_impl::crc_seed_find(d_data_chunks, length, d_crc_recieved);
-
-
-      //----------Channel sequence
-      if(id_bytes01 == 0){//Should be if id != 0
-
-        Despreader_impl::calc_dsmx_channel(/*id_bytes01*/firstId, /*d_data_chunks[0]*/secondId); // remember to change this too
-        int next_channel = Despreader_impl::get_next_channel(d_channel);              //Send all info in message: next channel, radio id and decoded channel values + channel sequence in data vector
-        d_pdu_meta = pmt::make_dict();
-        d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Next channel"), pmt::mp(next_channel));
-
-        // These two lines don't actually matter
-        d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Radio id1"), pmt::mp(/*id_bytes01*/firstId)); // original id = 0x49B6
-        d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Radio id2"), pmt::mp(/*d_data_chunks[0]*/secondId));
-        for (size_t i = 1; i < 8; i++) {
-          char string[5];
-          sprintf(string, "%d %d", (d_data_chunks[i]>>15), ((d_data_chunks[i]>>11) & 0xF));
-          d_pdu_meta = dict_add(d_pdu_meta, pmt::intern(string), pmt::mp(d_data_chunks[i] & 0x7FF));
+      if (d_data_chunks[0] == 0xF289) {
+        return;
+        //-----------Print channel data
+        for(int i=1;i<8;i++){
+          printf("Packet: %u, Channel: %u, Value: %f\n", d_data_chunks[i]>>15, (d_data_chunks[i]>>11) & 0xF, ((d_data_chunks[i] & 0x7FF)/1024.0) - 1);
+          printf("DSMR interpretation Channel: %u, Value: %d\n", (d_data_chunks[i]>>12) & 0xF, (d_data_chunks[i] & 0xFFF) - 2048);
+          printf("Raw data: %X\n", d_data_chunks[i]);
+          int twiddle = (d_data_chunks[i] & 0b1001111110011111) | (d_data_chunks[i] & 0b0010000000100000) << 1 | (d_data_chunks[i] & 0b0100000001000000) >> 1;
+          printf("Twiddled Packet: %u, Channel: %u, Value: %f\n", twiddle>>15, (twiddle>>11) & 0xF, ((twiddle & 0x7FF)/1024.0) - 1);
+          printf("Twiddled DSMR interpretation Channel: %u, Value: %d\n", (twiddle>>12) & 0xF, (twiddle & 0xFFF) - 2048);
+          printf("Twiddled Raw data: %X\n", twiddle);
+          std::cout<<std::endl;
         }
-        d_pdu_vector = gr::pdu::make_pdu_vector(d_type, d_channels, 23);
-        pmt::pmt_t msg = pmt::cons(d_pdu_meta, d_pdu_vector);
-        message_port_pub(pmt::mp("pdus"), msg);
-        std::cout << std::endl;
+
+        //uint16_t test[8] = {0x1234,0x5678,0x9101,0x1121,0x3141,0x5161,0x7181,0x9202};
+        //printf("Test CRC: %04X\n", Despreader_impl::crc_calc(test,0x10,0x0000,false));
+
+        //----------CRC to CRC experimental pn scheme
+        /*printf(" Before %04X\n", d_crc_recieved);
+        d_crc_recieved = Despreader_impl::switch_to_crc_pn_scheme(d_crc_recieved);
+        printf(" After %04X\n", d_crc_recieved );*/
+
+        uint16_t id_bytes01 = Despreader_impl::crc_seed_find(d_data_chunks, length, d_crc_recieved);
+
+
+        //----------Channel sequence
+        if(id_bytes01 == 0){//Should be if id != 0
+
+          Despreader_impl::calc_dsmx_channel(/*id_bytes01*/firstId, /*d_data_chunks[0]*/secondId); // remember to change this too
+          int next_channel = Despreader_impl::get_next_channel(d_channel);              //Send all info in message: next channel, radio id and decoded channel values + channel sequence in data vector
+          d_pdu_meta = pmt::make_dict();
+          d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Next channel"), pmt::mp(next_channel));
+
+          // These two lines don't actually matter
+          d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Radio id1"), pmt::mp(/*id_bytes01*/firstId)); // original id = 0x49B6
+          d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Radio id2"), pmt::mp(/*d_data_chunks[0]*/secondId));
+          for (size_t i = 1; i < 8; i++) {
+            char string[5];
+            //sprintf(string, "%d %d", (i-1), ((d_data_chunks[i]>>12) & 0xF));
+            sprintf(string, "%d", (i-1));
+            d_pdu_meta = dict_add(d_pdu_meta, pmt::intern(string), pmt::mp(d_data_chunks[i]));
+          }
+          d_pdu_vector = gr::pdu::make_pdu_vector(d_type, d_channels, 23);
+          pmt::pmt_t msg = pmt::cons(d_pdu_meta, d_pdu_vector);
+          message_port_pub(pmt::mp("pdus"), msg);
+          std::cout << std::endl;
+        }
+      } else { // decode a telemetry packet
+
+        uint8_t nbr_bits = 11;
+        length -= 2;
+        length >>= 1;
+        if(length==0) return;
+
+        uint8_t idx;
+        for (uint8_t i=0; i<length; i++) {
+          uint16_t value = (data[i*2+2] << 8) | data[i*2+3];
+          if(value!=0xFFFF) {
+            idx=(value&0x7FFF)>>nbr_bits;
+            printf("i=%d,v=%d,u=%X",idx,value&0x7FF,value&0x8000);
+            if(idx<13) {
+              if(nbr_bits==10) value <<= 1;
+              value &= 0x7FF;
+              d_data_bytes[d_data_chunks[idx]] == Despreader_impl::convert_channel_DSM_nolimit(value);
+            }
+          }
+        }
+
+        idx=1;
+        d_data_bytes[idx] = (uint8_t)d_data_chunks[idx]>>1;
+        idx++;
+        d_data_bytes[idx] = (uint8_t)d_data_chunks[idx]>>1;
+        idx++;
+        d_data_bytes[idx] = (uint8_t)d_data_chunks[idx];
+        idx++;
+        d_data_bytes[idx] = (uint8_t)d_data_chunks[idx];
+
+        // Pack channels
+        uint32_t bits = 0;
+        uint8_t bitsavailable = 0;
+        for (uint8_t i = 0; i < 12; i++)
+        {
+          bits |= d_data_bytes[i] << bitsavailable;
+          bitsavailable += 11;
+          while (bitsavailable >= 8)
+          {
+            d_data_bytes[idx++] = bits & 0xff;
+            bits >>= 8;
+            bitsavailable -= 8;
+          }
+        }
+        if(bitsavailable)
+          d_data_bytes[idx++] = bits & 0xff;
+
+        for (int i=1; i<16; i++) {
+          printf("%d ", d_data_bytes[i]);
+        }
       }
 
       std::cout << "***********************************\n";
+    }
+#define CHANNEL_MAX_100	1844	//	+100%
+#define CHANNEL_MIN_100	204		//	-100%
+    uint16_t Despreader_impl::convert_channel_DSM_nolimit(int32_t val) {
+      val=(val-0x150)*(CHANNEL_MAX_100-CHANNEL_MIN_100)/(0x6B0-0x150)+CHANNEL_MIN_100;
+      if(val<0)
+        val=0;
+      else
+        if(val>2047)
+          val=2047;
+      return (uint16_t)val;
     }
 
 #ifdef BIND_VERSION
@@ -626,14 +709,14 @@ namespace gr {
 
     uint16_t Despreader_impl::crc_seed_find(uint16_t data[8], uint8_t length, uint16_t transmitted){
       uint16_t seed = 0;
-      // uint16_t id_byte2 = ((data[0]>>8) & 0x00FF);
-      uint16_t id_byte2 = 0x0D; // the 3rd byte of the mfgid
+      uint16_t id_byte2 = ((data[0]>>8) & 0x00FF);
+      //uint16_t id_byte2 = 0x0D; // the 3rd byte of the mfgid
       uint16_t crc = 0;
 
       printf("Transmitted:                                                                        %04X\n", transmitted);
       for (uint16_t id_byte0 = 0; id_byte0 <= 0xFF; id_byte0++) {
         for (uint16_t id_byte1 = 0; id_byte1 <= 0xFF; id_byte1++) {
-          if ( ((id_byte0 + id_byte1 + id_byte2 + 2) & 0x07) == (d_column & 0x07) ) { //We don't need to try every combination
+          //if ( ((id_byte0 + id_byte1 + id_byte2 + 2) & 0x07) == (d_column & 0x07) ) { //We don't need to try every combination
             if (id_byte0 == msbId && id_byte1 == lsbId) {         //Debugging test
               printf("%s\n", "On teste bien cette possibilité");
             }
@@ -668,8 +751,8 @@ namespace gr {
               //return ((id_byte0<<8) | id_byte1);
             }
 
-            crc = ~Despreader_impl::crc_calc(data,length, seed, true);
-            printf("Calculated: %04X \n", crc);
+            crc = ~Despreader_impl::crc_calc(data,length, seed, false);
+            printf("Calculated inverse: %04X \n", crc);
 
             // printf("******************\n");
             // printf("Reverse bytes: %04X\n", Despreader_impl::reverse_bytes(crc));
@@ -686,10 +769,15 @@ namespace gr {
               printf("Found12! : %02X%02X\n", id_byte1,id_byte0);
               //return ((id_byte0<<8) | id_byte1);
             }
+
+            // This statement successfully calculates the correct crc for a DSMR packet.
+            // As described in the manual, the CRC16 in the transmit framer is inverted and appended to the packet. 
+            // Therefore, invert the bits of the crc we are calculating in the packet
             if(transmitted == Despreader_impl::reverse_bits_in_bytes(crc) ){
-              printf("Found13! : %02X%02X\n", id_byte1,id_byte0);
+              printf("Found13! : Reverse bits in bytes: %04X | mfgid: %02X%02X\n", Despreader_impl::reverse_bits_in_bytes(crc), id_byte1,id_byte0);
               //return ((id_byte0<<8) | id_byte1);
             }
+
             if(transmitted == Despreader_impl::reverse_all(crc) ){
               printf("Found14! : %02X%02X\n", id_byte1,id_byte0);
               //return ((id_byte0<<8) | id_byte1);
@@ -750,7 +838,21 @@ namespace gr {
               printf("Found18! : %02X%02X\n", id_byte1,id_byte0);
               //return ((id_byte0<<8) | id_byte1);
             }
-          }
+
+            crc = ~Despreader_impl::new_crc_calc(data, length, seed, false);
+            printf("Calculated new false: %04X\n", crc);
+
+            if(transmitted == Despreader_impl::reverse_bits_in_bytes(crc)) {
+              printf("Found 19! : %02X%02X\n", id_byte1, id_byte0);
+            }
+
+            crc = ~Despreader_impl::new_crc_calc(data, length, seed, true);
+            printf("Calculated new: %04X\n", crc);
+
+            if (transmitted == Despreader_impl::reverse_bits_in_bytes(crc)) {
+              printf("Found 20! : %02X%02X\n", id_byte1, id_byte0);
+            }
+          //}
         }
       }
       return 0;
@@ -798,7 +900,7 @@ namespace gr {
 
 
         xored = data_bit ^ d_high_reminder; // the high order bit of the current remainder is xored with every data bit sent or received
-        d_reminder = d_reminder | xored;
+        // d_reminder = d_reminder | xored; // useless
         if( xored ){  //Check if current bit XOR high reminder is 1
           d_reminder = d_reminder ^ 0x8005;             //XOR with generator polynomial 
         }
@@ -901,6 +1003,31 @@ namespace gr {
         }
       }
       return d_channels[0];
+    }
+
+    #define CRC16_IBM	0x8005		// ModBus, USB, Bisync, CRC-16, CRC-16-ANSI, ...
+
+    void Despreader_impl::new_crc_update(uint8_t newByte, bool reverse) {
+      unsigned char i;
+      if(reverse) newByte=Despreader_impl::reverse(newByte);
+      for (i = 0; i < 8; i++) {
+        if (((d_reminder & 0x8000) >> 8) ^ (newByte & 0x80)){
+          d_reminder = (d_reminder << 1)  ^ CRC16_IBM;
+        }else{
+          d_reminder = (d_reminder << 1);
+        }
+        newByte <<= 1;
+      }
+    }
+
+    uint16_t Despreader_impl::new_crc_calc(uint16_t data[], uint8_t length, uint16_t seed, bool reverse) {
+      crc_seed_set(seed);
+      new_crc_update(length, reverse);
+      for (size_t i = 0; i < length/2; i++) {
+        new_crc_update((data[i]>>8)&0xff, reverse);
+        new_crc_update( data[i]&0xff, reverse);
+      }
+      return d_reminder;
     }
 
     /*

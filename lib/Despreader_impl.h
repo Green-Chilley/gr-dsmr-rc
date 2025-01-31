@@ -40,8 +40,13 @@ namespace gr {
       void crc_seed_set(uint8_t seed_MSB, uint8_t seed_LSB);
       void crc_seed_set(uint16_t seed);
       int get_next_channel(int current);
-      uint16_t crc_calc(uint16_t data[4], uint8_t length, uint16_t seed, bool reverse);
-      uint16_t crc_seed_find(uint16_t data[4], uint8_t length, uint16_t transmitted);
+      uint16_t crc_calc(uint16_t data[8], uint8_t length, uint16_t seed, bool reverse);
+      uint16_t crc_seed_find(uint16_t data[8], uint8_t length, uint16_t transmitted);
+
+      void new_crc_update(uint8_t newByte, bool reverse);
+      uint16_t new_crc_calc(uint16_t data[], uint8_t length, uint16_t seed, bool reverse); 
+
+      uint16_t convert_channel_DSM_nolimit(int32_t val);
 
 
 
@@ -52,14 +57,15 @@ namespace gr {
       gr::types::vector_type d_type;
       uint8_t d_channels[23];
       uint16_t d_data_chunks[8], d_crc_recieved=0;
+      uint8_t d_data_bytes[19];
       uint16_t d_high_reminder, d_reminder;
       uint16_t mfg_id[4];
       uint16_t sum;
       uint16_t rcvdSum;
 
-      uint16_t msbId = 0xC5; // 0xC5 or 0x49
-      uint16_t lsbId = 0x9C; // 0x9C or 0xB6
-      uint16_t firstId = 0xC59C; // 0xC59C or 0x49B6
+      uint16_t msbId = 0xC5;
+      uint16_t lsbId = 0x9C;
+      uint16_t firstId = 0xC59C;
       uint16_t secondId = 0x0D76;
 
       //uint64_t altcode = 0x88E1D631265FBD40;
