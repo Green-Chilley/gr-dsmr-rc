@@ -58,6 +58,9 @@ namespace gr {
       uint8_t d_channels[23];
       uint16_t d_data_chunks[8], d_crc_recieved=0;
       uint8_t d_data_bytes[19];
+      uint16_t d_telemetry_data[12];
+      uint8_t bits_per_channel = 12; //assuming our telemetry data comes packed as 11-bit values. Maybe it'll actually be 12-bit values for DSMR like the ones being transmitted
+      uint16_t bit_mask = (1<<bits_per_channel) -1;
       uint16_t d_high_reminder, d_reminder;
       uint16_t mfg_id[4];
       uint16_t sum;

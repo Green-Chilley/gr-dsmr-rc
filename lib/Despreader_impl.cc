@@ -560,7 +560,7 @@ namespace gr {
 
         
         printf("%02x ",decoded);         //Print des données décodées 2 octets par ligne
-        d_data_bytes[i/4] = 0;
+        d_data_bytes[i/4] = decoded;
         if(i % (4*2) == 0){
         }         //--------Dispatch to various buffers
         if(i==0){                       //First Byte is length
@@ -568,10 +568,12 @@ namespace gr {
         }
         else{
           if(i < (4* (16+1))){             //16 bytes of data, each made from 4 bytes of chips and offset of one byte for the length byte
-            if (i % (4*2) != 0)       //We want to regroup data 2 bytes by 2 bytes, stating after the first byte of length
+            if (i % (4*2) != 0) {   //We want to regroup data 2 bytes by 2 bytes, stating after the first byte of length
               d_data_chunks[i / (4*2)] = decoded;
-            else
+            }
+            else {
               d_data_chunks[i / (4*2) - 1] = (d_data_chunks[i / (4*2) - 1] << 8) | decoded;
+            }
           }
           else                        //2 bytes of CRC
             d_crc_recieved = (d_crc_recieved << 8) | decoded;
@@ -631,69 +633,40 @@ namespace gr {
           std::cout << std::endl;
         }
       } else { // decode a telemetry packet
+        uint8_t idx = 0;
+        uint8_t data_length = d_data_bytes[idx++];
+        uint8_t maybe_RX_LQI1 = d_data_bytes[idx++];
+        uint8_t maybe_RX_LQI2 = d_data_bytes[idx++];
+        uint8_t maybe_channel_start = d_data_bytes[idx++];
+        uint8_t maybe_channel_count = d_data_bytes[idx++];
 
-        uint8_t nbr_bits = 11;
-        length -= 2;
-        length >>= 1;
-        if(length==0) return;
-
-        uint8_t idx;
-        for (uint8_t i=0; i<length; i++) {
-          uint16_t value = (data[i*2+2] << 8) | data[i*2+3];
-          if(value!=0xFFFF) {
-            idx=(value&0x7FFF)>>nbr_bits;
-            printf("i=%d,v=%d,u=%X",idx,value&0x7FF,value&0x8000);
-            if(idx<13) {
-              if(nbr_bits==10) value <<= 1;
-              value &= 0x7FF;
-              d_data_bytes[d_data_chunks[idx]] == Despreader_impl::convert_channel_DSM_nolimit(value);
-            }
-          }
-        }
-
-        idx=1;
-        d_data_bytes[idx] = (uint8_t)d_data_chunks[idx]>>1;
-        idx++;
-        d_data_bytes[idx] = (uint8_t)d_data_chunks[idx]>>1;
-        idx++;
-        d_data_bytes[idx] = (uint8_t)d_data_chunks[idx];
-        idx++;
-        d_data_bytes[idx] = (uint8_t)d_data_chunks[idx];
-
-        // Pack channels
         uint32_t bits = 0;
-        uint8_t bitsavailable = 0;
-        for (uint8_t i = 0; i < 12; i++)
-        {
-          bits |= d_data_bytes[i] << bitsavailable;
-          bitsavailable += 11;
-          while (bitsavailable >= 8)
-          {
-            d_data_bytes[idx++] = bits & 0xff;
-            bits >>= 8;
-            bitsavailable -= 8;
+        uint8_t bit_count = 0;
+        uint8_t parsed_channel_count = 0;
+        for (; idx<data_length + 1; idx++) {
+          bits |= ((uint16_t)d_data_bytes[idx]) << 8;
+          bit_count += 8;
+          if (bit_count >= bits_per_channel) {
+            d_telemetry_data[parsed_channel_count++] = bits & bit_mask; 
+            bits >>= bits_per_channel;
+            bit_count -= bits_per_channel;
           }
         }
-        if(bitsavailable)
-          d_data_bytes[idx++] = bits & 0xff;
+        if (bit_count > 0)
+          d_telemetry_data[parsed_channel_count++] = bits & (bit_mask >> (bits_per_channel - bit_count));
 
-        for (int i=1; i<16; i++) {
-          printf("%d ", d_data_bytes[i]);
+        printf("Length: %u\n", data_length);
+        printf("RX_LQI1: %u\n", maybe_RX_LQI1);
+        printf("RX_LQI2: %u\n", maybe_RX_LQI2);
+        printf("Channel Start: %u\n", maybe_channel_start);
+        printf("Channel Count: %u\n", maybe_channel_count);
+
+        for (int i=0; i<12; i++) {
+          printf("%u\n", d_telemetry_data[i]);
         }
       }
 
       std::cout << "***********************************\n";
-    }
-#define CHANNEL_MAX_100	1844	//	+100%
-#define CHANNEL_MIN_100	204		//	-100%
-    uint16_t Despreader_impl::convert_channel_DSM_nolimit(int32_t val) {
-      val=(val-0x150)*(CHANNEL_MAX_100-CHANNEL_MIN_100)/(0x6B0-0x150)+CHANNEL_MIN_100;
-      if(val<0)
-        val=0;
-      else
-        if(val>2047)
-          val=2047;
-      return (uint16_t)val;
     }
 
 #ifdef BIND_VERSION

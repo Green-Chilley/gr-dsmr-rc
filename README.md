@@ -35,8 +35,12 @@ $ make test
 $ sudo make install
 $ sudo ldconfig
 ```
+
+## Run
 - On a separate terminal, go into `/gr-dsmr-rc/examples`
 - run `./top_block.py`
+
+Alternatively, you can open up GNURadio with `gnuradio-companion DSMxDemod.grc &` when in examples directory and clicking the run button.
 
 ## Graphing
 - To record values and graph them, enable the Graph block in GNURadio.
