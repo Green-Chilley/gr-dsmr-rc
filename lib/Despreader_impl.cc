@@ -47,6 +47,7 @@
 #include <gnuradio/io_signature.h>
 #include "Despreader_impl.h"
 #include <algorithm>
+#include <cstdint>
 
 // #define BIND_VERSION 1
 
@@ -467,16 +468,16 @@ namespace gr {
       d_channel = pmt::to_long(pmt::dict_ref(meta, pmt::intern("Channel"), pmt::PMT_NIL));
       int data_col0 = 7 - d_column;
       int data_col1 = data_col0 + 1;
-      printf("SOP column: %d, data_col0: %d, data_col1: %d\n", d_column, data_col0, data_col1);
-      printf("col 0 ");
-      for(int i =63; i>=0; i--){
-          printf("%d", (cast864reverse(pncodes[d_row][data_col0]) >> i)&1);
-      }
-      printf("\ncol 1 ");
-      for(int i =63; i>=0; i--){
-          printf("%d", (cast864reverse(pncodes[d_row][data_col1]) >> i)&1);
-      }
-      printf("\n");
+      // printf("SOP column: %d, data_col0: %d, data_col1: %d\n", d_column, data_col0, data_col1);
+      // printf("col 0 ");
+      // for(int i =63; i>=0; i--){
+      //     printf("%d", (cast864reverse(pncodes[d_row][data_col0]) >> i)&1);
+      // }
+      // printf("\ncol 1 ");
+      // for(int i =63; i>=0; i--){
+      //     printf("%d", (cast864reverse(pncodes[d_row][data_col1]) >> i)&1);
+      // }
+      // printf("\n");
 
       size_t len = pmt::blob_length(vector);
       std::cout << "pdu_length = " << len << std::endl;
@@ -488,12 +489,12 @@ namespace gr {
         for(size_t j=i; j<std::min(i+4,len); j++){
           printf("%02x ",data[j] );
         }
-        printf(" ");
-        for(size_t j=i; j<std::min(i+4,len); j++){
-          for(int i =7; i>=0; i--){
-            printf("%d", (data[j] >> i)&1);
-          }
-        }
+        // printf(" ");
+        // for(size_t j=i; j<std::min(i+4,len); j++){
+        //   for(int i =7; i>=0; i--){
+        //     printf("%d", (data[j] >> i)&1);
+        //   }
+        // }
 
         std::cout << std::endl;
       }
@@ -537,7 +538,7 @@ namespace gr {
             return;
           }
         }
-
+        
       //   printf("%02x ",decoded);         //Print des données décodées 2 octets par ligne
       //   if(i % (8*2) == 0){
       //   }         //--------Dispatch to various buffers
@@ -624,7 +625,7 @@ namespace gr {
           for (size_t i = 1; i < 8; i++) {
             char string[5];
             //sprintf(string, "%d %d", (i-1), ((d_data_chunks[i]>>12) & 0xF));
-            sprintf(string, "%d", (i-1));
+            sprintf(string, "%ld", (i-1));
             d_pdu_meta = dict_add(d_pdu_meta, pmt::intern(string), pmt::mp(d_data_chunks[i]));
           }
           d_pdu_vector = gr::pdu::make_pdu_vector(d_type, d_channels, 23);
@@ -633,37 +634,125 @@ namespace gr {
           std::cout << std::endl;
         }
       } else { // decode a telemetry packet
-        uint8_t idx = 0;
-        uint8_t data_length = d_data_bytes[idx++];
-        uint8_t maybe_RX_LQI1 = d_data_bytes[idx++];
-        uint8_t maybe_RX_LQI2 = d_data_bytes[idx++];
-        uint8_t maybe_channel_start = d_data_bytes[idx++];
-        uint8_t maybe_channel_count = d_data_bytes[idx++];
 
-        uint32_t bits = 0;
-        uint8_t bit_count = 0;
-        uint8_t parsed_channel_count = 0;
-        for (; idx<data_length + 1; idx++) {
-          bits |= ((uint16_t)d_data_bytes[idx]) << 8;
-          bit_count += 8;
-          if (bit_count >= bits_per_channel) {
-            d_telemetry_data[parsed_channel_count++] = bits & bit_mask; 
-            bits >>= bits_per_channel;
-            bit_count -= bits_per_channel;
+        uint8_t idx = 0;
+        if (d_data_bytes[idx++] == 0x10) {
+          uint8_t identifier = d_data_bytes[idx++];
+          printf("ID: %02X\n", identifier);
+          switch (identifier) {
+            case 0x14: // Gforce
+              printf("Gforce sID: %02X\n", d_data_bytes[idx++]);
+              printf("GForceX: %.1fG\n", (int16_t)((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              idx += 2;
+              printf("GForceY: %.1fG\n", (int16_t)((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              idx += 2;
+              printf("GForceZ: %.1fG\n", (int16_t)((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              idx += 2;
+              printf("Max GForceX: %.1fG\n", (int16_t)((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              idx += 2;
+              printf("Max GForceY: %.1fG\n", (int16_t)((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              idx += 2;
+              printf("Max GForceZ: %.1fG\n", (int16_t)((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              idx += 2;
+              printf("Min GForceZ: %.1fG\n", (int16_t)((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              break;
+            
+            case 0x20: // ESC
+              printf("ESC sID: %02X\n", d_data_bytes[idx++]);
+              printf("RPM: %u\n", (uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1]);
+              idx += 2;
+              printf("Voltage: %.1fV\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              idx += 2;
+              printf("FET Temperature: %.1fC\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.1);
+              idx += 2;
+              printf("Motor Current: %.1dA\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])/1000);
+              idx += 2;
+              printf("BEC Temperature: %.1fC\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.1);
+              idx++;
+              printf("BEC Current: %.1dA\n", d_data_bytes[idx++]/1000);
+              printf("BEC Voltage: %.1fV\n", d_data_bytes[idx++]*0.05);
+              printf("Throttle: %.1f%%\n", d_data_bytes[idx++]*0.5);
+              printf("Power Output: %.1f%%\n", d_data_bytes[idx]*0.5);
+              break;
+
+            case 0x1a: // Gyro
+              printf("Gyro sID: %02X\n", d_data_bytes[idx++]);
+              printf("GyroX: %.1fdeg/sec\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.1);
+              idx += 2;
+              printf("GyroY: %.1fdeg/sec\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.1);
+              idx += 2;
+              printf("GyroZ: %.1fdeg/sec\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.1);
+              idx += 2;
+              printf("Max GyroX: %.1fdeg/sec\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.1);
+              idx += 2;
+              printf("Max GyroY: %.1fdeg/sec\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.1);
+              idx += 2;
+              printf("Max GyroZ: %.1fdeg/sec\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.1);
+              break;
+
+            case 0x7e: // RPM/Volts/Temperature
+              printf("RPM sID: %02X\n", d_data_bytes[idx++]);
+              printf("Microseconds: %uus\n", (uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1]);
+              idx += 2;
+              printf("Volts: %.1fV\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              idx += 2;
+              printf("Temperature: %.1dF\n", (int16_t)((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1]));
+              idx += 2;
+              printf("dBm_A: %ddbm\n", (int8_t)d_data_bytes[idx++]);
+              printf("dBm_B: %ddbm\n", (int8_t)d_data_bytes[idx]);
+              break;
+
+            case 0x7f: // QoS (Flight log)
+              printf("QoS sID: %02X\n", d_data_bytes[idx++]);
+              printf("A: %u\n", (uint32_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1]);
+              idx += 2;
+              printf("B: %u\n", (uint32_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1]);
+              idx += 2;
+              printf("L: %u\n", (uint32_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1]);
+              idx += 2;
+              printf("R: %u\n", (uint32_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1]);
+              idx += 2;
+              printf("F: %u\n", (uint32_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1]);
+              idx += 2;
+              printf("H: %u\n", (uint32_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1]);
+              idx += 2;
+              printf("Rx Voltage: %.1fV\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              break;
           }
         }
-        if (bit_count > 0)
-          d_telemetry_data[parsed_channel_count++] = bits & (bit_mask >> (bits_per_channel - bit_count));
 
-        printf("Length: %u\n", data_length);
-        printf("RX_LQI1: %u\n", maybe_RX_LQI1);
-        printf("RX_LQI2: %u\n", maybe_RX_LQI2);
-        printf("Channel Start: %u\n", maybe_channel_start);
-        printf("Channel Count: %u\n", maybe_channel_count);
 
-        for (int i=0; i<12; i++) {
-          printf("%u\n", d_telemetry_data[i]);
-        }
+        // uint8_t idx = 0;
+        // uint8_t data_length = d_data_bytes[idx++];
+        // uint8_t maybe_RX_LQI1 = d_data_bytes[idx++];
+        // uint8_t maybe_RX_LQI2 = d_data_bytes[idx++];
+        // uint8_t maybe_channel_start = d_data_bytes[idx++];
+        // uint8_t maybe_channel_count = d_data_bytes[idx++];
+
+        // uint32_t bits = 0;
+        // uint8_t bit_count = 0;
+        // uint8_t parsed_channel_count = 0;
+        // for (; idx<data_length + 1; idx++) {
+        //   bits |= ((uint16_t)d_data_bytes[idx]) << 8;
+        //   bit_count += 8;
+        //   if (bit_count >= bits_per_channel) {
+        //     d_telemetry_data[parsed_channel_count++] = bits & bit_mask; 
+        //     bits >>= bits_per_channel;
+        //     bit_count -= bits_per_channel;
+        //   }
+        // }
+        // if (bit_count > 0)
+        //   d_telemetry_data[parsed_channel_count++] = bits & (bit_mask >> (bits_per_channel - bit_count));
+
+        // printf("Length: %u\n", data_length);
+        // printf("RX_LQI1: %u\n", maybe_RX_LQI1);
+        // printf("RX_LQI2: %u\n", maybe_RX_LQI2);
+        // printf("Channel Start: %u\n", maybe_channel_start);
+        // printf("Channel Count: %u\n", maybe_channel_count);
+
+        // for (int i=0; i<12; i++) {
+        //   printf("%u\n", d_telemetry_data[i]);
+        // }
       }
 
       std::cout << "***********************************\n";
