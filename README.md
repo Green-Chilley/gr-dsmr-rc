@@ -11,6 +11,8 @@ Isolate a signal using an SDR from a DX3 Transmitter with GNURadio and despread 
 
 - [CYRF6936 Manual](https://application-notes.digchip.com/011/11-13720.pdf)
 
+- [Telemetry Specification](https://www.spektrumrc.com/ProdInfo/Files/SPM_Telemetry_Developers_Specs.pdf)
+
 ## Requirements
 
 - Install relevant drivers for the SDR used.
