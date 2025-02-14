@@ -27,14 +27,6 @@
 #define BIT_PN_MSH 0<<5
 #define BIT_PN_LSH 1<<5
 
-// 4 potential arrangement
-// #define BIT_PN_NAT 1<<7
-// #define BIT_PN_INV 0<<7
-// #define BIT_PN_MSH 0<<6
-// #define BIT_PN_LSH 1<<6
-// #define BIT_PN0 0<<5
-// #define BIT_PN1 1<<5
-
 #define PN_COMBO (BIT_PN0 ^ BIT_PN1 ^ BIT_PN_NAT ^ BIT_PN_INV ^ BIT_PN_MSH ^ BIT_PN_LSH) 
 #if (PN_COMBO != 0b11100000)
 # error "Messed up the PN bit combos."
@@ -252,6 +244,26 @@ namespace gr {
 
     }
 
+    uint16_t convertU16(uint8_t high, uint8_t low)
+    {
+      return ((uint16_t)high)<<8 | ((uint16_t)low);
+    }
+
+    int16_t convertI16(uint8_t high, uint8_t low)
+    {
+      return (int16_t)convertU16(high, low);
+    }
+
+    float convertU16Scaled(uint8_t high, uint8_t low, float scale)
+    {
+      return convertU16(high, low) * scale;
+    }
+
+    float convertI16Scaled(uint8_t high, uint8_t low, float scale)
+    {
+      return convertI16(high, low) * scale;
+    }
+
     int decodeByte(uint64_t data, uint64_t pn_data0, uint64_t pn_data1){
       int offset = 10;
       int shift;
@@ -459,7 +471,7 @@ namespace gr {
       pmt::pmt_t meta = pmt::car(msg);
       pmt::pmt_t vector = pmt::cdr(msg);
 
-      std::cout << "* MESSAGE DEBUG PRINT PDU VERBOSE *\n";
+      // std::cout << "* MESSAGE DEBUG PRINT PDU VERBOSE *\n";
 
       pmt::print(meta);
 
@@ -480,10 +492,11 @@ namespace gr {
       // printf("\n");
 
       size_t len = pmt::blob_length(vector);
-      std::cout << "pdu_length = " << len << std::endl;
-      std::cout << "contents = " << std::endl;
+      // std::cout << "pdu_length = " << len << std::endl;
+      // std::cout << "contents = " << std::endl;
       size_t offset(0);     //Data recovery
       uint8_t* data = (uint8_t*) pmt::uniform_vector_elements(vector, offset);
+      /*
       for(size_t i=0; i<len; i+=4){      //Print raw chips
         printf("%02d: ", unsigned((i/4)+1));
         for(size_t j=i; j<std::min(i+4,len); j++){
@@ -497,7 +510,7 @@ namespace gr {
         // }
 
         std::cout << std::endl;
-      }
+      }*/
 
       std::cout << "\n" << std::endl;
 
@@ -587,16 +600,16 @@ namespace gr {
       //   printf("%04X\n", Despreader_impl::switch_to_crc_pn_scheme(d_data_chunks[i]));
       // }
       if (d_data_chunks[0] == 0xF289) {
-        return;
+        
         //-----------Print channel data
         for(int i=1;i<8;i++){
-          printf("Packet: %u, Channel: %u, Value: %f\n", d_data_chunks[i]>>15, (d_data_chunks[i]>>11) & 0xF, ((d_data_chunks[i] & 0x7FF)/1024.0) - 1);
+          // printf("Packet: %u, Channel: %u, Value: %f\n", d_data_chunks[i]>>15, (d_data_chunks[i]>>11) & 0xF, ((d_data_chunks[i] & 0x7FF)/1024.0) - 1);
           printf("DSMR interpretation Channel: %u, Value: %d\n", (d_data_chunks[i]>>12) & 0xF, (d_data_chunks[i] & 0xFFF) - 2048);
           printf("Raw data: %X\n", d_data_chunks[i]);
           int twiddle = (d_data_chunks[i] & 0b1001111110011111) | (d_data_chunks[i] & 0b0010000000100000) << 1 | (d_data_chunks[i] & 0b0100000001000000) >> 1;
-          printf("Twiddled Packet: %u, Channel: %u, Value: %f\n", twiddle>>15, (twiddle>>11) & 0xF, ((twiddle & 0x7FF)/1024.0) - 1);
-          printf("Twiddled DSMR interpretation Channel: %u, Value: %d\n", (twiddle>>12) & 0xF, (twiddle & 0xFFF) - 2048);
-          printf("Twiddled Raw data: %X\n", twiddle);
+          // printf("Twiddled Packet: %u, Channel: %u, Value: %f\n", twiddle>>15, (twiddle>>11) & 0xF, ((twiddle & 0x7FF)/1024.0) - 1);
+          // printf("Twiddled DSMR interpretation Channel: %u, Value: %d\n", (twiddle>>12) & 0xF, (twiddle & 0xFFF) - 2048);
+          // printf("Twiddled Raw data: %X\n", twiddle);
           std::cout<<std::endl;
         }
 
@@ -616,6 +629,10 @@ namespace gr {
 
           Despreader_impl::calc_dsmx_channel(/*id_bytes01*/firstId, /*d_data_chunks[0]*/secondId); // remember to change this too
           int next_channel = Despreader_impl::get_next_channel(d_channel);              //Send all info in message: next channel, radio id and decoded channel values + channel sequence in data vector
+          // for(int idx=0;idx<23;idx++){
+          //   printf("%u ", d_channels[idx++]);
+          // }
+          printf("\n");
           d_pdu_meta = pmt::make_dict();
           d_pdu_meta = dict_add(d_pdu_meta, pmt::intern("Next channel"), pmt::mp(next_channel));
 
@@ -642,19 +659,19 @@ namespace gr {
           switch (identifier) {
             case 0x14: // Gforce
               printf("Gforce sID: %02X\n", d_data_bytes[idx++]);
-              printf("GForceX: %.1fG\n", (int16_t)((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              printf("GForceX: %.1fG\n", convertI16Scaled(d_data_bytes[idx], d_data_bytes[idx+1], 0.01));
               idx += 2;
-              printf("GForceY: %.1fG\n", (int16_t)((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              printf("GForceY: %.1fG\n", convertI16Scaled(d_data_bytes[idx], d_data_bytes[idx+1], 0.01));
               idx += 2;
-              printf("GForceZ: %.1fG\n", (int16_t)((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              printf("GForceZ: %.1fG\n", convertI16Scaled(d_data_bytes[idx], d_data_bytes[idx+1], 0.01));
               idx += 2;
-              printf("Max GForceX: %.1fG\n", (int16_t)((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              printf("Max GForceX: %.1fG\n", convertI16Scaled(d_data_bytes[idx], d_data_bytes[idx+1], 0.01));
               idx += 2;
-              printf("Max GForceY: %.1fG\n", (int16_t)((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              printf("Max GForceY: %.1fG\n", convertI16Scaled(d_data_bytes[idx], d_data_bytes[idx+1], 0.01));
               idx += 2;
-              printf("Max GForceZ: %.1fG\n", (int16_t)((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              printf("Max GForceZ: %.1fG\n", convertI16Scaled(d_data_bytes[idx], d_data_bytes[idx+1], 0.01));
               idx += 2;
-              printf("Min GForceZ: %.1fG\n", (int16_t)((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
+              printf("Min GForceZ: %.1fG\n", convertI16Scaled(d_data_bytes[idx], d_data_bytes[idx+1], 0.01));
               break;
             
             case 0x20: // ESC
@@ -665,29 +682,34 @@ namespace gr {
               idx += 2;
               printf("FET Temperature: %.1fC\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.1);
               idx += 2;
-              printf("Motor Current: %.1dA\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])/1000);
+              printf("Motor Current: %.1fA\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])/1000.0);
               idx += 2;
               printf("BEC Temperature: %.1fC\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.1);
-              idx++;
-              printf("BEC Current: %.1dA\n", d_data_bytes[idx++]/1000);
+              idx += 2;
+              printf("BEC Current: %.1fA\n", d_data_bytes[idx++]/1000.0);
               printf("BEC Voltage: %.1fV\n", d_data_bytes[idx++]*0.05);
               printf("Throttle: %.1f%%\n", d_data_bytes[idx++]*0.5);
               printf("Power Output: %.1f%%\n", d_data_bytes[idx]*0.5);
               break;
+            
+            case 0x42: // Smart Battery
+              printf("Smart Bat sID: %02X\n", d_data_bytes[idx++]);
+              // printf("");
+            break;
 
             case 0x1a: // Gyro
               printf("Gyro sID: %02X\n", d_data_bytes[idx++]);
-              printf("GyroX: %.1fdeg/sec\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.1);
+              printf("GyroX: %.1fdeg/sec\n", convertI16Scaled(d_data_bytes[idx], d_data_bytes[idx+1], 0.1));
               idx += 2;
-              printf("GyroY: %.1fdeg/sec\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.1);
+              printf("GyroY: %.1fdeg/sec\n", convertI16Scaled(d_data_bytes[idx], d_data_bytes[idx+1], 0.1));
               idx += 2;
-              printf("GyroZ: %.1fdeg/sec\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.1);
+              printf("GyroZ: %.1fdeg/sec\n", convertI16Scaled(d_data_bytes[idx], d_data_bytes[idx+1], 0.1));
               idx += 2;
-              printf("Max GyroX: %.1fdeg/sec\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.1);
+              printf("Max GyroX: %.1fdeg/sec\n", convertI16Scaled(d_data_bytes[idx], d_data_bytes[idx+1], 0.1));
               idx += 2;
-              printf("Max GyroY: %.1fdeg/sec\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.1);
+              printf("Max GyroY: %.1fdeg/sec\n", convertI16Scaled(d_data_bytes[idx], d_data_bytes[idx+1], 0.1));
               idx += 2;
-              printf("Max GyroZ: %.1fdeg/sec\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.1);
+              printf("Max GyroZ: %.1fdeg/sec\n", convertI16Scaled(d_data_bytes[idx], d_data_bytes[idx+1], 0.1));
               break;
 
             case 0x7e: // RPM/Volts/Temperature
@@ -696,10 +718,10 @@ namespace gr {
               idx += 2;
               printf("Volts: %.1fV\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
               idx += 2;
-              printf("Temperature: %.1dF\n", (int16_t)((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1]));
+              printf("Temperature: %.1dF\n", convertI16(d_data_bytes[idx], d_data_bytes[idx+1]));
               idx += 2;
-              printf("dBm_A: %ddbm\n", (int8_t)d_data_bytes[idx++]);
-              printf("dBm_B: %ddbm\n", (int8_t)d_data_bytes[idx]);
+              printf("dBm_A: %ddbm\n", d_data_bytes[idx++]);
+              printf("dBm_B: %ddbm\n", d_data_bytes[idx]);
               break;
 
             case 0x7f: // QoS (Flight log)
@@ -718,41 +740,12 @@ namespace gr {
               idx += 2;
               printf("Rx Voltage: %.1fV\n", ((uint16_t)d_data_bytes[idx] << 8 | d_data_bytes[idx+1])*0.01);
               break;
+
+            default:
+              printf("Unknown frame type %02X\n", identifier);
           }
         }
 
-
-        // uint8_t idx = 0;
-        // uint8_t data_length = d_data_bytes[idx++];
-        // uint8_t maybe_RX_LQI1 = d_data_bytes[idx++];
-        // uint8_t maybe_RX_LQI2 = d_data_bytes[idx++];
-        // uint8_t maybe_channel_start = d_data_bytes[idx++];
-        // uint8_t maybe_channel_count = d_data_bytes[idx++];
-
-        // uint32_t bits = 0;
-        // uint8_t bit_count = 0;
-        // uint8_t parsed_channel_count = 0;
-        // for (; idx<data_length + 1; idx++) {
-        //   bits |= ((uint16_t)d_data_bytes[idx]) << 8;
-        //   bit_count += 8;
-        //   if (bit_count >= bits_per_channel) {
-        //     d_telemetry_data[parsed_channel_count++] = bits & bit_mask; 
-        //     bits >>= bits_per_channel;
-        //     bit_count -= bits_per_channel;
-        //   }
-        // }
-        // if (bit_count > 0)
-        //   d_telemetry_data[parsed_channel_count++] = bits & (bit_mask >> (bits_per_channel - bit_count));
-
-        // printf("Length: %u\n", data_length);
-        // printf("RX_LQI1: %u\n", maybe_RX_LQI1);
-        // printf("RX_LQI2: %u\n", maybe_RX_LQI2);
-        // printf("Channel Start: %u\n", maybe_channel_start);
-        // printf("Channel Count: %u\n", maybe_channel_count);
-
-        // for (int i=0; i<12; i++) {
-        //   printf("%u\n", d_telemetry_data[i]);
-        // }
       }
 
       std::cout << "***********************************\n";
@@ -771,8 +764,7 @@ namespace gr {
 
     uint16_t Despreader_impl::crc_seed_find(uint16_t data[8], uint8_t length, uint16_t transmitted){
       uint16_t seed = 0;
-      uint16_t id_byte2 = ((data[0]>>8) & 0x00FF);
-      //uint16_t id_byte2 = 0x0D; // the 3rd byte of the mfgid
+      // uint16_t id_byte2 = ((data[0]>>8) & 0x00FF);
       uint16_t crc = 0;
 
       printf("Transmitted:                                                                        %04X\n", transmitted);
@@ -780,14 +772,14 @@ namespace gr {
         for (uint16_t id_byte1 = 0; id_byte1 <= 0xFF; id_byte1++) {
           //if ( ((id_byte0 + id_byte1 + id_byte2 + 2) & 0x07) == (d_column & 0x07) ) { //We don't need to try every combination
             if (id_byte0 == msbId && id_byte1 == lsbId) {         //Debugging test
-              printf("%s\n", "On teste bien cette possibilité");
+              // printf("%s\n", "On teste bien cette possibilité");
             }
             else
               continue;
             seed = ~((id_byte0<<8) | id_byte1);
-            printf("seed: %04X\n", seed);
+            // printf("seed: %04X\n", seed);
             crc = Despreader_impl::crc_calc(data,length, seed, false);
-            printf("crc1 False: %04X\n", crc);
+            // printf("crc1 False: %04X\n", crc);
             //printf("Calculated: %04X \n", crc); 
 
             // printf("******************\n");
@@ -814,7 +806,7 @@ namespace gr {
             }
 
             crc = ~Despreader_impl::crc_calc(data,length, seed, false);
-            printf("Calculated inverse: %04X \n", crc);
+            // printf("Calculated inverse: %04X \n", crc);
 
             // printf("******************\n");
             // printf("Reverse bytes: %04X\n", Despreader_impl::reverse_bytes(crc));
@@ -846,9 +838,9 @@ namespace gr {
             }
 
             seed = ((id_byte0<<8) | id_byte1);
-            printf("seed: %04X\n", seed);
+            // printf("seed: %04X\n", seed);
             crc = Despreader_impl::crc_calc(data,length, seed, false);
-            printf("Calculated False: %04X \n", crc);
+            // printf("Calculated False: %04X \n", crc);
 
             // printf("******************\n");
             // printf("Reverse bytes: %04X\n", Despreader_impl::reverse_bytes(crc));
@@ -875,7 +867,7 @@ namespace gr {
             }
 
             crc = ~Despreader_impl::crc_calc(data,length, seed, true);
-            printf("Calculated: %04X \n", crc);
+            // printf("Calculated: %04X \n", crc);
 
             // printf("******************\n");
             // printf("Reverse bytes: %04X\n", Despreader_impl::reverse_bytes(crc));
@@ -902,14 +894,14 @@ namespace gr {
             }
 
             crc = ~Despreader_impl::new_crc_calc(data, length, seed, false);
-            printf("Calculated new false: %04X\n", crc);
+            // printf("Calculated new false: %04X\n", crc);
 
             if(transmitted == Despreader_impl::reverse_bits_in_bytes(crc)) {
               printf("Found 19! : %02X%02X\n", id_byte1, id_byte0);
             }
 
             crc = ~Despreader_impl::new_crc_calc(data, length, seed, true);
-            printf("Calculated new: %04X\n", crc);
+            // printf("Calculated new: %04X\n", crc);
 
             if (transmitted == Despreader_impl::reverse_bits_in_bytes(crc)) {
               printf("Found 20! : %02X%02X\n", id_byte1, id_byte0);

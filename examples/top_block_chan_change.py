@@ -44,6 +44,7 @@ Recieves decoded data, prints it, follows the channel sequence and sweeps channe
         string = ''
         meta = pmt.car(msg) #Extract the metadata
         #self.next_channel = pmt.to_python(pmt.dict_ref(meta,pmt.intern("Next channel"),pmt.PMT_NIL))
+        #print("changing to channel %d" % self.next_channel)
         #self.top_block.set_channel(self.next_channel)   #This call should be done as soon as possible to avoid issues with channel switch delays
 
         radio_id1 = pmt.to_python(pmt.dict_ref(meta,pmt.intern("Radio id1"),pmt.PMT_NIL))

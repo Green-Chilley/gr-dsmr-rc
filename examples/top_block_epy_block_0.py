@@ -43,11 +43,11 @@ class blk(gr.sync_block):  # other base classes are basic_block, decim_block, in
         if not pmt.is_u8vector(data):
             print("Invalid message type")
             return
-        path = 'channel_data.csv2'
+        path = 'channel_data' + str(self.start_time) + '.csv'
         with open(path, 'a+', newline='', encoding='utf-8') as channel_csv:
             c = csv.writer(channel_csv)
             if not self.header_written:
-                c.writerow( ['CH0', 'CH1', 'CH2', 'CH3', 'CH4', 'CH5', 'CH6', 'Time'] )
+                c.writerow( ['Steering', 'Throttle', 'Aux1', 'Aux2', 'Aux3', 'Aux4', 'Aux5', 'Time'] )
                 self.header_written = True
             for i in range(0,7):
                 tmp = pmt.to_python(pmt.dict_ref(meta, pmt.intern(str(i)), pmt.PMT_NIL))

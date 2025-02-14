@@ -446,7 +446,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1272, 512.0]
+    coordinate: [2016, 816.0]
     rotation: 0
     state: disabled
 - name: blocks_file_sink_0_0
@@ -465,7 +465,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1272, 592.0]
+    coordinate: [2016, 896.0]
     rotation: 0
     state: disabled
 - name: blocks_file_sink_0_1
@@ -512,10 +512,11 @@ blocks:
       \"Called when a decoded packet is recieved\"\"\"\n    def chanChangeCallback(self,\
       \ msg):\n        string = ''\n        meta = pmt.car(msg) #Extract the metadata\n\
       \        #self.next_channel = pmt.to_python(pmt.dict_ref(meta,pmt.intern(\"\
-      Next channel\"),pmt.PMT_NIL))\n        #self.top_block.set_channel(self.next_channel)\
-      \   #This call should be done as soon as possible to avoid issues with channel\
-      \ switch delays\n\n        radio_id1 = pmt.to_python(pmt.dict_ref(meta,pmt.intern(\"\
-      Radio id1\"),pmt.PMT_NIL))\n        radio_id2 = pmt.to_python(pmt.dict_ref(meta,pmt.intern(\"\
+      Next channel\"),pmt.PMT_NIL))\n        #print(\"changing to channel %d\" % self.next_channel)\n\
+      \        #self.top_block.set_channel(self.next_channel)   #This call should\
+      \ be done as soon as possible to avoid issues with channel switch delays\n\n\
+      \        radio_id1 = pmt.to_python(pmt.dict_ref(meta,pmt.intern(\"Radio id1\"\
+      ),pmt.PMT_NIL))\n        radio_id2 = pmt.to_python(pmt.dict_ref(meta,pmt.intern(\"\
       Radio id2\"),pmt.PMT_NIL))\n        data = pmt.cdr(msg)         #Data should\
       \ contain a 23 byte array with the channel sequence to follow.\n        if not\
       \ pmt.is_u8vector(data):\n            print('Invalid message type')\n      \
@@ -891,16 +892,17 @@ blocks:
       \        curr_time = time.time() - self.start_time\n        return (curr_time)\n\
       \    \n    def graph_values(self, msg):\n        meta = pmt.car(msg)\n     \
       \   data = pmt.cdr(msg)\n        if not pmt.is_u8vector(data):\n           \
-      \ print(\"Invalid message type\")\n            return\n        path = 'channel_data.csv2'\n\
-      \        with open(path, 'a+', newline='', encoding='utf-8') as channel_csv:\n\
-      \            c = csv.writer(channel_csv)\n            if not self.header_written:\n\
-      \                c.writerow( ['CH0', 'CH1', 'CH2', 'CH3', 'CH4', 'CH5', 'CH6',\
-      \ 'Time'] )\n                self.header_written = True\n            for i in\
-      \ range(0,7):\n                tmp = pmt.to_python(pmt.dict_ref(meta, pmt.intern(str(i)),\
-      \ pmt.PMT_NIL))\n                if tmp:\n                    self.channel_data[0][i]\
-      \ = int(tmp)\n                else:\n                    self.channel_data[0][i]\
-      \ = 8192\n            curr_time = self.elapsed_time()\n\n            the_data\
-      \ = list()\n            for i in range(0,7):\n                the_data.append('{:03.2f}'.format(((int(self.channel_data[0][i])\
+      \ print(\"Invalid message type\")\n            return\n        path = 'channel_data'\
+      \ + str(self.start_time) + '.csv'\n        with open(path, 'a+', newline='',\
+      \ encoding='utf-8') as channel_csv:\n            c = csv.writer(channel_csv)\n\
+      \            if not self.header_written:\n                c.writerow( ['Steering',\
+      \ 'Throttle', 'Aux1', 'Aux2', 'Aux3', 'Aux4', 'Aux5', 'Time'] )\n          \
+      \      self.header_written = True\n            for i in range(0,7):\n      \
+      \          tmp = pmt.to_python(pmt.dict_ref(meta, pmt.intern(str(i)), pmt.PMT_NIL))\n\
+      \                if tmp:\n                    self.channel_data[0][i] = int(tmp)\n\
+      \                else:\n                    self.channel_data[0][i] = 8192\n\
+      \            curr_time = self.elapsed_time()\n\n            the_data = list()\n\
+      \            for i in range(0,7):\n                the_data.append('{:03.2f}'.format(((int(self.channel_data[0][i])\
       \ & 0xfff)/2048.0) -1))\n            the_data.append(curr_time)\n          \
       \  c.writerow(the_data)\n\n    def work(self, input_items, output_items):\n\
       \        \"\"\"example: multiply with constant\"\"\"\n        output_items[0][:]\
@@ -920,7 +922,7 @@ blocks:
     bus_structure: null
     coordinate: [1424, 224.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: fosphor_glfw_sink_c_0
   id: fosphor_glfw_sink_c
   parameters:
@@ -1513,67 +1515,6 @@ blocks:
     coordinate: [1576, 1056.0]
     rotation: 0
     state: disabled
-- name: qtgui_waterfall_sink_x_1
-  id: qtgui_waterfall_sink_x
-  parameters:
-    affinity: ''
-    alias: ''
-    alpha1: '1.0'
-    alpha10: '1.0'
-    alpha2: '1.0'
-    alpha3: '1.0'
-    alpha4: '1.0'
-    alpha5: '1.0'
-    alpha6: '1.0'
-    alpha7: '1.0'
-    alpha8: '1.0'
-    alpha9: '1.0'
-    axislabels: 'True'
-    bw: gui_samp_rate
-    color1: '0'
-    color10: '0'
-    color2: '0'
-    color3: '0'
-    color4: '0'
-    color5: '0'
-    color6: '0'
-    color7: '0'
-    color8: '0'
-    color9: '0'
-    comment: ''
-    fc: '0'
-    fftsize: '8192'
-    freqhalf: 'True'
-    grid: 'False'
-    gui_hint: tabs@0
-    int_max: max_intensity
-    int_min: '-200'
-    label1: ''
-    label10: ''
-    label2: ''
-    label3: ''
-    label4: ''
-    label5: ''
-    label6: ''
-    label7: ''
-    label8: ''
-    label9: ''
-    legend: 'True'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    name: '""'
-    nconnections: '2'
-    showports: 'False'
-    type: float
-    update_time: '0.10'
-    wintype: window.WIN_BLACKMAN_hARRIS
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1360, 416.0]
-    rotation: 0
-    state: disabled
 - name: tabs
   id: qtgui_tab_widget
   parameters:
@@ -2135,19 +2076,6 @@ blocks:
     coordinate: [1184, 256.0]
     rotation: 0
     state: enabled
-- name: virtual_source_0_0
-  id: virtual_source
-  parameters:
-    alias: ''
-    comment: ''
-    stream_id: preamble
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1056, 408.0]
-    rotation: 0
-    state: disabled
 - name: virtual_source_0_1
   id: virtual_source
   parameters:
@@ -2184,7 +2112,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1056, 528.0]
+    coordinate: [1800, 832.0]
     rotation: 0
     state: disabled
 - name: virtual_source_1
@@ -2213,19 +2141,6 @@ blocks:
     coordinate: [880, 1120.0]
     rotation: 0
     state: disabled
-- name: virtual_source_1_0_0
-  id: virtual_source
-  parameters:
-    alias: ''
-    comment: ''
-    stream_id: symbol_sync
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1040, 456.0]
-    rotation: 0
-    state: disabled
 - name: virtual_source_1_0_1
   id: virtual_source
   parameters:
@@ -2249,7 +2164,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1040, 608.0]
+    coordinate: [1784, 912.0]
     rotation: 0
     state: disabled
 
@@ -2301,7 +2216,6 @@ connections:
 - [virtual_source_0_2, '0', blocks_file_sink_0, '0']
 - [virtual_source_1, '0', qtgui_time_sink_x_1_1, '1']
 - [virtual_source_1_0, '0', qtgui_time_sink_x_1_1_0, '1']
-- [virtual_source_1_0_0, '0', qtgui_waterfall_sink_x_1, '1']
 - [virtual_source_1_0_1, '0', qtgui_time_sink_x_1_1_0_0, '1']
 - [virtual_source_1_1, '0', blocks_file_sink_0_0, '0']
 
